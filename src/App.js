@@ -1,23 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
-
+import Header from './header/Header'
+import {Route,Switch,Redirect} from 'react-router-dom';
+import MainPage from './pages/MainPage';
+import SignIn from './pages/SignIn';
+import Display from './display/Display';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app'>
+    <div className='header'>
+      <Header/>
+    </div>
+    <div className='main'>
+      {
+        true ? <MainPage/> : <SignIn/>
+      // <Display/>
+      }
+    </div>
     </div>
   );
 }

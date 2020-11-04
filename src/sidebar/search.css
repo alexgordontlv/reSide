@@ -1,0 +1,20 @@
+.search__input {
+    display: flex;
+    align-items: center;
+    background-color:  var(--app-color);
+    border-radius: 20px;
+    margin-top: 10px;
+    font-weight: 800;
+    font-size: 20px;
+    padding: 10px;
+  }
+  .search__input > input {
+    border: none;
+    background-color:var(--app-color);
+  }
+
+
+  .search__searchIcon {
+    color: black;
+  } 
+  
