@@ -2,7 +2,7 @@ import './App.css';
 import Header from './header/Header'
 import {Route,Switch,Redirect} from 'react-router-dom';
 import MainPage from './pages/MainPage';
-import SignIn from './pages/SignIn';
+import SignInAndSignOut from './pages/signin&signout/SignInAndSignOut';
 import Display from './display/Display';
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
     </div>
     <div className='main'>
       {
-        true ? <MainPage/> : <SignIn/>
+        false ? <MainPage/> : <SignInAndSignOut/>
       // <Display/>
       }
     </div>

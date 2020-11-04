@@ -1,30 +1,33 @@
 import React from 'react'
 import './Signin.css';
-import FormInput from './FormInput';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import CustomButton from './CustomButton';
+
+const useStyles2 = makeStyles((theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+        width: '25ch',
+      },
+    },
+  }));
+
+
 
 const SignIn = () => {
+    const classes = useStyles2();
     return (
         <div className='sign-in'>
-            <h2>I already have an account</h2>
-            <span>Sign in with your email and password</span>
-            <form>
-            <FormInput
-                name='email'
-                type='email'
-
-                label='email'
-                required
-            />
-            <FormInput
-                name='password'
-                type='password'
-                label='password'
-                required
-            />
-            <div className='buttons'>
-
-            </div>
-        </form>
+        <h3>Sign In</h3>
+        <span>sign in with email and password</span>
+        <form className={classes.root} noValidate autoComplete="off">
+        <TextField id="standard-basic" label="Email" />
+        <TextField id="standard-basic" label="Password" />
+      </form>
+      <div className='button_section'>
+          <CustomButton text='Submit'/>
+      </div>
       </div>
     )
 }
