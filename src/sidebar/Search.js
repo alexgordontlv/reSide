@@ -2,6 +2,8 @@ import React from 'react'
 import './search.css';
 import SearchIcon from "@material-ui/icons/Search";
 
+
+
 const Search = () => {
     return (
         <div className="search__input">

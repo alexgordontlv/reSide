@@ -1,18 +1,20 @@
 import React from 'react';
 import { DataGrid, RowsProp, ColDef } from '@material-ui/data-grid';
+import {Customers} from './customers';
 
-const rows: RowsProp = [
-  { id: 1, col1: 'Hello', col2: 'World' , col3: '0548099631', col4: '2', col5: '3'},
-  { id: 2, col1: 'XGrid', col2: 'is Awesome' },
-  { id: 3, col1: 'Material-UI', col2: 'is Amazing' },
-];
+
+
+const rows: RowsProp = Customers;
 
 const columns: ColDef[] = [
-  { field: 'col1', headerName: 'Name', width: 120 },
-  { field: 'col2', headerName: 'Budget', width: 120 },
-  { field: 'col3', headerName: 'Phone Number', width: 120 },
-  { field: 'col4', headerName: 'Rooms', width: 80 },
-  { field: 'col5', headerName: 'Floor', width: 70 },
+  { field: 'id', headerName: 'Id', width: 20 },
+  { field: 'name', headerName: 'Name', width: 100 },
+  { field: 'budget', headerName: 'Budget', width: 120 },
+  { field: 'phone', headerName: 'Phone Number', width: 120 },
+  { field: 'rooms', headerName: 'Rooms', width: 80 },
+  { field: 'floor', headerName: 'Floor', width: 70 },
+  { field: 'elevator', headerName: 'Elevator', width: 70 },
+  { field: 'parking', headerName: 'Parking', width: 70 },
 ];
 
 

@@ -22,12 +22,16 @@
       padding: 25px;
     }
     .name{
-      margin-right: 20rem;
+      display:flex; 
+      align-items: center;
       font-weight: bold; 
       font-size: large;
     }
+    .avatar{
+      margin-left: 10px;
+    }
     .options {
-      flex: 0.8;
+      flex: 0.7;
       height: 100%;
       display: flex;
       align-items: center;
@@ -38,15 +42,15 @@
         padding: 10px 15px;
         cursor: pointer;
       }
-      h3 > a {
+      h3 > p{
         position: relative;
         color: #000;
         text-decoration: none;
       }
-      h3 > a:hover {
+      h3 > p:hover {
         color: #000;
       }
-      h3 > a::before {
+      h3 > p::before {
         content: "";
         position: absolute;
         width: 100%;
@@ -58,7 +62,7 @@
         transform: scaleX(0);
         transition: all 0.4s ease-in-out 0s;
       }
-      h3 > a:hover::before {
+      h3 > p:hover::before {
         visibility: visible;
         transform: scaleX(1);
       }
