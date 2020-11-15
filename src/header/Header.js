@@ -23,7 +23,8 @@ const Header = ({currentUser}) => {
           
             currentUser ?
             <div>
-            <Avatar className='avatar' src={`${currentUser.photoURL ? currentUser.photoURL : ''}`} />
+            <Avatar  rel="noreferrer"
+            className='avatar' src={`${currentUser.photoURL ? currentUser.photoURL : ''}`} />
             </div>
             : 
             null

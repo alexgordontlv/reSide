@@ -1,7 +1,10 @@
 import React from 'react';
 import { DataGrid, RowsProp, ColDef } from '@material-ui/data-grid';
 import {Customers} from './customers';
-
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import {IconButton} from '@material-ui/core';
+import './display.css';
+import FormDialog from '../components/FormDialog'
 
 
 const rows: RowsProp = Customers;
@@ -18,11 +21,14 @@ const columns: ColDef[] = [
 ];
 
 
-
 export default function Display() {
     return (
-      <div className='display'>
-        <div style={{ height: 400, width: '100%' }}>
+      
+      <div className='display'> 
+      <div  className='icon'>
+        <FormDialog/>
+      </div>
+        <div style={{ height: 500, width: '100%' }}>
             <DataGrid rows={rows} columns={columns} />
         </div>
       </div>
