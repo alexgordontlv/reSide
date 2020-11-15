@@ -10,10 +10,11 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import './formdialog.css';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import {Customers} from '../display/customers';
+import {connect} from 'react-redux';
+import {addCustomer} from '../redux/customers/customers.actions';
 let globID = 10;
 
-export default function FormDialog() {
+function FormDialog({addCustomer}) {
 
   const [state, setState] = React.useState({
     
@@ -38,7 +39,9 @@ export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
 
   const handleSubmit = () =>{
-    Customers.push({...state,globID});
+    //Customers.push({...state,globID});
+    console.log('handlesubmit',{...state,globID})
+    addCustomer({...state,globID})
     globID++;
     setOpen(false);
   }
@@ -132,3 +135,9 @@ export default function FormDialog() {
     </div>
   );
 }
+
+const mapDispatchToProps = dispatch => ({
+  addCustomer: (customer) => dispatch(addCustomer(customer))
+})
+
+export default  connect(null,mapDispatchToProps)(FormDialog);
