@@ -12,22 +12,22 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import {connect} from 'react-redux';
 import {addCustomer} from '../redux/customers/customers.actions';
-let globID = 10;
+import {auth,addCustomerToFireStore} from '../firebase/firebase';
+let id = 10;
 
 function FormDialog({addCustomer}) {
-
-  const [state, setState] = React.useState({
-    
+  const INITIAL_STATE = {
     id: '',
     name: '',
     budget: '',
-    number: '',
+    phone: '',
     rooms: '',
     floor: '',
     elevator: false,
     parking: false,
     
-  });
+  }
+  const [state, setState] = React.useState(INITIAL_STATE);
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
@@ -39,10 +39,20 @@ function FormDialog({addCustomer}) {
   const [open, setOpen] = React.useState(false);
 
   const handleSubmit = () =>{
-    //Customers.push({...state,globID});
-    console.log('handlesubmit',{...state,globID})
-    addCustomer({...state,globID})
-    globID++;
+    
+    setState(INITIAL_STATE)
+    auth.onAuthStateChanged(async userAuth => {
+      
+      if (userAuth) {
+        const customerRef = await addCustomerToFireStore(userAuth,state);
+        customerRef.onSnapshot(snapShot => {
+          addCustomer(snapShot.data())
+        })
+      }
+
+    })
+    id++;
+
     setOpen(false);
   }
 
@@ -88,15 +98,27 @@ function FormDialog({addCustomer}) {
               fullWidth
               className='field'
           />
+            <TextField
+            autoFocus
+            margin="dense"
+            name="rooms"
+            label="Rooms"
+            type="text"
+            value={state.rooms}
+            onChange={handleChange}
+            fullWidth
+            className='field'
+            />
+
           </div>
           <div className='right'>
           <TextField
             autoFocus
             margin="dense"
-            name="number"
+            name="phone"
             label="Phone Number"
             type="text"
-            value={state.number}
+            value={state.phone}
             onChange={handleChange}
             fullWidth
             className='field'
@@ -104,14 +126,14 @@ function FormDialog({addCustomer}) {
         <TextField
         autoFocus
         margin="dense"
-        name="budget"
-        label="Budget"
+        name="floor"
+        label="Floor"
         type="text"
-        value={state.budget}
+        value={state.floor}
         onChange={handleChange}
         fullWidth
         className='field'
-      />
+    />
       <FormControlLabel
       control={<Checkbox checked={state.elevator} onChange={handleCecked} name="elevator" />}
       label="Elevator"
@@ -128,7 +150,7 @@ function FormDialog({addCustomer}) {
             Cancel
           </Button>
           <Button onClick={handleSubmit} color="primary" variant="outlined">
-            Subscribe
+            Add Customer
           </Button>
         </DialogActions>
       </Dialog>

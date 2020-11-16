@@ -45,16 +45,27 @@ const config  = {
     }
     return userRef;
   }
-
-  export const addCustomer = async (userAuth,additionalInfo) => {
-    const customerRef = firestore
+  export const getCustomersFromFireStore = async (userAuth) =>{
+    if (!userAuth) return;
+    const collectionRef = await firestore
     .collection('users')
     .doc(userAuth.uid)
-    .collection('properties')
-    await customerRef.add({
-      name: 'lolavot',
-      address: 'Shfsfsdf',
+    .collection('customers')
+    .get()
+    return collectionRef;
+  }
+  export const addCustomerToFireStore = async (userAuth,customer) => {
+    if (!userAuth) return;
+    const customerRef = await firestore
+    .collection('users')
+    .doc(userAuth.uid)
+    .collection('customers')
+    .add(customer)
+    await customerRef.update({
+      id: customerRef.id
     })
+
+    return customerRef
   }
 
   const provider = new firebase.auth.GoogleAuthProvider();

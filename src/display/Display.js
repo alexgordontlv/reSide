@@ -12,7 +12,6 @@ import {connect} from 'react-redux';
 
 
   const columns: ColDef[] = [
-    { field: 'id', headerName: 'Id', width: 20 },
     { field: 'name', headerName: 'Name', width: 100 },
     { field: 'budget', headerName: 'Budget', width: 120 },
     { field: 'phone', headerName: 'Phone Number', width: 120 },

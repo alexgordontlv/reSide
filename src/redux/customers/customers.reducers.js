@@ -3,20 +3,20 @@ import {Customers} from './customers';
 
 
 const INITIAL_STATE = {
-    Customers: Customers
+    Customers: []
 }
 
 
-const customerReducer = (state = INITIAL_STATE, action) => {
+const customerReducer = (state = INITIAL_STATE, action) => {  
     switch(action.type) {
         case customersTypes.ADD_CUSTOMER :
-            console.log('reducer')
+            console.log(state)
             return {
                 ...state,
-                Customers: [...Customers, action.payload]
+                Customers: [...state.Customers, action.payload]
             }
         default:
-            console.log('default')
+
             return state
     }
 }
