@@ -53,7 +53,7 @@ function FormDialog({addCustomer}) {
       }else{
         setOpen(false);
       }
-    
+      setOpen(false);
   }
 
 
