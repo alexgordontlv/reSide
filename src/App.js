@@ -7,7 +7,7 @@ import SignInAndSignOut from './pages/signin&signout/SignInAndSignOut';
 import {auth,createUserProfileDocument,getCustomersFromFireStore} from './firebase/firebase';
 import {connect} from 'react-redux';
 import {setUser} from './redux/user/user.actions';
-import {addCustomer} from './redux/customers/customers.actions';
+import {addCustomer} from './redux/user/user.actions';
 
 
 
@@ -18,15 +18,20 @@ componentDidMount(){
  this.unSubscribeFromAuth =  auth.onAuthStateChanged(async userAuth=>{
    if ( userAuth) {
     const userRef = await createUserProfileDocument(userAuth);
-    userRef.onSnapshot(snapShot => {
+    await userRef.onSnapshot(async snapShot => {
       setUser({
           photoURL: userAuth.photoURL,
           id: snapShot.id,
-          ...snapShot.data()
+          ...snapShot.data(),
+          customers: [],
+          properties: [],
       })
     })
     const customers = await getCustomersFromFireStore(userAuth);
-    console.log(customers.docs.map(doc => addCustomer(doc.data())));
+    if (!customers.empty){
+      customers.docs.map(doc => addCustomer(doc.data()))
+    }
+    
    }else{
      setUser(null);
    }

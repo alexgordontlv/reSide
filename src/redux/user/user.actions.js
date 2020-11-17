@@ -7,3 +7,11 @@ export const setUser = (user) => {
         payload: user
     }
 }
+
+
+export const addCustomer = (customer) => {
+    return {
+        type: USER_TYPES.ADD_CUSTOMER,
+        payload: customer
+    };
+}

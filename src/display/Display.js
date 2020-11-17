@@ -7,9 +7,10 @@ import {connect} from 'react-redux';
 
 
 
- function Display({Customers}) {
-  const rows: RowsProp = Customers;
+ function Display({Customers,currentUser}) {
 
+
+  const rows: RowsProp = currentUser ? currentUser.customers : [];
 
   const columns: ColDef[] = [
     { field: 'name', headerName: 'Name', width: 100 },
@@ -36,7 +37,7 @@ import {connect} from 'react-redux';
   }
 
   const mapStateToProps = state => ({
-    Customers: state.customers.Customers
+    currentUser: state.user.currentUser
   })
 
 

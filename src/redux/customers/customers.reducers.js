@@ -10,7 +10,6 @@ const INITIAL_STATE = {
 const customerReducer = (state = INITIAL_STATE, action) => {  
     switch(action.type) {
         case customersTypes.ADD_CUSTOMER :
-            console.log(state)
             return {
                 ...state,
                 Customers: [...state.Customers, action.payload]

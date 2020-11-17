@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 
 
 const Header = ({currentUser}) => {
+  console.log(currentUser)
     return (
         <div className='header'>
           <div className='left_side'>

@@ -11,7 +11,15 @@ const userReducer = (state = INITIAL_STATE, action) =>{
             return {
                 ...state,
                 currentUser: action.payload
-            }
+            };
+            case USER_TYPES.ADD_CUSTOMER:
+                return {
+                    ...state,
+                    currentUser: {
+                        ...state.currentUser,
+                        customers: [...state.currentUser.customers, action.payload]
+                    }
+                }
         default:
             return state;
     }

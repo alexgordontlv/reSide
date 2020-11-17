@@ -11,10 +11,8 @@ import './formdialog.css';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import {connect} from 'react-redux';
-import {addCustomer} from '../redux/customers/customers.actions';
+import {addCustomer} from '../redux/user/user.actions';
 import {auth,addCustomerToFireStore} from '../firebase/firebase';
-let id = 10;
-
 function FormDialog({addCustomer}) {
   const INITIAL_STATE = {
     id: '',
@@ -38,22 +36,24 @@ function FormDialog({addCustomer}) {
   };
   const [open, setOpen] = React.useState(false);
 
-  const handleSubmit = () =>{
-    
+  const handleSubmit = (event) =>{
+
+    event.preventDefault();
     setState(INITIAL_STATE)
-    auth.onAuthStateChanged(async userAuth => {
-      
-      if (userAuth) {
-        const customerRef = await addCustomerToFireStore(userAuth,state);
-        customerRef.onSnapshot(snapShot => {
-          addCustomer(snapShot.data())
+    let user = auth.currentUser;
+      if (user) {
+        console.log('submit',user)
+        addCustomerToFireStore(user,state)
+        .then((data)=>{
+          data.onSnapshot(snapShot => {
+            addCustomer(snapShot.data())
+          })
         })
+       
+      }else{
+        setOpen(false);
       }
-
-    })
-    id++;
-
-    setOpen(false);
+    
   }
 
 
