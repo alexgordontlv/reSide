@@ -11,9 +11,21 @@ import './formdialog.css';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import {connect} from 'react-redux';
-import {addCustomer} from '../redux/user/user.actions';
-import {auth,addCustomerToFireStore} from '../firebase/firebase';
-function FormDialog({addCustomer}) {
+import {addCustomer,addProperty} from '../redux/user/user.actions';
+import {auth,addDataToFireStore} from '../firebase/firebase';
+function FormDialog({addCustomer,addProperty,dataToShow}) {
+  let name, budget, phone,dataName = null;
+ if(dataToShow==='customers'){
+   dataName='Customer'
+   name = 'Name'
+   budget = 'Budget'
+   phone = 'Phone Number'
+ }else{
+    dataName='Property'
+    name = 'Address'
+    budget = 'Price'
+    phone = 'Contact'
+ }
   const INITIAL_STATE = {
     id: '',
     name: '',
@@ -43,15 +55,17 @@ function FormDialog({addCustomer}) {
     let user = auth.currentUser;
       if (user) {
         console.log('submit',user)
-        addCustomerToFireStore(user,state)
+        addDataToFireStore(user,state,dataToShow)
         .then((data)=>{
           data.onSnapshot(snapShot => {
-            addCustomer(snapShot.data())
+            if(dataToShow==='customers'){
+              addCustomer(snapShot.data())
+            }else{
+              addProperty(snapShot.data())
+            }
+
           })
         })
-       
-      }else{
-        setOpen(false);
       }
       setOpen(false);
   }
@@ -72,7 +86,7 @@ function FormDialog({addCustomer}) {
         <AddCircleIcon  color="secondary"   fontSize="large" onClick={handleClickOpen}/>
     </IconButton>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Add Customer:</DialogTitle>
+        <DialogTitle id="form-dialog-title">Add {`${dataName}`}</DialogTitle>
         <DialogContent>
         <div className='container'>
         <div className='left'>
@@ -80,7 +94,7 @@ function FormDialog({addCustomer}) {
               autoFocus
               margin="dense"
               name="name"
-              label="Name"
+              label={name}
               type="text"
               value={state.name}
               onChange={handleChange}
@@ -91,7 +105,7 @@ function FormDialog({addCustomer}) {
               autoFocus
               margin="dense"
               name="budget"
-              label="Budget"
+              label={budget}
               type="text"
               value={state.budget}
               onChange={handleChange}
@@ -115,8 +129,8 @@ function FormDialog({addCustomer}) {
           <TextField
             autoFocus
             margin="dense"
-            name="phone"
-            label="Phone Number"
+            name='phone'
+            label={phone}
             type="text"
             value={state.phone}
             onChange={handleChange}
@@ -150,7 +164,7 @@ function FormDialog({addCustomer}) {
             Cancel
           </Button>
           <Button onClick={handleSubmit} color="primary" variant="outlined">
-            Add Customer
+            Add {`${dataName}`}
           </Button>
         </DialogActions>
       </Dialog>
@@ -159,7 +173,8 @@ function FormDialog({addCustomer}) {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addCustomer: (customer) => dispatch(addCustomer(customer))
+  addCustomer: (customer) => dispatch(addCustomer(customer)),
+  addProperty: (customer) => dispatch(addProperty(customer))
 })
 
 export default  connect(null,mapDispatchToProps)(FormDialog);

@@ -15,3 +15,10 @@ export const addCustomer = (customer) => {
         payload: customer
     };
 }
+
+export const addProperty = (property) => {
+    return {
+        type: USER_TYPES.ADD_PROPERTY,
+        payload: property
+    };
+}

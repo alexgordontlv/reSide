@@ -20,6 +20,14 @@ const userReducer = (state = INITIAL_STATE, action) =>{
                         customers: [...state.currentUser.customers, action.payload]
                     }
                 }
+            case USER_TYPES.ADD_PROPERTY:
+                return {
+                    ...state,
+                    currentUser: {
+                        ...state.currentUser,
+                        properties: [...state.currentUser.properties, action.payload]
+                    }
+                }
         default:
             return state;
     }

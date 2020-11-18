@@ -5,6 +5,9 @@ import HomeIcon from "@material-ui/icons/Home";
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import EventIcon from '@material-ui/icons/Event';
 import Search from './Search';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+
 const Sidebar = () => {
     return (
         <div className='sidebar'>
@@ -12,8 +15,12 @@ const Sidebar = () => {
                 <Search/>
             </div>
             <div className='sidebar_options'>
-                <SideBarOption Icon={SupervisorAccountIcon} text="Customers" />
+            <Link to={'/main/customers'}>
+                <SideBarOption Icon={SupervisorAccountIcon} text="Customers"/>
+            </Link>
+            <Link to={'/main/properties'}>
                 <SideBarOption Icon={HomeIcon} text="Properties" />
+                </Link>
                 <SideBarOption Icon={EventIcon} text="Calendar" />
             </div>
         </div>

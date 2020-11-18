@@ -44,22 +44,22 @@ const config  = {
     }
     return userRef;
   }
-  export const getCustomersFromFireStore = async (userAuth) =>{
+  export const getDataFromFireStore = async (userAuth,collection) =>{
     if (!userAuth) return;
     const collectionRef = await firestore
     .collection('users')
     .doc(userAuth.uid)
-    .collection('customers')
+    .collection(collection)
     .get()
     return collectionRef;
   }
-  export const addCustomerToFireStore = async (userAuth,customer) => {
+  export const addDataToFireStore = async (userAuth,data,target) => {
     if (!userAuth) return;
     const customerRef = await firestore
     .collection('users')
     .doc(userAuth.uid)
-    .collection('customers')
-    .add(customer)
+    .collection(target)
+    .add(data)
     await customerRef.update({
       id: customerRef.id
     })

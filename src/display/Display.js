@@ -7,15 +7,25 @@ import {connect} from 'react-redux';
 
 
 
- function Display({Customers,currentUser}) {
+ function Display({dataToShow,currentUser}) {
+   let name, budget, phone = null;
+  if(dataToShow==='customers'){
+    name = 'Name'
+    budget = 'Budget'
+    phone = 'Phone Number'
+  }else{
+   name = 'Address'
+   budget = 'Price'
+   phone = 'Contact'
+  }
 
 
-  const rows: RowsProp = currentUser ? currentUser.customers : [];
+  const rows: RowsProp = currentUser ? (dataToShow==='customers' ? currentUser.customers : currentUser.properties) : [];
 
   const columns: ColDef[] = [
-    { field: 'name', headerName: 'Name', width: 100 },
-    { field: 'budget', headerName: 'Budget', width: 120 },
-    { field: 'phone', headerName: 'Phone Number', width: 120 },
+    { field: 'name', headerName: `${name}`, width: 120 },
+    { field: 'budget', headerName: `${budget}`, width: 120 },
+    { field: 'phone', headerName: `${phone}`, width: 120 },
     { field: 'rooms', headerName: 'Rooms', width: 80 },
     { field: 'floor', headerName: 'Floor', width: 70 },
     { field: 'elevator', headerName: 'Elevator', width: 70 },
@@ -27,7 +37,7 @@ import {connect} from 'react-redux';
       
       <div className='display'> 
       <div  className='icon'>
-        <FormDialog/>
+        <FormDialog dataToShow={dataToShow}/>
       </div>
         <div style={{ height: 500, width: '100%' }}>
             <DataGrid rows={rows} columns={columns} />
