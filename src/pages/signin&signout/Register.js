@@ -30,9 +30,13 @@ const Register = () => {
     const handleSubmit = async(event)=> {
       event.preventDefault();
       if (password !== confirmpassword){
-        alert("passwords don't match");
+        alert("Passwords Don't Match");
         return;
-      }else{
+      }
+      if (password.length < 6){
+        alert("Please Enter At Least 6 Charaters Password");
+        return;
+      }
         try {
          const {user} = await auth.createUserWithEmailAndPassword(email,password);
          await createUserProfileDocument(user,{displayName})
@@ -43,7 +47,7 @@ const Register = () => {
         setEmail('')
         setPassword('')
         setConfirmPassword('')
-      }
+      
 
     }
 
