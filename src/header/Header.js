@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 
 
 const Header = ({currentUser}) => {
+  const avatarSource = 'https://img.favpng.com/1/15/9/scalable-vector-graphics-computer-icons-user-profile-portable-network-graphics-png-favpng-n05BjRqcBz9Ub9NtAbz8GXEaN.jpg'
   console.log(currentUser)
     return (
         <div className='header'>
@@ -25,15 +26,18 @@ const Header = ({currentUser}) => {
             currentUser ?
             <div>
             <Avatar  rel="noreferrer"
-            className='avatar' src={`${currentUser.photoURL ? currentUser.photoURL : ''}`} />
+            className='avatar' src={`${currentUser.photoURL ? currentUser.photoURL : avatarSource}`} />
             </div>
             : 
-            null
+            <div>
+            <Avatar  rel="noreferrer"
+            className='avatar' src={avatarSource} />
+            </div>
         }{
           currentUser ? <div className='name'>{`WELCOME ${
             currentUser.displayName ? currentUser.displayName.toUpperCase(): null
           }!`}
-          </div> : null
+          </div> : <div className='name'>WELCOME GUEST!</div>
           
         }
         <div className='options'>
@@ -50,7 +54,7 @@ const Header = ({currentUser}) => {
             <h3><p>SIGN OUT</p></h3>
             </div>
             :
-            <Link className='option' to='/'>
+            <Link className='option' to='/signin'>
             <h3><p>SIGN IN</p></h3>
             </Link>
           }

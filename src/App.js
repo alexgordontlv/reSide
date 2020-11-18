@@ -57,14 +57,15 @@ componentWillUnmount(){
         </div>
         <div className='main'>
         <Switch>
-         <Route path='/main' component={MainPage}/>
-         <Route exact path='/'
+         
+         <Route exact path='/signin'
           render={()=>this.props.currentUser 
-            ?(<Redirect to='/main'/>)
+            ?(<Redirect to='/'/>)
           :
           (<SignInAndSignOut/>)
         }
          />
+         <Route  path='/' component={MainPage}/>
          </Switch>
         </div>
       </div>

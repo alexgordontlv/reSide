@@ -15,10 +15,10 @@ const Sidebar = () => {
                 <Search/>
             </div>
             <div className='sidebar_options'>
-            <Link to={'/main/customers'}>
+            <Link to={'/customers'}>
                 <SideBarOption Icon={SupervisorAccountIcon} text="Customers"/>
             </Link>
-            <Link to={'/main/properties'}>
+            <Link to={'/properties'}>
                 <SideBarOption Icon={HomeIcon} text="Properties" />
                 </Link>
                 <SideBarOption Icon={EventIcon} text="Calendar" />
