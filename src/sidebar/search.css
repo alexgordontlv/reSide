@@ -3,16 +3,15 @@
     align-items: center;
     background-color:  var(--app-color);
     border-radius: 20px;
-    margin-top: 10px;
-    font-weight: 800;
-    font-size: 20px;
-    padding: 10px;
+    padding: 5px;
   }
   .search__input > input {
-    border: none;
+    border: 1px;
     background-color:var(--app-color);
   }
-
+.input{
+  padding: 10px;
+}
 
   .search__searchIcon {
     color: black;

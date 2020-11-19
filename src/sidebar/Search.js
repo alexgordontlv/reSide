@@ -8,7 +8,7 @@ const Search = () => {
     return (
         <div className="search__input">
             <SearchIcon className="search__searchIcon" />
-            <input placeholder="Search: Customers" type="text" />
+            <input placeholder="Search: Customers" type="text" className='input'/>
       </div>
     )
 }
