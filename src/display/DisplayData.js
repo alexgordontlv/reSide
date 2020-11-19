@@ -4,8 +4,7 @@ import { withRouter } from 'react-router-dom';
 const DisplayData = ({history}) => {
     return (
         <div className='span'>
-        <span>Welcome to Reside! a free platform for managing your customers and properties!
-        The most convenient user experience in the real estate world, easy and reliable interface.</span>
+        <span>Welcome to Reside! A free and new platform to help you manage your customers and properties.<br/>Feel free to explore the demo version. to actually add customers/properties you need to sign in or register. </span>
         <div className={`menu-item`} onClick={()=>{ history.push("/signin");}}> 
        
         <div className='background-image' 
