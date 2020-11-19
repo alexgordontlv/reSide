@@ -10,11 +10,11 @@ import {connect} from 'react-redux';
 
 const Header = ({currentUser}) => {
   const avatarSource = 'https://img.favpng.com/1/15/9/scalable-vector-graphics-computer-icons-user-profile-portable-network-graphics-png-favpng-n05BjRqcBz9Ub9NtAbz8GXEaN.jpg'
-  console.log(currentUser)
     return (
         <div className='header'>
           <div className='left_side'>
-          <Link className='logo-container' to='/'>
+          
+          <Link className='logo-container' to={currentUser ? '/customers' : '/'}>
               <IconButton>
                   <HomeWorkIcon className='logo'/>
               </IconButton>
