@@ -20,8 +20,10 @@ const Sidebar = () => {
             </Link>
             <Link to={'/properties'}>
                 <SideBarOption Icon={HomeIcon} text="Properties" />
-                </Link>
+            </Link>
+            <Link to='/calendar'>
                 <SideBarOption Icon={EventIcon} text="Calendar" />
+            </Link>
             </div>
         </div>
     )

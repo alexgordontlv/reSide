@@ -13,7 +13,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import {connect} from 'react-redux';
 import {addCustomer,addProperty} from '../redux/user/user.actions';
 import {auth,addDataToFireStore} from '../firebase/firebase';
-function FormDialog({addCustomer,addProperty,dataToShow}) {
+
+
+
+function FormDialog({addCustomer,addProperty,dataToShow,rowData}) {
+  console.log(rowData)
   let name, budget, phone,dataName = null;
  if(dataToShow==='customers'){
    dataName='Customer'
@@ -71,7 +75,6 @@ function FormDialog({addCustomer,addProperty,dataToShow}) {
   }
 
 
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -81,12 +84,20 @@ function FormDialog({addCustomer,addProperty,dataToShow}) {
   };
 
   return (
-    <div>
-    <IconButton>
-        <AddCircleIcon  color="secondary"   fontSize="large" onClick={handleClickOpen}/>
+    <div>{
+      !rowData ?  
+      <IconButton>
+      <AddCircleIcon  color="secondary"   fontSize="large" onClick={handleClickOpen}/>
     </IconButton>
+
+    :
+      <Button onClick={handleClickOpen} color="primary" variant="outlined">
+        Modify {`${dataName}`}
+      </Button>
+    }
+   
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Add {`${dataName}`}</DialogTitle>
+        <DialogTitle id="form-dialog-title">{rowData ? 'Update'  : 'Add'} {`${dataName}`}</DialogTitle>
         <DialogContent>
         <div className='container'>
         <div className='left'>
@@ -102,7 +113,7 @@ function FormDialog({addCustomer,addProperty,dataToShow}) {
               className='field'
             />
             <TextField
-              autoFocus
+              
               margin="dense"
               name="budget"
               label={budget}
@@ -113,7 +124,7 @@ function FormDialog({addCustomer,addProperty,dataToShow}) {
               className='field'
           />
             <TextField
-            autoFocus
+            
             margin="dense"
             name="rooms"
             label="Rooms"
@@ -127,7 +138,7 @@ function FormDialog({addCustomer,addProperty,dataToShow}) {
           </div>
           <div className='right'>
           <TextField
-            autoFocus
+            
             margin="dense"
             name='phone'
             label={phone}
@@ -138,7 +149,7 @@ function FormDialog({addCustomer,addProperty,dataToShow}) {
             className='field'
         />
         <TextField
-        autoFocus
+        
         margin="dense"
         name="floor"
         label="Floor"
@@ -163,9 +174,26 @@ function FormDialog({addCustomer,addProperty,dataToShow}) {
           <Button onClick={handleClose} color="primary" variant="outlined">
             Cancel
           </Button>
+        {
+          rowData ? 
+          <div>
+            <Button onClick={handleSubmit} color="primary" variant="outlined">
+              Update {`${dataName}`}
+            </Button>
+              { dataToShow==='customers' ?
+                  <Button onClick={handleSubmit} color="primary" variant="outlined">
+                    Add {`${dataName}`}
+                 </Button>
+                 :
+                 null
+                }
+          </div>
+        :
           <Button onClick={handleSubmit} color="primary" variant="outlined">
             Add {`${dataName}`}
           </Button>
+        }
+          
         </DialogActions>
       </Dialog>
     </div>

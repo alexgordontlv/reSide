@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { DataGrid, RowsProp, ColDef } from '@material-ui/data-grid';
 import './display.css';
 import FormDialog from '../components/FormDialog'
 import {connect} from 'react-redux';
 
 
-
-
  function Display({dataToShow,currentUser}) {
-   let name, budget, phone = null;
+  const [state, setState] = React.useState(null);
+  useEffect(() => {
+    return function cleanup() {
+      setState('')
+      console.log('unmount')
+    };
+  },[dataToShow]);
+
+  let name, budget, phone = null;
   if(dataToShow==='customers'){
     name = 'Name'
     budget = 'Budget'
@@ -32,15 +38,22 @@ import {connect} from 'react-redux';
     { field: 'parking', headerName: 'Parking', width: 70 },
   ];
 
+const handleRowClick = (event) => {
+  setState(rows[event.rowIndex])
+  console.log(state)
+}
 
     return (
       
       <div className='display'> 
       <div  className='icon'>
         <FormDialog dataToShow={dataToShow}/>
+        {
+          state ? <FormDialog  dataToShow={dataToShow} rowData={state}/> : null
+        }
       </div>
         <div style={{ height: 500, width: '100%' }}>
-            <DataGrid rows={rows} columns={columns} />
+            <DataGrid rows={rows} columns={columns} onRowClick={(params)=>handleRowClick(params)}/>
         </div>
       </div>
     );

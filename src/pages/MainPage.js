@@ -4,8 +4,8 @@ import Display from '../display/Display';
 import {Route,Switch} from 'react-router-dom';
 import './mainpage.css';
 import DisplayData from '../display/DisplayData';
+import CalendarComponent from './calendar/Calendar';
 const MainPage = ({match}) => {
-  console.log(match.path)
     return (
         <div className='mainbody'>
         
@@ -17,6 +17,7 @@ const MainPage = ({match}) => {
           <Route exact path={`${match.path}`} render={props=>(<DisplayData/>)} />
             <Route exact path={`/customers`} render={props=>(<Display dataToShow={'customers'}/>)} />
             <Route exact path={`/properties`} render={props=>(<Display dataToShow={'properties'}/>)} />
+            <Route exact path={`/calendar`} render={props=>(<CalendarComponent/>)} />
           </Switch>
           </div>
         </div>
