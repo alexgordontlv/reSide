@@ -2,31 +2,21 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
-require('dotenv').config()
-/*
-const config  = {
-    apiKey: process.env.apiKey,
-    authDomain:  process.env.authDomain,
-    databaseURL:  process.env.databaseURL,
-    projectId:  process.env.projectId,
-    storageBucket: process.env.storageBucket,
-    messagingSenderId: process.env.messagingSenderId,
-    appId: process.env.appId,
-    measurementId: process.env.measurementId
-  };*/
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyDtPXXZHxEkqqqUL98v6XOifgNMswpanNM",
-    authDomain: "reside-6b523.firebaseapp.com",
-    databaseURL: "https://reside-6b523.firebaseio.com",
-    projectId: "reside-6b523",
-    storageBucket: "reside-6b523.appspot.com",
-    messagingSenderId: "115084379256",
-    appId: "1:115084379256:web:9951c9ac26d1635624d98d",
-    measurementId: "G-5SN1T1LMLD"
+
+const config  = {
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain:  process.env.REACT_APP_AUTH_DOMAIN,
+    databaseURL:  process.env.REACT_APP_DATABASE_URL,
+    projectId:  process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID,
+    measurementId: process.env.REACT_APP_MEASURMENT_ID
   };
+console.log(config)
   if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(config);
 }
   export const auth = firebase.auth();
   export const firestore = firebase.firestore();
@@ -68,7 +58,7 @@ const config  = {
     if (!userAuth) return;
     const customerRef = await firestore
     .collection('users')
-    .doc(userAuth.uid)
+    .doc(userAuth.uid || userAuth.id)
     .collection(target)
     .add(data)
     await customerRef.update({
@@ -81,7 +71,7 @@ const config  = {
     if (!userAuth) return;
     firestore
     .collection('users')
-    .doc(userAuth.uid)
+    .doc(userAuth.uid || userAuth.id)
     .collection(target)
     .doc(data)
     .delete()

@@ -8,8 +8,8 @@ const CalendarComponent = props => {
   /* 
     Update with your own Client Id and Api key 
   */
-  var CLIENT_ID = "958727265122-5h2sdpvjphit3812kt5p3uoankrbni85.apps.googleusercontent.com"
-  var API_KEY = "AIzaSyBfxJYR6xrv9y9RxouR5W0G_uiq8AR1BUM"
+  var CLIENT_ID = process.env.REACT_APP_CLIENT_ID
+  var API_KEY = process.env.REACT_APP_CALENDAR_API_KEY
   var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"]
   var SCOPES = "https://www.googleapis.com/auth/calendar.events"
 

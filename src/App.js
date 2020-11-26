@@ -40,10 +40,8 @@ const App = () => {
       } else {
         dispatch(setUser(null));
       }
-      console.log("userSet",currentUser)
     });
     return function cleanup() {
-      console.log("userunSet",currentUser)
     };
   }, []);
 

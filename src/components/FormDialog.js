@@ -10,13 +10,15 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import './formdialog.css';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch  } from "react-redux";
 import {addCustomer,addProperty,deleteData} from '../redux/user/user.actions';
-import {auth,addDataToFireStore,deleteDataFromFireBase} from '../firebase/firebase';
+import {addDataToFireStore,deleteDataFromFireBase} from '../firebase/firebase';
 
 
 
-function FormDialog({addCustomer,addProperty,deleteData,dataToShow,rowData,rowIndex}) {
+function FormDialog({dataToShow,rowData,rowIndex}) {
+  const currentUser = useSelector(state => state.user.currentUser);
+  const dispatch = useDispatch()
   let name, budget, phone,dataName = null;
  if(dataToShow==='customers'){
    dataName='Customer'
@@ -53,9 +55,8 @@ function FormDialog({addCustomer,addProperty,deleteData,dataToShow,rowData,rowIn
   };
   const handleDelete = (event) => {
     event.preventDefault()
-    const user = auth.currentUser;
-    deleteDataFromFireBase(user,state.id,dataToShow)
-    deleteData(rowIndex,dataToShow);
+    deleteDataFromFireBase(currentUser,state.id,dataToShow)
+    dispatch(deleteData(rowIndex,dataToShow));
     setOpen(false)
   };
 
@@ -66,16 +67,15 @@ function FormDialog({addCustomer,addProperty,deleteData,dataToShow,rowData,rowIn
 
   const handleSubmit = (event) =>{
     event.preventDefault();
-    let user = auth.currentUser;
-      if (user) {
-        console.log('submit',user)
-        addDataToFireStore(user,state,dataToShow)
+      if (currentUser) {
+        console.log('submit',currentUser)
+        addDataToFireStore(currentUser,state,dataToShow)
         .then((data)=>{
           data.onSnapshot(snapShot => {
             if(dataToShow==='customers'){
-              addCustomer(snapShot.data())
+              dispatch(addCustomer(snapShot.data()))
             }else{
-              addProperty(snapShot.data())
+              dispatch(addProperty(snapShot.data()))
             }
             setState(INITIAL_STATE)
           })
@@ -211,10 +211,5 @@ function FormDialog({addCustomer,addProperty,deleteData,dataToShow,rowData,rowIn
   );
 }
 
-const mapDispatchToProps = dispatch => ({
-  addCustomer: (customer) => dispatch(addCustomer(customer)),
-  addProperty: (customer) => dispatch(addProperty(customer)),
-  deleteData: (data,target) => dispatch(deleteData(data,target)),
-})
 
-export default  connect(null,mapDispatchToProps)(FormDialog);
+export default  FormDialog;
