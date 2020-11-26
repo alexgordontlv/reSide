@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,13 +11,12 @@ import './formdialog.css';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import {connect} from 'react-redux';
-import {addCustomer,addProperty} from '../redux/user/user.actions';
-import {auth,addDataToFireStore} from '../firebase/firebase';
+import {addCustomer,addProperty,deleteData} from '../redux/user/user.actions';
+import {auth,addDataToFireStore,deleteDataFromFireBase} from '../firebase/firebase';
 
 
 
-function FormDialog({addCustomer,addProperty,dataToShow,rowData}) {
-  console.log(rowData)
+function FormDialog({addCustomer,addProperty,deleteData,dataToShow,rowData,rowIndex}) {
   let name, budget, phone,dataName = null;
  if(dataToShow==='customers'){
    dataName='Customer'
@@ -30,7 +29,7 @@ function FormDialog({addCustomer,addProperty,dataToShow,rowData}) {
     budget = 'Price'
     phone = 'Contact'
  }
-  const INITIAL_STATE = {
+  let INITIAL_STATE = {
     id: '',
     name: '',
     budget: '',
@@ -41,10 +40,23 @@ function FormDialog({addCustomer,addProperty,dataToShow,rowData}) {
     parking: false,
     
   }
-  const [state, setState] = React.useState(INITIAL_STATE);
+  const [state, setState] = React.useState('');
 
+  useEffect(() => {
+    setState(rowData ? {...rowData} : INITIAL_STATE)
+    return function cleanup() {
+      setState('')
+    };
+  },[rowData]);
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
+  };
+  const handleDelete = (event) => {
+    event.preventDefault()
+    const user = auth.currentUser;
+    deleteDataFromFireBase(user,state.id,dataToShow)
+    deleteData(rowIndex,dataToShow);
+    setOpen(false)
   };
 
   const handleCecked = (event) => {
@@ -53,9 +65,7 @@ function FormDialog({addCustomer,addProperty,dataToShow,rowData}) {
   const [open, setOpen] = React.useState(false);
 
   const handleSubmit = (event) =>{
-
     event.preventDefault();
-    setState(INITIAL_STATE)
     let user = auth.currentUser;
       if (user) {
         console.log('submit',user)
@@ -67,7 +77,7 @@ function FormDialog({addCustomer,addProperty,dataToShow,rowData}) {
             }else{
               addProperty(snapShot.data())
             }
-
+            setState(INITIAL_STATE)
           })
         })
       }
@@ -81,6 +91,7 @@ function FormDialog({addCustomer,addProperty,dataToShow,rowData}) {
 
   const handleClose = () => {
     setOpen(false);
+    
   };
 
   return (
@@ -177,8 +188,8 @@ function FormDialog({addCustomer,addProperty,dataToShow,rowData}) {
         {
           rowData ? 
           <div>
-            <Button onClick={handleSubmit} color="primary" variant="outlined">
-              Update {`${dataName}`}
+            <Button onClick={handleDelete} color="primary" variant="outlined">
+              Delete {`${dataName}`}
             </Button>
               { dataToShow==='customers' ?
                   <Button onClick={handleSubmit} color="primary" variant="outlined">
@@ -202,7 +213,8 @@ function FormDialog({addCustomer,addProperty,dataToShow,rowData}) {
 
 const mapDispatchToProps = dispatch => ({
   addCustomer: (customer) => dispatch(addCustomer(customer)),
-  addProperty: (customer) => dispatch(addProperty(customer))
+  addProperty: (customer) => dispatch(addProperty(customer)),
+  deleteData: (data,target) => dispatch(deleteData(data,target)),
 })
 
 export default  connect(null,mapDispatchToProps)(FormDialog);

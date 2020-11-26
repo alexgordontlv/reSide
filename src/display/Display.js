@@ -7,10 +7,10 @@ import {connect} from 'react-redux';
 
  function Display({dataToShow,currentUser}) {
   const [state, setState] = React.useState(null);
+  const [index, setIndex] = React.useState(null);
   useEffect(() => {
     return function cleanup() {
       setState('')
-      console.log('unmount')
     };
   },[dataToShow]);
 
@@ -39,17 +39,17 @@ import {connect} from 'react-redux';
   ];
 
 const handleRowClick = (event) => {
+  setIndex(event.rowIndex);
   setState(rows[event.rowIndex])
-  console.log(state)
 }
 
     return (
       
       <div className='display'> 
       <div  className='icon'>
-        <FormDialog dataToShow={dataToShow}/>
+        <FormDialog dataToShow={dataToShow} rowData={null}/>
         {
-          state ? <FormDialog  dataToShow={dataToShow} rowData={state}/> : null
+          state ? <FormDialog  dataToShow={dataToShow} rowData={state} rowIndex={index}/> : null
         }
       </div>
         <div style={{ height: 500, width: '100%' }}>

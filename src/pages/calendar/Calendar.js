@@ -40,7 +40,8 @@ const CalendarComponent = props => {
       var isoStartDate = new Date(startDate.getTime()-new Date().getTimezoneOffset()*60*1000).toISOString().split(".")[0];
       var isoEndDate = new Date(endDate.getTime()-(new Date().getTimezoneOffset())*60*1000).toISOString().split(".")[0];
 
-
+      const  token = auth.currentUser.getIdTokenResult()
+      console.log(token)
       gapi.auth2.getAuthInstance().signIn()
       .then(function(data){
         console.log(data)

@@ -15,6 +15,12 @@ export const addCustomer = (customer) => {
         payload: customer
     };
 }
+export const deleteData = (index,target) => {
+    return {
+        type: USER_TYPES.DELETE_DATA,
+        payload: {index,target}
+    };
+}
 
 export const addProperty = (property) => {
     return {

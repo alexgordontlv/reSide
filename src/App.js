@@ -1,92 +1,70 @@
-import React from 'react'
-import './App.css';
-import Header from './header/Header'
-import {Route,Switch,Redirect} from 'react-router-dom';
-import MainPage from './pages/MainPage';
-import SignInAndSignOut from './pages/signin&signout/SignInAndSignOut';
-import {auth,createUserProfileDocument,getDataFromFireStore} from './firebase/firebase';
-import {connect} from 'react-redux';
-import {setUser} from './redux/user/user.actions';
-import {addCustomer, addProperty} from './redux/user/user.actions';
+import React, { useEffect } from "react";
+import "./App.css";
+import Header from "./header/Header";
+import { Route, Switch, Redirect } from "react-router-dom";
+import MainPage from "./pages/MainPage";
+import SignInAndSignOut from "./pages/signin&signout/SignInAndSignOut";
+import {
+  auth,
+  createUserProfileDocument,
+  getDataFromFireStore,
+} from "./firebase/firebase";
+import {useSelector, useDispatch  } from "react-redux";
+import {setUser, addCustomer, addProperty } from "./redux/user/user.actions";
 
-
-
-class App extends React.Component {
-unSubscribeFromAuth = null;
-componentDidMount(){
-  const {setUser,addCustomer,addProperty} = this.props;
- this.unSubscribeFromAuth =  auth.onAuthStateChanged(async userAuth=>{
-   if ( userAuth) {
-    const userRef = await createUserProfileDocument(userAuth);
-    await userRef.onSnapshot(async snapShot => {
-      setUser({
-          photoURL: userAuth.photoURL,
-          id: snapShot.id,
-          ...snapShot.data(),
-          customers: [],
-          properties: [],
-      })
-    })
-    const customers = await getDataFromFireStore(userAuth,'customers');
-    if (!customers.empty){
-      customers.docs.map(doc => addCustomer(doc.data()))
-    }
-    const properties = await getDataFromFireStore(userAuth,'properties');
-    if (!properties.empty){
-      console.log(properties)
-      properties.docs.map(doc => addProperty(doc.data()))
-    }
-   }else{
-     setUser(null);
-   }
-
-  })
-}
-
-componentWillUnmount(){
-  this.unSubscribeFromAuth();
-}
-
-
-  render(){
-  return (
-    
-      <div className='app'>
-        <div className='header'>
-          <Header/>
-        </div>
-        <div className='main'>
-        <Switch>
-         
-         <Route exact path='/signin'
-          render={()=>this.props.currentUser 
-            ?(<Redirect to='/customers'/>)
-          :
-          (<SignInAndSignOut/>)
+const App = () => {
+  const currentUser = useSelector(state => state.user.currentUser);
+  const dispatch = useDispatch()
+  useEffect(() => {
+    auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+        await userRef.onSnapshot(async (snapShot) => {
+          dispatch(setUser({
+            photoURL: userAuth.photoURL,
+            id: snapShot.id,
+            ...snapShot.data(),
+            customers: [],
+            properties: [],
+          }));
+        });
+        const customers = await getDataFromFireStore(userAuth, "customers");
+        if (!customers.empty) {
+          customers.docs.map((doc) => dispatch(addCustomer(doc.data())));
         }
-         />
-         <Route  path='/' component={MainPage}/>
-         </Switch>
-        </div>
+        const properties = await getDataFromFireStore(userAuth, "properties");
+        if (!properties.empty) {
+          console.log(properties);
+          properties.docs.map((doc) => dispatch(addProperty(doc.data())));
+        }
+      } else {
+        dispatch(setUser(null));
+      }
+      console.log("userSet",currentUser)
+    });
+    return function cleanup() {
+      console.log("userunSet",currentUser)
+    };
+  }, []);
+
+  return (
+    <div className="app">
+      <div className="header">
+        <Header />
       </div>
-
+      <div className="main">
+        <Switch>
+          <Route
+            exact
+            path="/signin"
+            render={() =>
+              currentUser ? <Redirect to="/customers" /> : <SignInAndSignOut />
+            }
+          />
+          <Route path="/" component={MainPage} />
+        </Switch>
+      </div>
+    </div>
   );
-  }
-}
-
-
-const mapStateToProps = state => {
-  return {
-    currentUser: state.user.currentUser
-  }
-}
-const mapDispatchToProps = dispatch =>{
-  return {
-    setUser: (user) => dispatch(setUser(user)),
-    addCustomer: (customer) => dispatch(addCustomer(customer)),
-    addProperty: (customer) => dispatch(addProperty(customer))
-  }
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+};
+export default App;

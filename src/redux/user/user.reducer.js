@@ -17,7 +17,7 @@ const userReducer = (state = INITIAL_STATE, action) =>{
                     ...state,
                     currentUser: {
                         ...state.currentUser,
-                        customers: [...state.currentUser.customers, action.payload]
+                        customers: [...state.currentUser.customers, action.payload].filter(n => n)
                     }
                 }
             case USER_TYPES.ADD_PROPERTY:
@@ -25,7 +25,19 @@ const userReducer = (state = INITIAL_STATE, action) =>{
                     ...state,
                     currentUser: {
                         ...state.currentUser,
-                        properties: [...state.currentUser.properties, action.payload]
+                        properties: [...state.currentUser.properties, action.payload].filter(n => n)
+                    }
+                }
+            case USER_TYPES.DELETE_DATA:
+                return {
+                    ...state,
+                    currentUser: {
+                        ...state.currentUser,
+                       // customers: [...state.currentUser.customers]
+                       [action.payload.target]: [
+                            ...state.currentUser.[action.payload.target].slice(0, action.payload.index),
+                            ...state.currentUser.[action.payload.target].slice(action.payload.index + 1)
+                          ].filter(n => n)
                     }
                 }
         default:

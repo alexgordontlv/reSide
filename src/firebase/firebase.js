@@ -2,8 +2,20 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
-
+require('dotenv').config()
+/*
 const config  = {
+    apiKey: process.env.apiKey,
+    authDomain:  process.env.authDomain,
+    databaseURL:  process.env.databaseURL,
+    projectId:  process.env.projectId,
+    storageBucket: process.env.storageBucket,
+    messagingSenderId: process.env.messagingSenderId,
+    appId: process.env.appId,
+    measurementId: process.env.measurementId
+  };*/
+
+  const firebaseConfig = {
     apiKey: "AIzaSyDtPXXZHxEkqqqUL98v6XOifgNMswpanNM",
     authDomain: "reside-6b523.firebaseapp.com",
     databaseURL: "https://reside-6b523.firebaseio.com",
@@ -13,9 +25,8 @@ const config  = {
     appId: "1:115084379256:web:9951c9ac26d1635624d98d",
     measurementId: "G-5SN1T1LMLD"
   };
-
   if (!firebase.apps.length) {
-    firebase.initializeApp(config);
+    firebase.initializeApp(firebaseConfig);
 }
   export const auth = firebase.auth();
   export const firestore = firebase.firestore();
@@ -66,6 +77,21 @@ const config  = {
 
     return customerRef
   }
+  export const deleteDataFromFireBase = async (userAuth,data,target) => {
+    if (!userAuth) return;
+    firestore
+    .collection('users')
+    .doc(userAuth.uid)
+    .collection(target)
+    .doc(data)
+    .delete()
+    .then(()=>{
+      console.log("Document successfully deleted!");
+    })
+  }
+
+
+
 
   const provider = new firebase.auth.GoogleAuthProvider();
   provider.setCustomParameters({ prompt: 'select_account' });
