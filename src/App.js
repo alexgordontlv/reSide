@@ -34,7 +34,6 @@ const App = () => {
         }
         const properties = await getDataFromFireStore(userAuth, "properties");
         if (!properties.empty) {
-          console.log(properties);
           properties.docs.map((doc) => dispatch(addProperty(doc.data())));
         }
       } else {
