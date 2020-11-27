@@ -33,13 +33,34 @@ const userReducer = (state = INITIAL_STATE, action) =>{
                     ...state,
                     currentUser: {
                         ...state.currentUser,
-                       // customers: [...state.currentUser.customers]
                        [action.payload.target]: [
                             ...state.currentUser.[action.payload.target].slice(0, action.payload.index),
                             ...state.currentUser.[action.payload.target].slice(action.payload.index + 1)
                           ].filter(n => n)
                     }
                 }
+                case USER_TYPES.UPDATE_DATA:
+                    return { 
+                        ...state,
+                        currentUser:{
+                            ...state.currentUser,
+                            [action.payload.target]: [
+                                ...state.currentUser.[action.payload.target].slice(0, action.payload.index),
+                                {...action.payload.data},
+                                ...state.currentUser.[action.payload.target].slice(action.payload.index + 1)
+                              ].filter(n => n)
+                        }
+                    }
+                    case USER_TYPES.SEARCH_DATA:
+                        console.log(action.payload)
+                        const newCustomers = state.currentUser.customers.filter(user => user.name.toLowerCase().includes(action.payload.toLowerCase()))
+                        return { 
+                            ...state,
+                            currentUser:{
+                                ...state.currentUser,
+                                customers: [...newCustomers]
+                            }
+                        }
         default:
             return state;
     }

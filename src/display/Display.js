@@ -3,9 +3,10 @@ import { DataGrid, RowsProp, ColDef } from '@material-ui/data-grid';
 import './display.css';
 import FormDialog from '../components/FormDialog'
 import {connect} from 'react-redux';
+import Search from '../sidebar/Search';
 
 
- function Display({dataToShow,currentUser}) {
+ function Display({dataToShow,currentUser,searchValue}) {
   const [state, setState] = React.useState(null);
   const [index, setIndex] = React.useState(null);
   useEffect(() => {
@@ -26,7 +27,11 @@ import {connect} from 'react-redux';
   }
 
 
-  const rows: RowsProp = currentUser ? (dataToShow==='customers' ? currentUser.customers : currentUser.properties) : [];
+  const rows: RowsProp = currentUser ? (dataToShow==='customers' ?
+   currentUser.customers.filter(customer => customer.name.toLowerCase().includes(searchValue.toLowerCase()))
+    : 
+    currentUser.properties.filter(property => property.name.toLowerCase().includes(searchValue.toLowerCase()))
+    ) : [];
 
   const columns: ColDef[] = [
     { field: 'name', headerName: `${name}`, width: 120 },

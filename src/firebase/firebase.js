@@ -67,6 +67,7 @@ console.log(config)
 
     return customerRef
   }
+
   export const deleteDataFromFireBase = async (userAuth,data,target) => {
     if (!userAuth) return;
     firestore
@@ -79,7 +80,18 @@ console.log(config)
       console.log("Document successfully deleted!");
     })
   }
-
+export const updateDataFromFireBase = async (userAuth,state,target) => {
+    if (!userAuth) return;
+    firestore
+    .collection('users')
+    .doc(userAuth.uid || userAuth.id)
+    .collection(target)
+    .doc(state.id)
+    .update(state)
+    .then(()=>{
+      console.log("Document was successfully UPDATED!");
+    })
+  }
 
 
 

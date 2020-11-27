@@ -28,3 +28,17 @@ export const addProperty = (property) => {
         payload: property
     };
 }
+export const updateData = (index,target, data) => {
+    return {
+        type: USER_TYPES.UPDATE_DATA,
+        payload: {index,target,data}
+        
+    };
+}
+export const searchInput = (data) => {
+    return {
+        type: USER_TYPES.SEARCH_DATA,
+        payload: data
+        
+    };
+}

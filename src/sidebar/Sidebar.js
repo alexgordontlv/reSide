@@ -6,13 +6,12 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import EventIcon from '@material-ui/icons/Event';
 import Search from './Search';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
 
-const Sidebar = () => {
+const Sidebar = (props) => {
     return (
         <div className='sidebar'>
             <div className='search_box'>
-                <Search/>
+                <Search onChange={(value)=>props.onChange(value)}/>
             </div>
             <div className='sidebar_options'>
             <Link to={'/customers'}>
