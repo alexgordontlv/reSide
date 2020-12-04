@@ -4,14 +4,14 @@ import {auth} from '../../firebase/firebase'
 const CalendarComponent = props => {
  
 
-  var gapi = window.gapi
+  let gapi = window.gapi
   /* 
     Update with your own Client Id and Api key 
   */
-  var CLIENT_ID = process.env.REACT_APP_CLIENT_ID
-  var API_KEY = process.env.REACT_APP_CALENDAR_API_KEY
-  var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"]
-  var SCOPES = "https://www.googleapis.com/auth/calendar.events"
+  let CLIENT_ID = process.env.REACT_APP_CLIENT_ID
+  let API_KEY = process.env.REACT_APP_CALENDAR_API_KEY
+  let DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"]
+  let SCOPES = "https://www.googleapis.com/auth/calendar.events"
 
  
 
@@ -30,22 +30,22 @@ const CalendarComponent = props => {
       })
 
       gapi.client.load('calendar', 'v3', () => console.log('loaded calenadar!'))
-      var timeString = "2020-12-12T10:00:00.000";
-      var timeZone = "Asia/Jerusalem";
-      var duration = '00:30:00';
+      let timeString = "2020-12-12T10:00:00.000";
+      let timeZone = "Asia/Jerusalem";
+      let duration = '00:30:00';
     
-      var startDate = new Date(timeString);
-      var msDuration = (Number(duration.split(':')[0]) * 60 * 60 + Number(duration.split(':')[1]) * 60  + Number(duration.split(':')[2])) * 1000;
-      var endDate = new Date(startDate.getTime() + msDuration);
-      var isoStartDate = new Date(startDate.getTime()-new Date().getTimezoneOffset()*60*1000).toISOString().split(".")[0];
-      var isoEndDate = new Date(endDate.getTime()-(new Date().getTimezoneOffset())*60*1000).toISOString().split(".")[0];
+      let startDate = new Date(timeString);
+      let msDuration = (Number(duration.split(':')[0]) * 60 * 60 + Number(duration.split(':')[1]) * 60  + Number(duration.split(':')[2])) * 1000;
+      let endDate = new Date(startDate.getTime() + msDuration);
+      let isoStartDate = new Date(startDate.getTime()-new Date().getTimezoneOffset()*60*1000).toISOString().split(".")[0];
+      let isoEndDate = new Date(endDate.getTime()-(new Date().getTimezoneOffset())*60*1000).toISOString().split(".")[0];
 
       const  token = auth.currentUser.getIdTokenResult()
       console.log(token)
       gapi.auth2.getAuthInstance().signIn()
       .then(function(data){
         console.log(data)
-        var event = {
+        let event = {
           'summary': 'ITS MY BIRTHDAY!!!!',
           'location': 'Tel-Aviv',
           'description': 'Really great refreshments',
@@ -85,7 +85,7 @@ const CalendarComponent = props => {
         })
         
         
-        var request = gapi.client.calendar.events.insert({
+        let request = gapi.client.calendar.events.insert({
           'calendarId': 'primary',
           'resource': event,
         })
