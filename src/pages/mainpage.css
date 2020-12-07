@@ -1,3 +1,6 @@
+
+
+
 .mainbody{
     display: flex;
     flex-direction: row;
@@ -8,3 +11,13 @@
 .body{
     flex:0.7;
 }
+
+
+@media screen and (max-width: 800px) {
+    .sidebar_component{
+        flex:0.15;
+    }
+    .body{
+        flex:0.85;
+    }
+  }

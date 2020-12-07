@@ -17,3 +17,11 @@
   margin-right: 20px;
   padding: 10px;
 }
+@media screen and (max-width: 800px) {
+  .sidebarOption > h2 {
+    font-weight: 800;
+    font-size: small;
+    margin-right: 5px;
+    padding: 5px;
+  }
+}

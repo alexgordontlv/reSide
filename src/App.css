@@ -1,3 +1,7 @@
+
+
+
+
 .app {
 height: 100vh;
 max-width: 1000px;
@@ -20,4 +24,20 @@ a {
 
 *{
     box-sizing: border-box;
+}
+
+@media screen and (max-width : 800px) {
+    .app {
+        margin-left: 0px;
+        margin-right: 0px;
+        padding: 0;
+        max-width: 1500px;
+        }
+    body {
+        border-top: 2px solid #bd2222;
+        font-size: 15px;
+        padding: 0;
+
+    }
+
 }
