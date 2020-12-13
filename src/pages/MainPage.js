@@ -17,7 +17,7 @@ const MainPage = ({match}) => {
           <Route exact path={`${match.path}`} render={props=>(<DisplayData/>)} />
             <Route exact path={`/customers`} render={props=>(<Display dataToShow={'customers'} searchValue={state}/>)} />
             <Route exact path={`/properties`} render={props=>(<Display dataToShow={'properties'}  searchValue={state}/>)} />
-            <Route exact path={`/calendar`} render={props=>(<CalendarComponent/>)} />
+            <Route exact path={`/calendar`} render={props=>(<Display/>)} />
           </Switch>
           </div>
         </div>

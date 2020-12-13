@@ -1,8 +1,3 @@
-import React from 'react';
-import {auth} from '../../firebase/firebase'
-
-const CalendarComponent = props => {
- 
 
   let gapi = window.gapi
   /* 
@@ -16,9 +11,8 @@ const CalendarComponent = props => {
  
 
 
-  const handleClick = (event) => {
+  export const addCalendarEvent = (startTime,address,clientName) => {
   
-    event.preventDefault();
     gapi.load('client:auth2', () => {
       console.log('loaded client')
 
@@ -30,7 +24,7 @@ const CalendarComponent = props => {
       })
 
       gapi.client.load('calendar', 'v3', () => console.log('loaded calenadar!'))
-      let timeString = "2020-12-12T10:00:00.000";
+      let timeString = startTime;
       let timeZone = "Asia/Jerusalem";
       let duration = '00:30:00';
     
@@ -40,15 +34,14 @@ const CalendarComponent = props => {
       let isoStartDate = new Date(startDate.getTime()-new Date().getTimezoneOffset()*60*1000).toISOString().split(".")[0];
       let isoEndDate = new Date(endDate.getTime()-(new Date().getTimezoneOffset())*60*1000).toISOString().split(".")[0];
 
-      const  token = auth.currentUser.getIdTokenResult()
-      console.log(token)
+
       gapi.auth2.getAuthInstance().signIn()
       .then(function(data){
-        console.log(data)
+        console.log(isoStartDate)
+        console.log(isoEndDate)
         let event = {
-          'summary': 'ITS MY BIRTHDAY!!!!',
-          'location': 'Tel-Aviv',
-          'description': 'Really great refreshments',
+          'summary': clientName,
+          'location': address,
           'start': {
             'dateTime': isoStartDate,
             'timeZone': timeZone
@@ -58,17 +51,12 @@ const CalendarComponent = props => {
             'timeZone': timeZone
           },
           'recurrence': [
-            'RRULE:FREQ=DAILY;COUNT=2'
-          ],
-          'attendees': [
-            {'email': 'lpage@example.com'},
-            {'email': 'sbrin@example.com'}
+            'RRULE:FREQ=DAILY;COUNT=1'
           ],
           'reminders': {
             'useDefault': false,
             'overrides': [
-              {'method': 'email', 'minutes': 24 * 60},
-              {'method': 'popup', 'minutes': 10}
+              {'method': 'popup', 'minutes': 20}
             ]
           }
         }
@@ -81,7 +69,7 @@ const CalendarComponent = props => {
           'orderBy': 'startTime'
         }).then(response => {
           const events = response.result.items
-          console.log('EVENTS: ', events)
+          //console.log('EVENTS: ', events)
         })
         
         
@@ -101,14 +89,3 @@ const CalendarComponent = props => {
   }
 
   
-  return(
-    <div>
-    <header className="App-header">
-    <p>Click to add event to Google Calendar</p>
-    <button style={{width: 100, height: 50}} onClick={handleClick}>Add Event</button>
-  </header>
-    </div>
-  )
-}
-
-export default CalendarComponent;

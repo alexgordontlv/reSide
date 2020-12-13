@@ -1,6 +1,6 @@
 .display{
     flex: 0.7;
-   
+    justify-content: center;
 }
 .icon{
 
@@ -8,7 +8,16 @@
     margin-bottom: 10px;
     
 }
-
+.container{
+    display: flex;
+    max-width: 300px;
+    align-items: center;
+    justify-content: center;
+}
+.button{
+    margin-left: 10px;
+    text-align: center;
+}
 
 
 .image{

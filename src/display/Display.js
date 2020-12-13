@@ -4,6 +4,11 @@ import './display.css';
 import FormDialog from '../components/FormDialog'
 import {connect} from 'react-redux';
 import Search from '../sidebar/Search';
+import TimePicker from '../display/TimePicker';
+import {addCalendarEvent} from '../pages/calendar/Calendar';
+
+
+
 
 
  function Display({dataToShow,currentUser,searchValue}) {
@@ -53,9 +58,15 @@ const handleRowClick = (event) => {
       <div className='display'> 
       <div  className='icon'>
         <FormDialog dataToShow={dataToShow} rowData={null}/>
+      
+        <div className='container'>
         {
-          state ? <FormDialog  dataToShow={dataToShow} rowData={state} rowIndex={index}/> : null
+          state ? <FormDialog  dataToShow={dataToShow} rowData={state} rowIndex={index} className='button'/> : null
         }
+        {
+          state ? <TimePicker  rowData={state}  className='button'/> : null
+       }
+      </div>
       </div>
         <div style={{ height: 500, width: '100%' }}>
             <DataGrid rows={rows} columns={columns} onRowClick={(params)=>handleRowClick(params)}/>
