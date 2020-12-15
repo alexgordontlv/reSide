@@ -12,6 +12,7 @@ import {addCalendarEvent} from '../pages/calendar/Calendar';
 
 
  function Display({dataToShow,currentUser,searchValue}) {
+   
   const [state, setState] = React.useState(null);
   const [index, setIndex] = React.useState(null);
   useEffect(() => {
@@ -69,7 +70,7 @@ const handleRowClick = (event) => {
       </div>
       </div>
         <div style={{ height: 500, width: '100%' }}>
-            <DataGrid rows={rows} columns={columns} onRowClick={(params)=>handleRowClick(params)}/>
+            <DataGrid rows={rows} columns={columns} onRowClick={(params)=>handleRowClick(params)}  disableMultipleSelection={true} />
         </div>
       </div>
     );
