@@ -101,7 +101,7 @@ export const updateDataFromFireBase = async (userAuth,state,target) => {
       message
     })
     .then(()=>{
-      console.log("Message was sent");
+      console.log("Message was sent..");
     })
   }
 
