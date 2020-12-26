@@ -16,12 +16,14 @@ import {
   addProperty,
   deleteData,
   updateData,
-} from "../redux/user/user.actions";
+} from "../../redux/user/user.actions";
 import {
   addDataToFireStore,
   deleteDataFromFireBase,
   updateDataFromFireBase,
-} from "../firebase/firebase";
+} from "../../firebase/firebase";
+import { SnackbarProvider, useSnackbar } from 'notistack';
+
 
 function FormDialog({ dataToShow, rowData, rowIndex }) {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -53,7 +55,7 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
   };
   const [state, setState] = React.useState("");
   const [open, setOpen] = React.useState(false);
-
+  const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     setState(rowData ? { ...rowData } : INITIAL_STATE);
     return function cleanup() {
@@ -66,29 +68,32 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
   const handleCecked = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
+
   const handleDelete = (event) => {
     event.preventDefault();
     deleteDataFromFireBase(currentUser, state.id, dataToShow);
     dispatch(deleteData(rowIndex, dataToShow));
     setOpen(false);
   };
-  const handleUpdate = (event) => {
+  const handleUpdate =  (event) => {
     event.preventDefault();
     console.log(rowIndex)
     updateDataFromFireBase(currentUser, state, dataToShow);
     dispatch(updateData(rowIndex, dataToShow, state));
+    enqueueSnackbar(`${state.name}was succesfully updated`)
     setOpen(false);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     if (currentUser) {
-      console.log("submit", currentUser);
       addDataToFireStore(currentUser, state, dataToShow).then((data) => {
         data.onSnapshot((snapShot) => {
           if (dataToShow === "customers") {
             dispatch(addCustomer(snapShot.data()));
+           enqueueSnackbar(`${state.name} was succesfully added to the database`, 'success')
           } else {
             dispatch(addProperty(snapShot.data()));
+            enqueueSnackbar(`${state.name} was succesfully added to the database`, 'success')
           }
           setState(INITIAL_STATE);
         });

@@ -1,10 +1,10 @@
 import React from 'react'
 import './display.style.scss';
 import { withRouter } from 'react-router-dom';
-const DisplayData = ({history}) => {
+const FrontDisplay = ({history}) => {
     return (
         <div className='span'>
-        <span>Welcome to Reside! A free and new platform to help you manage your customers and properties.<br/>Feel free to explore the demo version. to actually add customers/properties you need to sign in or register. </span>
+        <span>Welcome to Reside! A free and new platform to help you manage your customers and properties.<br/>Feel free to explore the demo version. To actually add customers/properties you need to sign in or register. </span>
         <div className={`menu-item`} onClick={()=>{ history.push("/signin");}}> 
        
         <div className='background-image' 
@@ -22,4 +22,4 @@ const DisplayData = ({history}) => {
     )
 }
 
-export default withRouter(DisplayData)
+export default withRouter(FrontDisplay)

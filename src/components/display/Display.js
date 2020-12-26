@@ -1,12 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { DataGrid, RowsProp, ColDef } from '@material-ui/data-grid';
 import './display.css';
-import FormDialog from '../components/FormDialog'
+import FormDialog from '../formdialog/FormDialog'
 import {connect} from 'react-redux';
-import Search from '../sidebar/Search';
-import TimePicker from '../display/TimePicker';
-import {addCalendarEvent} from '../pages/calendar/Calendar';
-
+import TimePicker from '../timepicker/TimePicker';
+import { SnackbarProvider} from 'notistack';
 
 
 
@@ -55,7 +53,7 @@ const handleRowClick = (event) => {
 }
 
     return (
-      
+      <SnackbarProvider maxSnack={3}>
       <div className='display'> 
       <div  className='icon'>
         <FormDialog dataToShow={dataToShow} rowData={null}/>
@@ -73,6 +71,7 @@ const handleRowClick = (event) => {
             <DataGrid rows={rows} columns={columns} onRowClick={(params)=>handleRowClick(params)}  disableMultipleSelection={true} />
         </div>
       </div>
+      </SnackbarProvider>
     );
   }
 
