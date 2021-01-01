@@ -5,7 +5,7 @@ import FormDialog from '../formdialog/FormDialog'
 import {connect} from 'react-redux';
 import TimePicker from '../timepicker/TimePicker';
 import { SnackbarProvider} from 'notistack';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 
@@ -68,7 +68,14 @@ const handleRowClick = (event) => {
       </div>
       </div>
         <div style={{ height: 500, width: '100%' }}>
-            <DataGrid rows={rows} columns={columns} onRowClick={(params)=>handleRowClick(params)}  disableMultipleSelection={true} />
+        {
+          rows.length > 0 ? <DataGrid rows={rows} columns={columns} onRowClick={(params)=>handleRowClick(params)}  disableMultipleSelection={true} />
+          :
+          <div className='proggress_container'>
+          <CircularProgress className='proggress'/>
+          </div>
+        }
+            
         </div>
       </div>
       </SnackbarProvider>

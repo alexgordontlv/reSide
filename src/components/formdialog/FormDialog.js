@@ -80,7 +80,7 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
     console.log(rowIndex)
     updateDataFromFireBase(currentUser, state, dataToShow);
     dispatch(updateData(rowIndex, dataToShow, state));
-    enqueueSnackbar(`${state.name}was succesfully updated`)
+    enqueueSnackbar(`${state.name} was succesfully updated`)
     setOpen(false);
   };
   const handleSubmit = (event) => {
@@ -90,11 +90,11 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
         data.onSnapshot((snapShot) => {
           if (dataToShow === "customers") {
             dispatch(addCustomer(snapShot.data()));
-           enqueueSnackbar(`${state.name} was succesfully added to the database`, 'success')
+           
           } else {
-            dispatch(addProperty(snapShot.data()));
-            enqueueSnackbar(`${state.name} was succesfully added to the database`, 'success')
+            dispatch(addProperty(snapShot.data()))
           }
+          enqueueSnackbar(`${state.name} was succesfully added to the database`, 'success')
           setState(INITIAL_STATE);
         });
       });
@@ -213,21 +213,21 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
             </div>
           </div>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary" variant="outlined">
+        <DialogActions >
+          <Button onClick={handleClose} color="primary" variant="outlined" className='button'>
             Cancel
           </Button>
           {rowData ? (
-            <div>
-              <Button onClick={handleDelete} color="primary" variant="outlined">
+            <div className='actions'>
+              <Button onClick={handleDelete} color="primary" variant="outlined" className='button'>
                 Delete {`${dataName}`}
               </Button>
-              <Button onClick={handleUpdate} color="primary" variant="outlined">
+              <Button onClick={handleUpdate} color="primary" variant="outlined" className='button'>
                 Update {`${dataName}`}
               </Button>
             </div>
           ) : (
-            <Button onClick={handleSubmit} color="primary" variant="outlined">
+            <Button onClick={handleSubmit} color="primary" variant="outlined" className='button'>
               Add {`${dataName}`}
             </Button>
           )}

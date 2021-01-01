@@ -20,8 +20,8 @@
 @media screen and (max-width: 800px) {
   .sidebarOption > h2 {
     font-weight: 800;
-    font-size: small;
+    font-size: medium;
     margin-right: 5px;
-    padding: 5px;
+    padding: 8px;
   }
 }

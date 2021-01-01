@@ -14,8 +14,6 @@
   export const addCalendarEvent = (startTime,address,clientName) => {
   
     gapi.load('client:auth2', () => {
-      console.log('loaded client')
-
       gapi.client.init({
         apiKey: API_KEY,
         clientId: CLIENT_ID,
@@ -23,7 +21,7 @@
         scope: SCOPES,
       })
 
-      gapi.client.load('calendar', 'v3', () => console.log('loaded calenadar!'))
+      gapi.client.load('calendar', 'v3')
       let timeString = startTime;
       let timeZone = "Asia/Jerusalem";
       let duration = '00:30:00';
@@ -36,7 +34,7 @@
 
 
       gapi.auth2.getAuthInstance().signIn()
-      .then(function(data){
+      .then(() => {
         console.log(isoStartDate)
         console.log(isoEndDate)
         let event = {
