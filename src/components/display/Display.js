@@ -69,7 +69,7 @@ const handleRowClick = (event) => {
       </div>
         <div style={{ height: 500, width: '100%' }}>
         {
-          rows.length > 0 ? <DataGrid rows={rows} columns={columns} onRowClick={(params)=>handleRowClick(params)}  disableMultipleSelection={true} />
+          rows.length || !currentUser > 0 ? <DataGrid rows={rows} columns={columns} onRowClick={(params)=>handleRowClick(params)}  disableMultipleSelection={true} />
           :
           <div className='proggress_container'>
           <CircularProgress className='proggress'/>

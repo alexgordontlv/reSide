@@ -13,7 +13,7 @@ const Sidebar = (props) => {
             <div className='search_box'>
                 <Search onChange={(value)=>props.onChange(value)}/>
             </div>
-            <div className='sidebar_options'>
+            <div className=''>
             <Link to={'/customers'}>
                 <SideBarOption Icon={SupervisorAccountIcon} text="Customers"/>
             </Link>

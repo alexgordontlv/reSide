@@ -4,7 +4,12 @@ import { withRouter } from 'react-router-dom';
 const FrontDisplay = ({history}) => {
     return (
         <div className='span'>
-        <span>Welcome to Reside! A free and new platform to help you manage your customers and properties.<br/>Feel free to explore the demo version. To actually add customers/properties you need to sign in or register. </span>
+        <span>Welcome to Reside! A free and new platform to help you manage your customers and properties.<br/>
+        Add events to your Google-Calendar with few simple clicks.<br/>
+         To explore the demo, register, or use our test user: <br/>
+         User: <strong>bradpitt@gmail.com</strong><br/>
+         Password: <strong>123456</strong>
+         </span>
         <div className={`menu-item`} onClick={()=>{ history.push("/signin");}}> 
        
         <div className='background-image' 
