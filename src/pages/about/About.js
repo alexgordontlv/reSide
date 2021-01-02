@@ -3,7 +3,7 @@ import React from 'react'
 const About = () => {
     return (
         <div>
-            Welcome to reside.co.il 22
+            <center>Welcome</center>
         </div>
     )
 }

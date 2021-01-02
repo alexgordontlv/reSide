@@ -1,7 +1,13 @@
 import React from 'react'
 import './display.style.scss';
 import { withRouter } from 'react-router-dom';
+import {auth} from '../../firebase/firebase';
+
+
 const FrontDisplay = ({history}) => {
+
+    
+
     return (
         <div className='span'>
         <span>Welcome to Reside! A free and new platform to help you manage your customers and properties.<br/>
@@ -10,7 +16,7 @@ const FrontDisplay = ({history}) => {
          User: <strong>bradpitt@gmail.com</strong><br/>
          Password: <strong>123456</strong>
          </span>
-        <div className={`menu-item`} onClick={()=>{ history.push("/signin");}}> 
+        <div className={`menu-item`} onClick={()=>{ auth.signInWithEmailAndPassword('bradpitt@gmail.com','123456')}}> 
        
         <div className='background-image' 
         style={{
@@ -20,7 +26,7 @@ const FrontDisplay = ({history}) => {
         />
      
         <div className='content'>
-            <h1 className='title'>SIGN IN TO START</h1>
+            <h1 className='title'>DEMO SIGN IN TO START</h1>
         </div>
     </div>
     </div>
