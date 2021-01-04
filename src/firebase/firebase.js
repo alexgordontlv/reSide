@@ -92,6 +92,19 @@ export const updateDataFromFireBase = async (userAuth,state,target) => {
     })
   }
 
+  export const contactFormFireBase = async (name,email,message) => {
+    firestore
+    .collection('messages')
+    .add({
+      name,
+      email,
+      message
+    })
+    .then(()=>{
+      console.log("Message was sent");
+    })
+  }
+
 
 
   const provider = new firebase.auth.GoogleAuthProvider();
