@@ -22,8 +22,7 @@ import {
   deleteDataFromFireBase,
   updateDataFromFireBase,
 } from "../../firebase/firebase";
-import { SnackbarProvider, useSnackbar } from 'notistack';
-
+import { SnackbarProvider, useSnackbar } from "notistack";
 
 function FormDialog({ dataToShow, rowData, rowIndex }) {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -75,12 +74,12 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
     dispatch(deleteData(rowIndex, dataToShow));
     setOpen(false);
   };
-  const handleUpdate =  (event) => {
+  const handleUpdate = (event) => {
     event.preventDefault();
-    console.log(rowIndex)
+    console.log(rowIndex);
     updateDataFromFireBase(currentUser, state, dataToShow);
     dispatch(updateData(rowIndex, dataToShow, state));
-    enqueueSnackbar(`${state.name} was succesfully updated`)
+    enqueueSnackbar(`${state.name} was succesfully updated`);
     setOpen(false);
   };
   const handleSubmit = (event) => {
@@ -90,11 +89,13 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
         data.onSnapshot((snapShot) => {
           if (dataToShow === "customers") {
             dispatch(addCustomer(snapShot.data()));
-           
           } else {
-            dispatch(addProperty(snapShot.data()))
+            dispatch(addProperty(snapShot.data()));
           }
-          enqueueSnackbar(`${state.name} was succesfully added to the database`, 'success')
+          enqueueSnackbar(
+            `${state.name} was succesfully added to the database`,
+            "success"
+          );
           setState(INITIAL_STATE);
         });
       });
@@ -121,7 +122,7 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
           />
         </IconButton>
       ) : (
-        <Button onClick={handleClickOpen} color="primary" variant="outlined">
+        <Button onClick={handleClickOpen} variant="outlined">
           Modify {`${dataName}`}
         </Button>
       )}
@@ -213,21 +214,33 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
             </div>
           </div>
         </DialogContent>
-        <DialogActions >
-          <Button onClick={handleClose} color="primary" variant="outlined" className='button'>
+        <DialogActions>
+          <Button onClick={handleClose} variant="outlined" className="button">
             Cancel
           </Button>
           {rowData ? (
-            <div className='actions'>
-              <Button onClick={handleDelete} color="primary" variant="outlined" className='button'>
+            <div className="actions">
+              <Button
+                onClick={handleDelete}
+                variant="outlined"
+                className="button"
+              >
                 Delete {`${dataName}`}
               </Button>
-              <Button onClick={handleUpdate} color="primary" variant="outlined" className='button'>
+              <Button
+                onClick={handleUpdate}
+                variant="outlined"
+                className="button"
+              >
                 Update {`${dataName}`}
               </Button>
             </div>
           ) : (
-            <Button onClick={handleSubmit} color="primary" variant="outlined" className='button'>
+            <Button
+              onClick={handleSubmit}
+              variant="outlined"
+              className="button"
+            >
               Add {`${dataName}`}
             </Button>
           )}
