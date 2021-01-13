@@ -6,11 +6,13 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { IconButton } from "@material-ui/core";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
+import AddIcon from "@material-ui/icons/Add";
 import "./formdialog.css";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { useSelector, useDispatch } from "react-redux";
+import EditIcon from "@material-ui/icons/Edit";
+
 import {
   addCustomer,
   addProperty,
@@ -114,16 +116,16 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
   return (
     <div>
       {!rowData ? (
-        <IconButton>
-          <AddCircleIcon
-            color="secondary"
-            fontSize="large"
-            onClick={handleClickOpen}
-          />
-        </IconButton>
+        <Button
+          variant="outlined"
+          onClick={handleClickOpen}
+          style={{ marginBottom: "20px", marginTop: "20px" }}
+        >
+          <AddIcon fontSize="large" /> Add Customer
+        </Button>
       ) : (
         <Button onClick={handleClickOpen} variant="outlined">
-          Modify {`${dataName}`}
+          <EditIcon />
         </Button>
       )}
 
