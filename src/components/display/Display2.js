@@ -13,12 +13,10 @@ import {
 import FormDialog from "../formdialog/FormDialog";
 import { useSelector } from "react-redux";
 import { Delete } from "@material-ui/icons";
-import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import TimePicker from "../timepicker/TimePicker";
 import { SnackbarProvider } from "notistack";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import useStyles from "./listStyles";
-import LocalParkingRoundedIcon from "@material-ui/icons/LocalParkingRounded";
 import EditIcon from "@material-ui/icons/Edit";
 import { GiElevator } from "react-icons/gi";
 import { AiFillCar } from "react-icons/ai";
@@ -29,6 +27,7 @@ function Display2({ dataToShow, searchValue }) {
   const currentUser = useSelector((state) => state.user.currentUser);
   const classes = useStyles();
   useEffect(() => {
+    currentUser?.customers?.map((row) => (row.budget = "250000"));
     return function cleanup() {
       setState("");
     };
@@ -47,7 +46,11 @@ function Display2({ dataToShow, searchValue }) {
   return (
     <SnackbarProvider maxSnack={3}>
       <div>
-        <FormDialog dataToShow={dataToShow} rowData={null} />
+        <FormDialog
+          dataToShow={dataToShow}
+          rowData={null}
+          style={{ alignItems: "center" }}
+        />
         <MUIList dense={false} className={classes.list}>
           {dataRows.map((row) => (
             <Slide direction="down" in mountOnEnter unmountOnExit key={row.id}>
@@ -55,26 +58,46 @@ function Display2({ dataToShow, searchValue }) {
                 alignItems="center"
                 className={row.parking ? classes.rowRed : classes.rowGreen}
               >
+                <ListItemAvatar>
+                  <div>
+                    <GiElevator className={classes.icon} />{" "}
+                    <AiFillCar className={classes.icon} />
+                  </div>
+                </ListItemAvatar>
                 <ListItemText
-                  primary={row.name}
-                  secondary={
-                    <div>
-                      <GiElevator className={classes.icon} />{" "}
-                      <AiFillCar className={classes.icon} />
-                    </div>
+                  primary={
+                    row.name.length > 12
+                      ? row.name.slice(0, 10) + "..."
+                      : row.name
                   }
+                  secondary={row.budget}
                 />
 
-                <ListItemText primary={row.phone} />
+                <ListItemText
+                  primary={
+                    row.phone.length > 12
+                      ? row.phone.slice(0, 10) + "..."
+                      : row.phone
+                  }
+                />
                 <ListItemSecondaryAction>
-                  <IconButton edge="center" aria-label="delete" onClick="">
+                  <IconButton edge="end" aria-label="delete" onClick="">
                     <EventIcon onClick="" style={{ color: "black" }} />
                   </IconButton>
                   <IconButton edge="end" aria-label="edit" onClick="">
-                    <EditIcon onClick="" className={classes.icon} />
+                    <FormDialog
+                      dataToShow={dataToShow}
+                      rowData={row}
+                      style={{ alignItems: "center" }}
+                    />
                   </IconButton>
                   <IconButton edge="end" aria-label="delete" onClick="">
-                    <Delete onClick="" className={classes.icon} />
+                    <Delete
+                      onClick={() => {
+                        setState(!state);
+                      }}
+                      style={{ color: "black" }}
+                    />
                   </IconButton>
                 </ListItemSecondaryAction>
               </ListItem>

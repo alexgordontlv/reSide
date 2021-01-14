@@ -16,7 +16,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentUser: {
           ...state.currentUser,
-          customers: [action.payload, ...state.currentUser.customers].filter(
+          customers: [...state.currentUser.customers, action.payload].filter(
             (n) => n
           ),
         },

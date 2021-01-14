@@ -81,6 +81,7 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
     console.log(rowIndex);
     updateDataFromFireBase(currentUser, state, dataToShow);
     dispatch(updateData(rowIndex, dataToShow, state));
+
     enqueueSnackbar(`${state.name} was succesfully updated`);
     setOpen(false);
   };
@@ -124,9 +125,7 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
           <AddIcon fontSize="large" /> Add Customer
         </Button>
       ) : (
-        <Button onClick={handleClickOpen} variant="outlined">
-          <EditIcon />
-        </Button>
+        <EditIcon onClick={handleClickOpen} />
       )}
 
       <Dialog
