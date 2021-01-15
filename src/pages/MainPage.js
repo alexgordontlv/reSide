@@ -36,7 +36,7 @@ const MainPage = ({ match }) => {
             exact
             path={`/properties`}
             render={(props) => (
-              <Display dataToShow={"properties"} searchValue={state} />
+              <Display2 dataToShow={"properties"} searchValue={state} />
             )}
           />
           <Route exact path={`/contact`} render={(props) => <Contact />} />

@@ -42,10 +42,10 @@ function Display({ dataToShow, currentUser, searchValue }) {
   const columns: ColDef[] = [
     { field: "name", headerName: `${name}`, width: 120 },
     { field: "budget", headerName: `${budget}`, width: 120 },
-    { field: "phone", headerName: `${phone}`, width: 120 },
+    { field: "phone", headerName: `${phone}`, width: 130 },
     { field: "rooms", headerName: "Rooms", width: 80 },
     { field: "floor", headerName: "Floor", width: 70 },
-    { field: "elevator", headerName: "Elevator", width: 70 },
+    { field: "elevator", headerName: "Elevator", width: 80 },
     { field: "parking", headerName: "Parking", width: 70 },
   ];
 

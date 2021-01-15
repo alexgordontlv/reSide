@@ -63,21 +63,26 @@ function Display2({ dataToShow, searchValue }) {
                     {row.parking && <AiFillCar className={classes.icon} />}
                   </div>
                 </ListItemAvatar>
-                <ListItemText
+                <ListItemText 
                   primary={
-                    row.name.length > 12
-                      ? row.name.slice(0, 10) + "..."
-                      : row.name
+                    "name"
                   }
-                  secondary={row.budget}
+                  secondary={ row.name}
                 />
 
                 <ListItemText
                   primary={
-                    row.phone.length > 12
-                      ? row.phone.slice(0, 10) + "..."
-                      : row.phone
+                    "phone"
                   }
+                  secondary ={ row.phone}
+                />
+                <ListItemText
+                  primary={
+                    "Rooms"
+                  }
+                  secondary ={row.rooms.length > 12
+                      ? row.rooms.slice(0, 10) + "..."
+                      : row.rooms}
                 />
                 <ListItemSecondaryAction>
                   <IconButton edge="end" aria-label="delete" onClick="">
