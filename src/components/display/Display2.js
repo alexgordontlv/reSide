@@ -27,7 +27,6 @@ function Display2({ dataToShow, searchValue }) {
   const currentUser = useSelector((state) => state.user.currentUser);
   const classes = useStyles();
   useEffect(() => {
-    currentUser?.customers?.map((row) => (row.budget = "250000"));
     return function cleanup() {
       setState("");
     };
@@ -60,8 +59,8 @@ function Display2({ dataToShow, searchValue }) {
               >
                 <ListItemAvatar>
                   <div>
-                    <GiElevator className={classes.icon} />{" "}
-                    <AiFillCar className={classes.icon} />
+                    {row.elevator && <GiElevator className={classes.icon} />}
+                    {row.parking && <AiFillCar className={classes.icon} />}
                   </div>
                 </ListItemAvatar>
                 <ListItemText

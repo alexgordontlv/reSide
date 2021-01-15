@@ -10,11 +10,13 @@ export default makeStyles(() => ({
     backgroundColor: "#F1F1F1",
     borderLeft: "3px solid rgba(225,0,0, 0.8)",
     marginBottom: "10px",
+    opacity: "0.9",
     borderRadius: "10px",
     maxHeight: "50px",
   },
   rowGreen: {
     backgroundColor: "#F1F1F1",
+    opacity: "0.9",
     borderLeft: "3px solid rgba(0,255,0, 0.8)",
     marginBottom: "10px",
     borderRadius: "10px",

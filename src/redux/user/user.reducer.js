@@ -48,19 +48,16 @@ const userReducer = (state = INITIAL_STATE, action) => {
         },
       };
     case USER_TYPES.UPDATE_DATA:
+      const oldCustomer = (state.currentUser.customers[action.payload.index] = {
+        ...action.payload.data,
+      });
       return {
         ...state,
         currentUser: {
           ...state.currentUser,
           [action.payload.target]: [
-            ...state.currentUser[action.payload.target].slice(
-              0,
-              action.payload.index
-            ),
-            { ...action.payload.data },
-            ...state.currentUser[action.payload.target].slice(
-              action.payload.index + 1
-            ),
+            ...state.currentUser[action.payload.target],
+            oldCustomer,
           ].filter((n) => n),
         },
       };
