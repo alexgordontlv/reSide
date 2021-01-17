@@ -48,29 +48,23 @@ const userReducer = (state = INITIAL_STATE, action) => {
         },
       };
     case USER_TYPES.UPDATE_DATA:
-      const oldCustomer = (state.currentUser.customers[action.payload.index] = {
-        ...action.payload.data,
-      });
       return {
         ...state,
         currentUser: {
           ...state.currentUser,
-          [action.payload.target]: [
-            ...state.currentUser[action.payload.target],
-            oldCustomer,
-          ].filter((n) => n),
-        },
-      };
-    case USER_TYPES.SEARCH_DATA:
-      console.log(action.payload);
-      const newCustomers = state.currentUser.customers.filter((user) =>
-        user.name.toLowerCase().includes(action.payload.toLowerCase())
-      );
-      return {
-        ...state,
-        currentUser: {
-          ...state.currentUser,
-          customers: [...newCustomers],
+          [action.payload.target]: state.currentUser[action.payload.target].map(
+            (item, index) => {
+              if (index !== action.payload.index) {
+                return item;
+              } else {
+                console.log(index);
+                return {
+                  ...item,
+                  ...action.payload.data,
+                };
+              }
+            }
+          ),
         },
       };
     default:

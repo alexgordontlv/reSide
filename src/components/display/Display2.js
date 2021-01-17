@@ -51,7 +51,7 @@ function Display2({ dataToShow, searchValue }) {
           style={{ alignItems: "center" }}
         />
         <MUIList dense={false} className={classes.list}>
-          {dataRows.map((row) => (
+          {dataRows.map((row, index) => (
             <Slide direction="down" in mountOnEnter unmountOnExit key={row.id}>
               <ListItem
                 alignItems="center"
@@ -63,27 +63,17 @@ function Display2({ dataToShow, searchValue }) {
                     {row.parking && <AiFillCar className={classes.icon} />}
                   </div>
                 </ListItemAvatar>
-                <ListItemText 
-                  primary={
-                    "name"
+                <ListItemText
+                  primary={"name"}
+                  secondary={
+                    row.name.length > 12
+                      ? row.name.slice(0, 10) + "..."
+                      : row.name
                   }
-                  secondary={ row.name}
                 />
 
-                <ListItemText
-                  primary={
-                    "phone"
-                  }
-                  secondary ={ row.phone}
-                />
-                <ListItemText
-                  primary={
-                    "Rooms"
-                  }
-                  secondary ={row.rooms.length > 12
-                      ? row.rooms.slice(0, 10) + "..."
-                      : row.rooms}
-                />
+                <ListItemText primary={"phone"} secondary={row.phone} />
+                <ListItemText primary={"Rooms"} secondary={row.rooms} />
                 <ListItemSecondaryAction>
                   <IconButton edge="end" aria-label="delete" onClick="">
                     <EventIcon onClick="" style={{ color: "black" }} />
@@ -92,6 +82,7 @@ function Display2({ dataToShow, searchValue }) {
                     <FormDialog
                       dataToShow={dataToShow}
                       rowData={row}
+                      rowIndex={index}
                       style={{ alignItems: "center" }}
                     />
                   </IconButton>
