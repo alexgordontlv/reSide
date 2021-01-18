@@ -7,6 +7,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { addCalendarEvent } from "../calendar/Calendar";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import EventIcon from "@material-ui/icons/Event";
 
 function TimePicker({ rowData }) {
   const useStyles = makeStyles((theme: Theme) =>
@@ -23,7 +24,7 @@ function TimePicker({ rowData }) {
     })
   );
   const classes = useStyles();
-  const [state, setState] = React.useState("");
+  const [state, setState] = React.useState(new Date());
   const [address, setAddress] = React.useState("");
   const [open, setOpen] = React.useState(false);
 
@@ -52,9 +53,7 @@ function TimePicker({ rowData }) {
 
   return (
     <div>
-      <Button onClick={handleClickOpen} variant="outlined">
-        Add Event
-      </Button>
+      <EventIcon style={{ color: "black" }} onClick={handleClickOpen} />
 
       <Dialog
         open={open}
@@ -62,7 +61,7 @@ function TimePicker({ rowData }) {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          Add Event To Google Calendar
+          Add Event To {rowData ? rowData.name : "Customer"}
         </DialogTitle>
         <DialogContent>
           <div className="container">
@@ -71,7 +70,7 @@ function TimePicker({ rowData }) {
                 id="datetime-local"
                 label="Next appointment"
                 type="datetime-local"
-                defaultValue={new Date()}
+                value={state}
                 className={classes.textField}
                 InputLabelProps={{
                   shrink: true,

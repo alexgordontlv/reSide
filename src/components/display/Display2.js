@@ -89,8 +89,8 @@ function Display2({ dataToShow, searchValue }) {
                   </Grid>
                 </Grid>
                 <ListItemSecondaryAction>
-                  <IconButton edge="end" aria-label="delete" onClick="">
-                    <EventIcon onClick="" style={{ color: "black" }} />
+                  <IconButton edge="end" aria-label="delete">
+                    <TimePicker rowData={row} />
                   </IconButton>
                   <IconButton edge="end" aria-label="edit" onClick="">
                     <FormDialog

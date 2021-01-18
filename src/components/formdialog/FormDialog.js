@@ -151,7 +151,7 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
           </Button>
         </Box>
       ) : (
-        <EditIcon onClick={handleClickOpen} />
+        <EditIcon onClick={handleClickOpen} style={{ color: "black" }} />
       )}
 
       <Dialog
