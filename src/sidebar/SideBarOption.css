@@ -4,18 +4,15 @@
   cursor: pointer;
 }
 
-.sidebarOption:hover {
-  background-color: var(--app-color);
-  border-radius: 30px;
-  color: black;
-  transition: color 100ms ease-out;
-}
-
 .sidebarOption > h2 {
   font-weight: 800;
   font-size: 20px;
   margin-right: 20px;
   padding: 10px;
+}
+.sidebarOption:hover {
+  color: var(--app-color-heavy);
+  transition: color 100ms ease-out;
 }
 @media screen and (max-width: 800px) {
   .sidebarOption > h2 {

@@ -9,6 +9,7 @@ import {
   IconButton,
   Slide,
   Button,
+  Grid,
 } from "@material-ui/core";
 import FormDialog from "../formdialog/FormDialog";
 import { useSelector } from "react-redux";
@@ -63,17 +64,30 @@ function Display2({ dataToShow, searchValue }) {
                     {row.parking && <AiFillCar className={classes.icon} />}
                   </div>
                 </ListItemAvatar>
-                <ListItemText
-                  primary={"name"}
-                  secondary={
-                    row.name.length > 12
-                      ? row.name.slice(0, 10) + "..."
-                      : row.name
-                  }
-                />
-
-                <ListItemText primary={"phone"} secondary={row.phone} />
-                <ListItemText primary={"Rooms"} secondary={row.rooms} />
+                <Grid
+                  className={classes.grid}
+                  container
+                  spacine={0}
+                  alignItems="center"
+                  justify="center"
+                >
+                  <Grid item xs={4} sm={4}>
+                    <ListItemText
+                      primary={"Name"}
+                      secondary={
+                        row.name.length > 12
+                          ? row.name.slice(0, 10) + "..."
+                          : row.name
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={4} sm={4}>
+                    <ListItemText primary={"Phone"} secondary={row.phone} />
+                  </Grid>
+                  <Grid item xs={4} sm={4}>
+                    <ListItemText primary={"Budget"} secondary={row.budget} />
+                  </Grid>
+                </Grid>
                 <ListItemSecondaryAction>
                   <IconButton edge="end" aria-label="delete" onClick="">
                     <EventIcon onClick="" style={{ color: "black" }} />

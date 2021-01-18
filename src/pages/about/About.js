@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     height: 320,
     position: "relative",
     zIndex: 1000,
-    borderBottom: "10px solid rgba(225,227,255, 0.8)",
+    borderBottom: "10px solid var(--app-color)",
   },
   footer: {
     textAlign: "center",

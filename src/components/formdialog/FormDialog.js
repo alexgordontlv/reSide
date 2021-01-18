@@ -12,6 +12,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { useSelector, useDispatch } from "react-redux";
 import EditIcon from "@material-ui/icons/Edit";
+import { Box, makeStyles } from "@material-ui/core";
 
 import {
   addCustomer,
@@ -24,9 +25,24 @@ import {
   deleteDataFromFireBase,
   updateDataFromFireBase,
 } from "../../firebase/firebase";
-import { SnackbarProvider, useSnackbar } from "notistack";
+import { useSnackbar } from "notistack";
 
 function FormDialog({ dataToShow, rowData, rowIndex }) {
+  const useStyles = makeStyles(() => ({
+    button: {
+      marginBottom: "20px",
+      marginTop: "20px",
+      borderRadius: "20px",
+      borderColor: "#028c6a",
+      color: "#028c6a",
+      "&:hover": {
+        color: "#028c6a",
+        backgroundColor: "#FFF",
+        borderBottom: "3px solid #028c6a",
+      },
+    },
+  }));
+  const classes = useStyles();
   const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
   let name,
@@ -117,13 +133,23 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
   return (
     <div>
       {!rowData ? (
-        <Button
-          variant="outlined"
-          onClick={handleClickOpen}
-          style={{ marginBottom: "20px", marginTop: "20px" }}
+        <Box
+          display="flex"
+          width={500}
+          height={80}
+          alignItems="center"
+          justifyContent="center"
         >
-          <AddIcon fontSize="large" /> Add Customer
-        </Button>
+          <Button
+            variant="outlined"
+            className={classes.button}
+            onClick={handleClickOpen}
+            textAlign="center"
+            justify="center"
+          >
+            <AddIcon fontSize="large" /> Add Customer
+          </Button>
+        </Box>
       ) : (
         <EditIcon onClick={handleClickOpen} />
       )}
