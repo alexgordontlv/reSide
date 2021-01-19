@@ -1,26 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect } from "react";
 import {
   List as MUIList,
   ListItem,
   ListItemAvatar,
-  Avatar,
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
   Slide,
-  Button,
   Grid,
 } from "@material-ui/core";
 import FormDialog from "../formdialog/FormDialog";
 import { useSelector,useDispatch } from "react-redux";
 import { Delete } from "@material-ui/icons";
 import TimePicker from "../timepicker/TimePicker";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import useStyles from "./listStyles";
-import EditIcon from "@material-ui/icons/Edit";
 import { GiElevator } from "react-icons/gi";
 import { AiFillCar } from "react-icons/ai";
-import EventIcon from "@material-ui/icons/Event";
 import {deleteDataFromFireBase} from '../../firebase/firebase';
 import {deleteData} from '../../redux/user/user.actions';
 import { useSnackbar } from "notistack";
