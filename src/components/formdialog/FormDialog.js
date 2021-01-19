@@ -36,9 +36,8 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
       borderColor: "#028c6a",
       color: "#028c6a",
       "&:hover": {
-        color: "#028c6a",
-        backgroundColor: "#FFF",
-        borderBottom: "3px solid #028c6a",
+        color: "white",
+        backgroundColor: "#028c6a",
       },
     },
   }));
@@ -86,12 +85,6 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-  const handleDelete = (event) => {
-    event.preventDefault();
-    deleteDataFromFireBase(currentUser, state.id, dataToShow);
-    dispatch(deleteData(rowIndex, dataToShow));
-    setOpen(false);
-  };
   const handleUpdate = (event) => {
     event.preventDefault();
     console.log(rowIndex);
@@ -147,7 +140,7 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
             textAlign="center"
             justify="center"
           >
-            <AddIcon fontSize="large" /> Add Customer
+            <AddIcon fontSize="large" /> {`Add ${dataToShow === 'customers' ? 'Customer' : 'Property'}`}
           </Button>
         </Box>
       ) : (
@@ -190,7 +183,7 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
                 margin="dense"
                 name="rooms"
                 label="Rooms"
-                type="text"
+                type="number"
                 value={state.rooms}
                 onChange={handleChange}
                 fullWidth
@@ -212,7 +205,7 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
                 margin="dense"
                 name="floor"
                 label="Floor"
-                type="text"
+                type="number"
                 value={state.floor}
                 onChange={handleChange}
                 fullWidth
@@ -247,13 +240,6 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
           </Button>
           {rowData ? (
             <div className="actions">
-              <Button
-                onClick={handleDelete}
-                variant="outlined"
-                className="button"
-              >
-                Delete {`${dataName}`}
-              </Button>
               <Button
                 onClick={handleUpdate}
                 variant="outlined"

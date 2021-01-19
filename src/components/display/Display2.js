@@ -12,26 +12,38 @@ import {
   Grid,
 } from "@material-ui/core";
 import FormDialog from "../formdialog/FormDialog";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { Delete } from "@material-ui/icons";
 import TimePicker from "../timepicker/TimePicker";
-import { SnackbarProvider } from "notistack";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import useStyles from "./listStyles";
 import EditIcon from "@material-ui/icons/Edit";
 import { GiElevator } from "react-icons/gi";
 import { AiFillCar } from "react-icons/ai";
 import EventIcon from "@material-ui/icons/Event";
+import {deleteDataFromFireBase} from '../../firebase/firebase';
+import {deleteData} from '../../redux/user/user.actions';
+import { useSnackbar } from "notistack";
 
 function Display2({ dataToShow, searchValue }) {
   const [state, setState] = React.useState(null);
   const currentUser = useSelector((state) => state.user.currentUser);
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+
   useEffect(() => {
     return function cleanup() {
       setState("");
     };
   }, [dataToShow]);
+
+  const handleDelete = (rowData,rowIndex) => {
+    deleteDataFromFireBase(currentUser, rowData.id, dataToShow);
+    dispatch(deleteData(rowIndex, dataToShow));
+    enqueueSnackbar(`${rowData.name} was succesfully deleted!`)
+  };
+
 
   const dataRows = currentUser
     ? dataToShow === "customers"
@@ -44,7 +56,6 @@ function Display2({ dataToShow, searchValue }) {
     : [];
 
   return (
-    <SnackbarProvider maxSnack={3}>
       <div>
         <FormDialog
           dataToShow={dataToShow}
@@ -73,7 +84,7 @@ function Display2({ dataToShow, searchValue }) {
                 >
                   <Grid item xs={4} sm={4}>
                     <ListItemText
-                      primary={"Name"}
+                      primary={dataToShow === 'customers' ? "Name" : 'Address'}
                       secondary={
                         row.name.length > 12
                           ? row.name.slice(0, 10) + "..."
@@ -82,10 +93,10 @@ function Display2({ dataToShow, searchValue }) {
                     />
                   </Grid>
                   <Grid item xs={4} sm={4}>
-                    <ListItemText primary={"Phone"} secondary={row.phone} />
+                    <ListItemText primary={dataToShow === 'customers' ? "Phone" : 'Contact'} secondary={row.phone || '- - - - - -'} />
                   </Grid>
                   <Grid item xs={4} sm={4}>
-                    <ListItemText primary={"Budget"} secondary={row.budget} />
+                    <ListItemText primary={dataToShow === 'customers' ? "Budget" : 'Price'} secondary={row.budget} />
                   </Grid>
                 </Grid>
                 <ListItemSecondaryAction>
@@ -103,7 +114,7 @@ function Display2({ dataToShow, searchValue }) {
                   <IconButton edge="end" aria-label="delete" onClick="">
                     <Delete
                       onClick={() => {
-                        setState(!state);
+                        handleDelete(row,index);
                       }}
                       style={{ color: "black" }}
                     />
@@ -114,7 +125,6 @@ function Display2({ dataToShow, searchValue }) {
           ))}
         </MUIList>
       </div>
-    </SnackbarProvider>
   );
 }
 

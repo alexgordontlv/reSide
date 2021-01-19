@@ -78,6 +78,7 @@ const config  = {
     .then(()=>{
       console.log("Document successfully deleted!");
     })
+    .catch(err => console.log(err));
   }
 export const updateDataFromFireBase = async (userAuth,state,target) => {
     if (!userAuth) return;

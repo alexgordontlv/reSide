@@ -8,6 +8,7 @@ import FrontDisplay from "./frontdisplay/FrontDisplay";
 import About from "./about/About";
 import { useSelector } from "react-redux";
 import Contact from "./contact/Contact";
+import { SnackbarProvider } from "notistack";
 
 const MainPage = ({ match }) => {
   const [state, setState] = useState("");
@@ -25,6 +26,7 @@ const MainPage = ({ match }) => {
             path={`${match.path}`}
             render={(props) => (!currentUser ? <FrontDisplay /> : <About />)}
           />
+          <SnackbarProvider maxSnack={3}>
           <Route
             exact
             path={`/customers`}
@@ -39,6 +41,7 @@ const MainPage = ({ match }) => {
               <Display2 dataToShow={"properties"} searchValue={state} />
             )}
           />
+          </SnackbarProvider>
           <Route exact path={`/contact`} render={(props) => <Contact />} />
           <Route exact path={`/about`} render={(props) => <About />} />
           <Route exact path={`/calendar`} render={(props) => <About />} />
