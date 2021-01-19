@@ -19,7 +19,7 @@ const MainPage = ({ match }) => {
       <div className="sidebar_component">
         <SideBar onChange={(value) => setState(value)} />
       </div>
-      <div className="body">
+      <div className="main_page_body">
         <Switch>
           <Route
             exact
@@ -27,20 +27,20 @@ const MainPage = ({ match }) => {
             render={(props) => (!currentUser ? <FrontDisplay /> : <About />)}
           />
           <SnackbarProvider maxSnack={3}>
-          <Route
-            exact
-            path={`/customers`}
-            render={(props) => (
-              <Display2 dataToShow={"customers"} searchValue={state} />
-            )}
-          />
-          <Route
-            exact
-            path={`/properties`}
-            render={(props) => (
-              <Display2 dataToShow={"properties"} searchValue={state} />
-            )}
-          />
+            <Route
+              exact
+              path={`/customers`}
+              render={(props) => (
+                <Display2 dataToShow={"customers"} searchValue={state} />
+              )}
+            />
+            <Route
+              exact
+              path={`/properties`}
+              render={(props) => (
+                <Display2 dataToShow={"properties"} searchValue={state} />
+              )}
+            />
           </SnackbarProvider>
           <Route exact path={`/contact`} render={(props) => <Contact />} />
           <Route exact path={`/about`} render={(props) => <About />} />

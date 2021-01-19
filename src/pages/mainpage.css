@@ -1,28 +1,24 @@
-
-
-
-.mainbody{
-    display: flex;
-    flex-direction: row;
+.mainbody {
+  display: flex;
+  flex-direction: row;
 }
-.sidebar_component{
-    flex:0.3;
+.sidebar_component {
+  flex: 0.3;
 }
-.body{
-    flex:0.7;
+.main_page_body {
+  flex: 0.7;
 }
-
 
 @media screen and (max-width: 800px) {
-    .mainbody{
-        display: flex;
-        flex-direction: column;
-    }
-    .sidebar_component{
-        flex: 1
-    }
-    .body{
-        flex:1;
-        padding: 5px;
-    }
+  .mainbody {
+    display: flex;
+    flex-direction: column;
   }
+  .sidebar_component {
+    flex: 1;
+  }
+  .body {
+    flex: 1;
+    padding: 5px;
+  }
+}

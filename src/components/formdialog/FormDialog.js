@@ -124,142 +124,144 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
   };
 
   return (
-    <div>
-      {!rowData ? (
-        <Box
-          display="flex"
-          width={500}
-          height={80}
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Button
-            variant="outlined"
-            className={classes.button}
-            onClick={handleClickOpen}
-            textAlign="center"
-            justify="center"
+    <Box width="100%">
+      <div>
+        {!rowData ? (
+          <Box
+            display="flex"
+            height={80}
+            alignItems="center"
+            justifyContent="center"
           >
-            <AddIcon fontSize="large" /> {`Add ${dataToShow === 'customers' ? 'Customer' : 'Property'}`}
-          </Button>
-        </Box>
-      ) : (
-        <EditIcon onClick={handleClickOpen} style={{ color: "black" }} />
-      )}
+            <Button
+              variant="outlined"
+              className={classes.button}
+              onClick={handleClickOpen}
+              textAlign="center"
+              justify="center"
+            >
+              <AddIcon fontSize="large" />{" "}
+              {`Add ${dataToShow === "customers" ? "Customer" : "Property"}`}
+            </Button>
+          </Box>
+        ) : (
+          <EditIcon onClick={handleClickOpen} style={{ color: "black" }} />
+        )}
 
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">
-          {rowData ? "Update" : "Add"} {`${dataName}`}
-        </DialogTitle>
-        <DialogContent>
-          <div className="container">
-            <div className="left">
-              <TextField
-                autoFocus
-                margin="dense"
-                name="name"
-                label={name}
-                type="text"
-                value={state.name}
-                onChange={handleChange}
-                fullWidth
-                className="field"
-              />
-              <TextField
-                margin="dense"
-                name="budget"
-                label={budget}
-                type="text"
-                value={state.budget}
-                onChange={handleChange}
-                fullWidth
-                className="field"
-              />
-              <TextField
-                margin="dense"
-                name="rooms"
-                label="Rooms"
-                type="number"
-                value={state.rooms}
-                onChange={handleChange}
-                fullWidth
-                className="field"
-              />
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">
+            {rowData ? "Update" : "Add"} {`${dataName}`}
+          </DialogTitle>
+          <DialogContent>
+            <div className="container">
+              <div className="left">
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  name="name"
+                  label={name}
+                  type="text"
+                  value={state.name}
+                  onChange={handleChange}
+                  fullWidth
+                  className="field"
+                />
+                <TextField
+                  margin="dense"
+                  name="budget"
+                  label={budget}
+                  type="text"
+                  value={state.budget}
+                  onChange={handleChange}
+                  fullWidth
+                  className="field"
+                />
+                <TextField
+                  margin="dense"
+                  name="rooms"
+                  label="Rooms"
+                  type="number"
+                  value={state.rooms}
+                  onChange={handleChange}
+                  fullWidth
+                  className="field"
+                />
+              </div>
+              <div className="right">
+                <TextField
+                  margin="dense"
+                  name="phone"
+                  label={phone}
+                  type="text"
+                  value={state.phone}
+                  onChange={handleChange}
+                  fullWidth
+                  className="field"
+                />
+                <TextField
+                  margin="dense"
+                  name="floor"
+                  label="Floor"
+                  type="number"
+                  value={state.floor}
+                  onChange={handleChange}
+                  fullWidth
+                  className="field"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={state.elevator}
+                      onChange={handleCecked}
+                      name="elevator"
+                    />
+                  }
+                  label="Elevator"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={state.parking}
+                      onChange={handleCecked}
+                      name="parking"
+                    />
+                  }
+                  label="Parking"
+                />
+              </div>
             </div>
-            <div className="right">
-              <TextField
-                margin="dense"
-                name="phone"
-                label={phone}
-                type="text"
-                value={state.phone}
-                onChange={handleChange}
-                fullWidth
-                className="field"
-              />
-              <TextField
-                margin="dense"
-                name="floor"
-                label="Floor"
-                type="number"
-                value={state.floor}
-                onChange={handleChange}
-                fullWidth
-                className="field"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={state.elevator}
-                    onChange={handleCecked}
-                    name="elevator"
-                  />
-                }
-                label="Elevator"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={state.parking}
-                    onChange={handleCecked}
-                    name="parking"
-                  />
-                }
-                label="Parking"
-              />
-            </div>
-          </div>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} variant="outlined" className="button">
-            Cancel
-          </Button>
-          {rowData ? (
-            <div className="actions">
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} variant="outlined" className="button">
+              Cancel
+            </Button>
+            {rowData ? (
+              <div className="actions">
+                <Button
+                  onClick={handleUpdate}
+                  variant="outlined"
+                  className="button"
+                >
+                  Update {`${dataName}`}
+                </Button>
+              </div>
+            ) : (
               <Button
-                onClick={handleUpdate}
+                onClick={handleSubmit}
                 variant="outlined"
                 className="button"
               >
-                Update {`${dataName}`}
+                Add {`${dataName}`}
               </Button>
-            </div>
-          ) : (
-            <Button
-              onClick={handleSubmit}
-              variant="outlined"
-              className="button"
-            >
-              Add {`${dataName}`}
-            </Button>
-          )}
-        </DialogActions>
-      </Dialog>
-    </div>
+            )}
+          </DialogActions>
+        </Dialog>
+      </div>
+    </Box>
   );
 }
 
