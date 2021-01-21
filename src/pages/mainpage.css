@@ -8,7 +8,11 @@
 .main_page_body {
   flex: 0.7;
 }
-
+.map_div {
+  width: 100%;
+  height: 202px;
+  border: 1px solid var(--app-color);
+}
 @media screen and (max-width: 800px) {
   .mainbody {
     display: flex;

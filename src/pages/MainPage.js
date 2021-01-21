@@ -9,43 +9,48 @@ import About from "./about/About";
 import { useSelector } from "react-redux";
 import Contact from "./contact/Contact";
 import { SnackbarProvider } from "notistack";
+import Map from "../components/map/Map";
 
 const MainPage = ({ match }) => {
   const [state, setState] = useState("");
   const currentUser = useSelector((state) => state.user.currentUser);
 
   return (
-    <div className="mainbody">
-      <div className="sidebar_component">
-        <SideBar onChange={(value) => setState(value)} />
-      </div>
-      <div className="main_page_body">
-        <Switch>
-          <Route
-            exact
-            path={`${match.path}`}
-            render={(props) => (!currentUser ? <FrontDisplay /> : <About />)}
-          />
-          <SnackbarProvider maxSnack={3}>
+    <div>
+      <div className="map_div">{<Map />}</div>
+
+      <div className="mainbody">
+        <div className="sidebar_component">
+          <SideBar onChange={(value) => setState(value)} />
+        </div>
+        <div className="main_page_body">
+          <Switch>
             <Route
               exact
-              path={`/customers`}
-              render={(props) => (
-                <Display2 dataToShow={"customers"} searchValue={state} />
-              )}
+              path={`${match.path}`}
+              render={(props) => (!currentUser ? <FrontDisplay /> : <About />)}
             />
-            <Route
-              exact
-              path={`/properties`}
-              render={(props) => (
-                <Display2 dataToShow={"properties"} searchValue={state} />
-              )}
-            />
-          </SnackbarProvider>
-          <Route exact path={`/contact`} render={(props) => <Contact />} />
-          <Route exact path={`/about`} render={(props) => <About />} />
-          <Route exact path={`/calendar`} render={(props) => <About />} />
-        </Switch>
+            <SnackbarProvider maxSnack={3}>
+              <Route
+                exact
+                path={`/customers`}
+                render={(props) => (
+                  <Display2 dataToShow={"customers"} searchValue={state} />
+                )}
+              />
+              <Route
+                exact
+                path={`/properties`}
+                render={(props) => (
+                  <Display2 dataToShow={"properties"} searchValue={state} />
+                )}
+              />
+            </SnackbarProvider>
+            <Route exact path={`/contact`} render={(props) => <Contact />} />
+            <Route exact path={`/about`} render={(props) => <About />} />
+            <Route exact path={`/calendar`} render={(props) => <About />} />
+          </Switch>
+        </div>
       </div>
     </div>
   );
