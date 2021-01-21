@@ -8,6 +8,8 @@ const SignInAndSignOut = () => {
   const useStyles = makeStyles(() => ({
     buttonSignOut: {
       borderColor: "#028c6a",
+      fontFamily: "sans-serif",
+
       color: "white",
       backgroundColor: "#028c6a",
       "&:hover": {
@@ -16,6 +18,8 @@ const SignInAndSignOut = () => {
       },
     },
     buttonSignIn: {
+      fontFamily: "sans-serif",
+
       borderColor: "#028c6a",
       color: "#028c6a",
     },

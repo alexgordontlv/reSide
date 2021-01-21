@@ -12,7 +12,7 @@ body {
   --app-color-heavy: #028c6a;
   --app-color-light: #7bc5ae;
 
-  font-family: "Open Sans Condensed", sans-serif;
+  font-family: sans-serif;
 
   font-size: 20px;
   padding: 20px 60px;

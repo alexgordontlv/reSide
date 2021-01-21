@@ -30,15 +30,17 @@ import { useSnackbar } from "notistack";
 function FormDialog({ dataToShow, rowData, rowIndex }) {
   const useStyles = makeStyles(() => ({
     button: {
-      marginBottom: "20px",
-      marginTop: "20px",
-      borderRadius: "20px",
+      borderColor: "#028c6a",
+      color: "white",
+      backgroundColor: "#028c6a",
+      "&:hover": {
+        color: "#028c6a",
+        backgroundColor: "#FFF",
+      },
+    },
+    buttonSignIn: {
       borderColor: "#028c6a",
       color: "#028c6a",
-      "&:hover": {
-        color: "white",
-        backgroundColor: "#028c6a",
-      },
     },
   }));
   const classes = useStyles();

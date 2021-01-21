@@ -7,8 +7,8 @@ export default makeStyles(() => ({
     overflow: "auto",
   },
   rowRed: {
-    border: "1px solid black",
     backgroundColor: "#d1ede1",
+    fontFamily: "sans-serif",
     borderLeft: "3px solid rgba(225,0,0, 0.8)",
     marginBottom: "10px",
     opacity: "0.8",
@@ -17,7 +17,6 @@ export default makeStyles(() => ({
   },
   rowGreen: {
     backgroundColor: "#d1ede1",
-    border: "1px solid black",
     opacity: "0.8",
     borderLeft: "3px solid rgba(0,255,0, 0.8)",
     marginBottom: "10px",
