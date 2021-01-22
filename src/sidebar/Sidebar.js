@@ -6,7 +6,7 @@ import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import EventIcon from "@material-ui/icons/Event";
 import Search from "./Search";
 import { Link } from "react-router-dom";
-
+import FormDialog from "../components/formdialog/FormDialog";
 const Sidebar = (props) => {
   return (
     <div className="sidebar">
@@ -24,6 +24,11 @@ const Sidebar = (props) => {
           <SideBarOption Icon={EventIcon} text="Calendar" />
         </Link>
       </div>
+      <FormDialog
+        dataToShow={"customers"}
+        rowData={null}
+        style={{ alignItems: "center" }}
+      />
     </div>
   );
 };

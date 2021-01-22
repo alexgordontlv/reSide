@@ -51,11 +51,6 @@ function Display2({ dataToShow, searchValue }) {
 
   return (
     <div>
-      <FormDialog
-        dataToShow={dataToShow}
-        rowData={null}
-        style={{ alignItems: "center" }}
-      />
       <MUIList
         dense={false}
         style={{ maxWidth: "100%" }}
@@ -107,7 +102,7 @@ function Display2({ dataToShow, searchValue }) {
                 <IconButton edge="end" aria-label="delete">
                   <TimePicker rowData={row} />
                 </IconButton>
-                <IconButton edge="end" aria-label="edit" onClick="">
+                <IconButton edge="end" aria-label="edit">
                   <FormDialog
                     dataToShow={dataToShow}
                     rowData={row}
@@ -115,7 +110,7 @@ function Display2({ dataToShow, searchValue }) {
                     style={{ alignItems: "center" }}
                   />
                 </IconButton>
-                <IconButton edge="end" aria-label="delete" onClick="">
+                <IconButton edge="end" aria-label="delete">
                   <Delete
                     onClick={() => {
                       handleDelete(row, index);

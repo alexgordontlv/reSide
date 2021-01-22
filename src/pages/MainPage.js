@@ -10,27 +10,40 @@ import { useSelector } from "react-redux";
 import Contact from "./contact/Contact";
 import { SnackbarProvider } from "notistack";
 import Map from "../components/map/Map";
+import dataLogo from "../datalogo2.svg";
 
 const MainPage = ({ match }) => {
   const [state, setState] = useState("");
   const currentUser = useSelector((state) => state.user.currentUser);
-
   return (
-    <div>
-      <div className="map_div">{<Map />}</div>
+    <SnackbarProvider maxSnack={3}>
+      <div>
+        {currentUser ? (
+          <div className="map_div">
+            <Map />
+          </div>
+        ) : (
+          <div></div>
+        )}
 
-      <div className="mainbody">
-        <div className="sidebar_component">
-          <SideBar onChange={(value) => setState(value)} />
-        </div>
-        <div className="main_page_body">
-          <Switch>
-            <Route
-              exact
-              path={`${match.path}`}
-              render={(props) => (!currentUser ? <FrontDisplay /> : <About />)}
-            />
-            <SnackbarProvider maxSnack={3}>
+        <div className="mainbody">
+          {currentUser ? (
+            <div className="sidebar_component">
+              <SideBar onChange={(value) => setState(value)} />
+            </div>
+          ) : (
+            <img src={dataLogo} className="logo" alt="Logo" />
+          )}
+
+          <div className="main_page_body">
+            <Switch>
+              <Route
+                exact
+                path={`${match.path}`}
+                render={(props) =>
+                  !currentUser ? <FrontDisplay /> : <About />
+                }
+              />
               <Route
                 exact
                 path={`/customers`}
@@ -45,14 +58,14 @@ const MainPage = ({ match }) => {
                   <Display2 dataToShow={"properties"} searchValue={state} />
                 )}
               />
-            </SnackbarProvider>
-            <Route exact path={`/contact`} render={(props) => <Contact />} />
-            <Route exact path={`/about`} render={(props) => <About />} />
-            <Route exact path={`/calendar`} render={(props) => <About />} />
-          </Switch>
+              <Route exact path={`/contact`} render={(props) => <Contact />} />
+              <Route exact path={`/about`} render={(props) => <About />} />
+              <Route exact path={`/calendar`} render={(props) => <About />} />
+            </Switch>
+          </div>
         </div>
       </div>
-    </div>
+    </SnackbarProvider>
   );
 };
 

@@ -26,7 +26,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentUser: {
           ...state.currentUser,
-          properties: [...state.currentUser.properties, action.payload].filter(
+          properties: [action.payload, ...state.currentUser.properties].filter(
             (n) => n
           ),
         },

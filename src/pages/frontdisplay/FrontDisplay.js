@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
 import { IconButton, Button, makeStyles } from "@material-ui/core";
-
+import "./frontdisplay.css";
 const FrontDisplay = ({ history }) => {
   const useStyles = makeStyles(() => ({
     buttonSignOut: {

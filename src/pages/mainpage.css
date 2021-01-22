@@ -13,6 +13,11 @@
   height: 202px;
   border: 1px solid var(--app-color);
 }
+.logo {
+  width: 400px;
+  height: 400px;
+}
+
 @media screen and (max-width: 800px) {
   .mainbody {
     display: flex;

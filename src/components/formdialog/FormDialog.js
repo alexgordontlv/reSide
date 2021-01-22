@@ -31,11 +31,11 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
   const useStyles = makeStyles(() => ({
     button: {
       borderColor: "#028c6a",
-      color: "white",
-      backgroundColor: "#028c6a",
+      color: "#028c6a",
+      backgroundColor: "white",
       "&:hover": {
-        color: "#028c6a",
-        backgroundColor: "#FFF",
+        color: "white",
+        backgroundColor: "028c6a",
       },
     },
     buttonSignIn: {
