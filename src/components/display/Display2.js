@@ -100,7 +100,11 @@ function Display2({ dataToShow, searchValue }) {
               </Grid>
               <ListItemSecondaryAction>
                 <IconButton edge="end" aria-label="delete">
-                  <TimePicker rowData={row} />
+                  {dataToShow === "customers" ? (
+                    <TimePicker rowData={row} />
+                  ) : (
+                    <div></div>
+                  )}
                 </IconButton>
                 <IconButton edge="end" aria-label="edit">
                   <FormDialog

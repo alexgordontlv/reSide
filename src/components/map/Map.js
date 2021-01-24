@@ -53,6 +53,10 @@ const Map = () => {
           >
             <RoomIcon
               fontSize="large"
+              style={{
+                color: "#7bc5ae",
+                border: "1px solid black",
+              }}
               onClick={(e) => {
                 e.preventDefault();
                 setSelectedProperty(property);

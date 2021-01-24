@@ -41,7 +41,11 @@ const MainPage = ({ match }) => {
                 exact
                 path={`${match.path}`}
                 render={(props) =>
-                  !currentUser ? <FrontDisplay /> : <About />
+                  !currentUser ? (
+                    <FrontDisplay />
+                  ) : (
+                    <Display2 dataToShow={"customers"} searchValue={state} />
+                  )
                 }
               />
               <Route
