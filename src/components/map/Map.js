@@ -1,18 +1,23 @@
 import React, { useState } from "react";
-import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import RoomIcon from "@material-ui/icons/Room";
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+} from "@react-google-maps/api";
 
 const Map = () => {
   const [viewport, setViewPort] = useState({
-    latitude: 32.09016227876648,
-    longitude: 34.80824571815939,
-    zoom: 13,
-    position: "absolute",
-    overflow: "hidden",
-    top: 0,
-    bottom: 0,
+    lng: 32.09016227876648,
+    lat: 34.80824571815939,
+    zoom: 10,
   });
-  const [selectedProperty, setSelectedProperty] = useState(null);
+  const libraries = ["places"];
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_CALENDAR_API_KEY,
+    libraries,
+  });
 
   const propertyArray = [
     {
@@ -34,47 +39,7 @@ const Map = () => {
       longitude: 34.77947097994985,
     },
   ];
-  return (
-    <div>
-      <ReactMapGL
-        {...viewport}
-        width="100%"
-        height="200px"
-        scrollEnabled={true}
-        mapboxApiAccessToken={process.env.REACT_APP_MAP_BOX_API}
-        onViewportChange={(viewport) => setViewPort(viewport)}
-        mapStyle="mapbox://styles/alexgordontlv/ckk4kpj0y0qan17oc3ocgjap0"
-      >
-        {propertyArray.map((property) => (
-          <Marker
-            key={property.id}
-            latitude={property.latitude}
-            longitude={property.longitude}
-          >
-            <RoomIcon
-              fontSize="large"
-              style={{
-                color: "#7bc5ae",
-                border: "1px solid black",
-              }}
-              onClick={(e) => {
-                e.preventDefault();
-                setSelectedProperty(property);
-              }}
-            />
-          </Marker>
-        ))}
-        {selectedProperty && (
-          <Popup
-            latitude={selectedProperty.latitude}
-            longitude={selectedProperty.longitude}
-          >
-            <div>{selectedProperty.address}</div>
-          </Popup>
-        )}
-      </ReactMapGL>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Map;
