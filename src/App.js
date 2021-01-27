@@ -1,38 +1,40 @@
-import React, { useEffect } from "react";
-import "./App.css";
-import Header from "./header/Header";
-import { Route, Switch, Redirect } from "react-router-dom";
-import MainPage from "./pages/MainPage";
-import SignInAndSignOut from "./pages/signin&signout/SignInAndSignOut";
+import React, { useEffect } from 'react';
+import './App.css';
+import Header from './header/Header';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import MainPage from './pages/MainPage';
+import SignInAndSignOut from './pages/signin&signout/SignInAndSignOut';
 import {
   auth,
   createUserProfileDocument,
-  getDataFromFireStore,
-} from "./firebase/firebase";
-import {useSelector, useDispatch  } from "react-redux";
-import {setUser, addCustomer, addProperty } from "./redux/user/user.actions";
+  getDataFromFireStore
+} from './firebase/firebase';
+import { useSelector, useDispatch } from 'react-redux';
+import { setUser, addCustomer, addProperty } from './redux/user/user.actions';
 
 const App = () => {
-  const currentUser = useSelector(state => state.user.currentUser);
-  const dispatch = useDispatch()
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
   useEffect(() => {
     auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
         await userRef.onSnapshot(async (snapShot) => {
-          dispatch(setUser({
-            photoURL: userAuth.photoURL,
-            id: snapShot.id,
-            ...snapShot.data(),
-            customers: [],
-            properties: [],
-          }));
+          dispatch(
+            setUser({
+              photoURL: userAuth.photoURL,
+              id: snapShot.id,
+              ...snapShot.data(),
+              customers: [],
+              properties: []
+            })
+          );
         });
-        const customers = await getDataFromFireStore(userAuth, "customers");
+        const customers = await getDataFromFireStore(userAuth, 'customers');
         if (!customers.empty) {
           customers.docs.map((doc) => dispatch(addCustomer(doc.data())));
         }
-        const properties = await getDataFromFireStore(userAuth, "properties");
+        const properties = await getDataFromFireStore(userAuth, 'properties');
         if (!properties.empty) {
           properties.docs.map((doc) => dispatch(addProperty(doc.data())));
         }
@@ -40,8 +42,7 @@ const App = () => {
         dispatch(setUser(null));
       }
     });
-    return function cleanup() {
-    };
+    return function cleanup() {};
   }, []);
 
   return (
