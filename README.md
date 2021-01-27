@@ -1,4 +1,4 @@
-<img align="left" alt="ski" width="65px" src="https://i.ibb.co/zXxMTpk/newGIf.gif" /><br/>
+<img align="left" alt="ski" width="65px" src="https://i.ibb.co/zXxMTpk/newGIf.gif" /><br width="100%"/>
 <br />
 <br />
 <br />
