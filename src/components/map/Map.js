@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import RoomIcon from '@material-ui/icons/Room';
 import {
   GoogleMap,
@@ -7,25 +7,82 @@ import {
   InfoWindow
 } from '@react-google-maps/api';
 import mapStyles from './mapStyles';
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng
+} from 'use-places-autocomplete';
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption
+} from '@reach/combobox';
+import './map.css';
+
+const Search = () => {
+  const {
+    ready,
+    value,
+    suggestions: { status, date },
+    setValue,
+    clearSuggestions
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      location: { lat: () => 32.07382, lng: () => 34.77989 },
+      radius: 10000
+    }
+  });
+
+  return (
+    <div className="search">
+      <Combobox
+        onSelect={(address) => {
+          console.log(address);
+        }}
+      >
+        <ComboboxInput
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
+          disabled={!ready}
+          placeholder="Enter Address: "
+        ></ComboboxInput>
+      </Combobox>
+    </div>
+  );
+};
 
 const Map = () => {
+  const [selected, setSelected] = useState(null);
+  console.log(selected);
   const center = {
     lng: 34.77989,
     lat: 32.07382
   };
+
   const options = {
     styles: mapStyles,
     disableDefaultUI: true
   };
+
   const libraries = ['places'];
+
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAP_API,
     libraries
   });
+
   const mapContainerStyle = {
     width: '100%',
     height: '200px'
   };
+  const mapRef = useRef();
+  const onMapLoad = useCallback((map) => {
+    mapRef.current = map;
+  }, []);
+
   const propertyArray = [
     {
       id: 1,
@@ -51,15 +108,39 @@ const Map = () => {
   if (!isLoaded) return 'Loading...';
   return (
     <div>
+      <Search />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={15}
         center={center}
         options={options}
+        onLoad={onMapLoad}
       >
         {propertyArray.map((prop) => (
-          <Marker key={prop.id} position={{ lat: prop.lat, lng: prop.lng }} />
+          <Marker
+            key={prop.id}
+            position={{ lat: prop.lat, lng: prop.lng }}
+            icon={{
+              url: '/real-estate.svg',
+              scaledSize: new window.google.maps.Size(40, 40),
+              origin: new window.google.maps.Point(0, 0),
+              anchor: new window.google.maps.Point(15, 15)
+            }}
+            onClick={() => {
+              setSelected(prop);
+            }}
+          />
         ))}
+        {selected ? (
+          <InfoWindow
+            position={{ lat: selected.lat, lng: selected.lng }}
+            onCloseClick={() => {
+              setSelected(null);
+            }}
+          >
+            <div>{selected.address}</div>
+          </InfoWindow>
+        ) : null}
       </GoogleMap>
     </div>
   );
