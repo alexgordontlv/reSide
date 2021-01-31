@@ -24,7 +24,7 @@ const Search = () => {
   const {
     ready,
     value,
-    suggestions: { status, date },
+    suggestions: { status, data },
     setValue,
     clearSuggestions
   } = usePlacesAutocomplete({
@@ -37,8 +37,14 @@ const Search = () => {
   return (
     <div className="search">
       <Combobox
-        onSelect={(address) => {
-          console.log(address);
+        onSelect={async (address) => {
+          try {
+            const geoResults = await getGeocode({ address });
+            const { lat, lng } = await getLatLng(geoResults[0]);
+            console.log(lat, lng);
+          } catch (err) {
+            console.log(err);
+          }
         }}
       >
         <ComboboxInput
@@ -47,8 +53,16 @@ const Search = () => {
             setValue(e.target.value);
           }}
           disabled={!ready}
-          placeholder="Enter Address: "
-        ></ComboboxInput>
+          placeholder="Search your location"
+        />
+        <ComboboxPopover className="option">
+          <ComboboxList>
+            {status === 'OK' &&
+              data.map(({ id, description }) => (
+                <ComboboxOption key={id} value={description} />
+              ))}
+          </ComboboxList>
+        </ComboboxPopover>
       </Combobox>
     </div>
   );
