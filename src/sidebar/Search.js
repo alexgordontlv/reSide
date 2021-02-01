@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './search.css';
 import SearchIcon from '@material-ui/icons/Search';
 import { withRouter } from 'react-router-dom';
 
 const Search = ({ onChange, history }) => {
-  console.log(history.location.pathname);
   let target = '';
-  if (history.location.pathname === '/customers') {
-    target = 'Customers';
-  }
-  if (history.location.pathname === '/properties') {
-    target = 'Properties';
-  }
+  useEffect(() => {
+    if (history.location.pathname === '/customers') {
+      target = 'Customers';
+    }
+    if (history.location.pathname === '/properties') {
+      target = 'Properties';
+    }
+  }, [history.location.pathname]);
   return (
     <div className="search__input">
       <SearchIcon className="search__searchIcon" />

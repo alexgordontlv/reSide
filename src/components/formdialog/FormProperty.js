@@ -5,8 +5,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { IconButton } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
 import './formdialog.css';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -14,18 +12,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import EditIcon from '@material-ui/icons/Edit';
 import { Box, makeStyles } from '@material-ui/core';
 
-import {
-  addCustomer,
-  addProperty,
-  updateData
-} from '../../redux/user/user.actions';
+import { addProperty, updateData } from '../../redux/user/user.actions';
 import {
   addDataToFireStore,
   updateDataFromFireBase
 } from '../../firebase/firebase';
 import { useSnackbar } from 'notistack';
 
-function FormDialog({ dataToShow, rowData, rowIndex }) {
+function FormDialog({ openNow, setopenNow, propsToPass }) {
   const useStyles = makeStyles(() => ({
     button: {
       borderColor: '#028c6a',
@@ -43,23 +37,7 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
   }));
   const classes = useStyles();
   const currentUser = useSelector((state) => state.user.currentUser);
-  const dispatch = useDispatch();
-  let name,
-    budget,
-    phone,
-    dataName = null;
-  if (dataToShow === 'customers') {
-    dataName = 'Customer';
-    name = 'Name';
-    budget = 'Budget';
-    phone = 'Phone Number';
-  } else {
-    dataName = 'Property';
-    name = 'Address';
-    budget = 'Price';
-    phone = 'Contact';
-  }
-  let INITIAL_STATE = {
+  const [state, setState] = React.useState({
     id: '',
     name: '',
     budget: '',
@@ -67,17 +45,22 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
     rooms: '',
     floor: '',
     elevator: false,
-    parking: false
-  };
-  const [state, setState] = React.useState('');
-  const [open, setOpen] = React.useState(false);
-  const { enqueueSnackbar } = useSnackbar();
+    parking: false,
+    lat: '',
+    lng: ''
+  });
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    setState(rowData ? { ...rowData } : INITIAL_STATE);
-    return function cleanup() {
+    const { address, lat, lng } = propsToPass;
+    setState({ ...state, name: address, lat: lat, lng: lng });
+    return () => {
       setState('');
     };
-  }, [rowData]);
+  }, [openNow]);
+
+  const { enqueueSnackbar } = useSnackbar();
+
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
   };
@@ -85,77 +68,36 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-  const handleUpdate = (event) => {
-    event.preventDefault();
-    console.log(rowIndex);
-    updateDataFromFireBase(currentUser, state, dataToShow);
-    dispatch(updateData(rowIndex, dataToShow, state));
-
-    enqueueSnackbar(`${state.name} was succesfully updated`);
-    setOpen(false);
-  };
   const handleSubmit = (event) => {
     event.preventDefault();
     if (currentUser) {
-      addDataToFireStore(currentUser, state, dataToShow).then((data) => {
+      console.log(state);
+      addDataToFireStore(currentUser, state, 'properties').then((data) => {
         data.onSnapshot((snapShot) => {
-          if (dataToShow === 'customers') {
-            dispatch(addCustomer(snapShot.data()));
-          } else {
-            dispatch(addProperty(snapShot.data()));
-          }
+          dispatch(addProperty(snapShot.data()));
           enqueueSnackbar(
             `${state.name} was succesfully added to the database`,
             'success'
           );
-          setState(INITIAL_STATE);
         });
       });
     }
-    setOpen(false);
-  };
-
-  const handleClickOpen = () => {
-    setOpen(true);
+    setopenNow(false);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setopenNow(false);
   };
 
   return (
     <Box width="100%">
       <div>
-        {!rowData ? (
-          <Box
-            display="flex"
-            height={80}
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Button
-              variant="outlined"
-              className={classes.button}
-              onClick={handleClickOpen}
-              textAlign="center"
-              justify="center"
-            >
-              <AddIcon fontSize="large" />{' '}
-              {`Add ${dataToShow === 'customers' ? 'Customer' : 'Property'}`}
-            </Button>
-          </Box>
-        ) : (
-          <EditIcon onClick={handleClickOpen} style={{ color: 'black' }} />
-        )}
-
         <Dialog
-          open={open}
+          open={openNow}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">
-            {rowData ? 'Update' : 'Add'} {`${dataName}`}
-          </DialogTitle>
+          <DialogTitle id="form-dialog-title"></DialogTitle>
           <DialogContent>
             <div className="container">
               <div className="left">
@@ -163,7 +105,7 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
                   autoFocus
                   margin="dense"
                   name="name"
-                  label={name}
+                  label="Address"
                   type="text"
                   value={state.name}
                   onChange={handleChange}
@@ -173,7 +115,7 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
                 <TextField
                   margin="dense"
                   name="budget"
-                  label={budget}
+                  label="Price"
                   type="text"
                   value={state.budget}
                   onChange={handleChange}
@@ -195,7 +137,7 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
                 <TextField
                   margin="dense"
                   name="phone"
-                  label={phone}
+                  label="Contact"
                   type="text"
                   value={state.phone}
                   onChange={handleChange}
@@ -239,25 +181,13 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
             <Button onClick={handleClose} variant="outlined" className="button">
               Cancel
             </Button>
-            {rowData ? (
-              <div className="actions">
-                <Button
-                  onClick={handleUpdate}
-                  variant="outlined"
-                  className="button"
-                >
-                  Update {`${dataName}`}
-                </Button>
-              </div>
-            ) : (
-              <Button
-                onClick={handleSubmit}
-                variant="outlined"
-                className="button"
-              >
-                Add {`${dataName}`}
-              </Button>
-            )}
+            <Button
+              onClick={handleSubmit}
+              variant="outlined"
+              className="button"
+            >
+              Add {`Property`}
+            </Button>
           </DialogActions>
         </Dialog>
       </div>

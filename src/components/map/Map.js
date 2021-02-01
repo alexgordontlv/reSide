@@ -7,70 +7,14 @@ import {
   InfoWindow
 } from '@react-google-maps/api';
 import mapStyles from './mapStyles';
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng
-} from 'use-places-autocomplete';
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption
-} from '@reach/combobox';
+import MapSearch from './mapSearch';
 import './map.css';
-
-const Search = () => {
-  const {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-    clearSuggestions
-  } = usePlacesAutocomplete({
-    requestOptions: {
-      location: { lat: () => 32.07382, lng: () => 34.77989 },
-      radius: 10000
-    }
-  });
-
-  return (
-    <div className="search">
-      <Combobox
-        onSelect={async (address) => {
-          try {
-            const geoResults = await getGeocode({ address });
-            const { lat, lng } = await getLatLng(geoResults[0]);
-            console.log(lat, lng);
-          } catch (err) {
-            console.log(err);
-          }
-        }}
-      >
-        <ComboboxInput
-          value={value}
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-          disabled={!ready}
-          placeholder="Search your location"
-        />
-        <ComboboxPopover className="option">
-          <ComboboxList>
-            {status === 'OK' &&
-              data.map(({ id, description }) => (
-                <ComboboxOption key={id} value={description} />
-              ))}
-          </ComboboxList>
-        </ComboboxPopover>
-      </Combobox>
-    </div>
-  );
-};
+import { useSelector, useDispatch } from 'react-redux';
 
 const Map = () => {
   const [selected, setSelected] = useState(null);
-  console.log(selected);
+  const properties = useSelector((state) => state.user.currentUser?.properties);
+
   const center = {
     lng: 34.77989,
     lat: 32.07382
@@ -118,45 +62,52 @@ const Map = () => {
     }
   ];
 
+  const panTo = useCallback(({ lat, lng }) => {
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(16);
+  }, []);
+
   if (loadError) return 'error loading map';
   if (!isLoaded) return 'Loading...';
   return (
-    <div>
-      <Search />
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        zoom={15}
-        center={center}
-        options={options}
-        onLoad={onMapLoad}
-      >
-        {propertyArray.map((prop) => (
-          <Marker
-            key={prop.id}
-            position={{ lat: prop.lat, lng: prop.lng }}
-            icon={{
-              url: '/real-estate.svg',
-              scaledSize: new window.google.maps.Size(40, 40),
-              origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(15, 15)
-            }}
-            onClick={() => {
-              setSelected(prop);
-            }}
-          />
-        ))}
-        {selected ? (
-          <InfoWindow
-            position={{ lat: selected.lat, lng: selected.lng }}
-            onCloseClick={() => {
-              setSelected(null);
-            }}
-          >
-            <div>{selected.address}</div>
-          </InfoWindow>
-        ) : null}
-      </GoogleMap>
-    </div>
+    isLoaded && (
+      <div>
+        <MapSearch panTo={panTo} />
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          zoom={15}
+          center={center}
+          options={options}
+          onLoad={onMapLoad}
+        >
+          {properties.map((prop) => (
+            <Marker
+              key={prop.id}
+              position={{ lat: prop.lat, lng: prop.lng }}
+              icon={{
+                url: '/real-estate.svg',
+                scaledSize: new window.google.maps.Size(40, 40),
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(15, 15)
+              }}
+              onClick={() => {
+                setSelected(prop);
+              }}
+            />
+          ))}
+          {selected ? (
+            <InfoWindow
+              position={{ lat: selected.lat, lng: selected.lng }}
+              onCloseClick={() => {
+                setSelected(null);
+              }}
+            >
+              <div>{selected.name}</div>
+            </InfoWindow>
+          ) : null}
+        </GoogleMap>
+      </div>
+    )
   );
 };
 
