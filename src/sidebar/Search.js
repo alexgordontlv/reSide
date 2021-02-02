@@ -5,14 +5,12 @@ import { withRouter } from 'react-router-dom';
 
 const Search = ({ onChange, history }) => {
   let target = '';
-  useEffect(() => {
-    if (history.location.pathname === '/customers') {
-      target = 'Customers';
-    }
-    if (history.location.pathname === '/properties') {
-      target = 'Properties';
-    }
-  }, [history.location.pathname]);
+  if (history.location.pathname === '/customers') {
+    target = 'Customers';
+  }
+  if (history.location.pathname === '/properties') {
+    target = 'Properties';
+  }
   return (
     <div className="search__input">
       <SearchIcon className="search__searchIcon" />

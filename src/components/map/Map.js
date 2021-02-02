@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 const Map = () => {
   const [selected, setSelected] = useState(null);
   const properties = useSelector((state) => state.user.currentUser?.properties);
+  const [libraries] = useState(['places']);
 
   const center = {
     lng: 34.77989,
@@ -24,8 +25,6 @@ const Map = () => {
     styles: mapStyles,
     disableDefaultUI: true
   };
-
-  const libraries = ['places'];
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAP_API,
@@ -41,32 +40,11 @@ const Map = () => {
     mapRef.current = map;
   }, []);
 
-  const propertyArray = [
-    {
-      id: 1,
-      address: 'Pinkas 35',
-      lng: 34.7759,
-      lat: 32.07162
-    },
-    {
-      id: 2,
-      address: 'Shlomo hamelech',
-      lat: 32.08995321739308,
-      lng: 34.77786165454013
-    },
-    {
-      id: 3,
-      address: 'Habima',
-      lat: 32.07382,
-      lng: 34.77989
-    }
-  ];
-
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(16);
   }, []);
-
+  console.log(center);
   if (loadError) return 'error loading map';
   if (!isLoaded) return 'Loading...';
   return (
@@ -74,6 +52,7 @@ const Map = () => {
       <div>
         <MapSearch panTo={panTo} />
         <GoogleMap
+          id="map"
           mapContainerStyle={mapContainerStyle}
           zoom={15}
           center={center}

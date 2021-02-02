@@ -59,7 +59,7 @@ const MapSearch = ({ panTo }) => {
             setValue(e.target.value);
           }}
           disabled={!ready}
-          placeholder="Search your location"
+          placeholder="Add new property by address"
         />
         <ComboboxPopover className="option">
           <ComboboxList>
