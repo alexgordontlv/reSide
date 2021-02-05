@@ -10,6 +10,7 @@ import mapStyles from './mapStyles';
 import MapSearch from './mapSearch';
 import './map.css';
 import { useSelector, useDispatch } from 'react-redux';
+import { IconButton, Button, makeStyles } from '@material-ui/core';
 
 const Map = () => {
   const [selected, setSelected] = useState(null);

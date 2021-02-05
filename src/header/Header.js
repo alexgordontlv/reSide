@@ -27,9 +27,9 @@ const Header = () => {
         backgroundColor: '#FFF'
       }
     },
-    buttonSignIn: {
+    homeIcon: {
       borderColor: '#028c6a',
-      color: '#028c6a'
+      color: '#089048'
     }
   }));
   const classes = useStyles();
@@ -42,7 +42,7 @@ const Header = () => {
         <div className="options">
           <Link to={currentUser ? '/customers' : '/'}>
             <IconButton className={classes.iconButton}>
-              <HomeWorkIcon className="logo" />
+              <HomeWorkIcon className={classes.homeIcon} />
               <p>Reside</p>
             </IconButton>
           </Link>

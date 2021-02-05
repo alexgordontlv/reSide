@@ -19,10 +19,6 @@
   background-color: 'white';
 }
 
-.left_side {
-  flex: 0.2;
-}
-
 .header__avatar {
   display: flex;
   align-items: center;
