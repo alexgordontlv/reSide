@@ -47,20 +47,24 @@ const App = () => {
 
   return (
     <div className="app">
-      <div className="header">
-        <Header />
-      </div>
+      <Header />
       <div className="main">
-        <Switch>
-          <Route
-            exact
-            path="/signin"
-            render={() =>
-              currentUser ? <Redirect to="/customers" /> : <SignInAndSignOut />
-            }
-          />
-          <Route path="/" component={MainPage} />
-        </Switch>
+        <div className="main__container">
+          <Switch>
+            <Route
+              exact
+              path="/signin"
+              render={() =>
+                currentUser ? (
+                  <Redirect to="/customers" />
+                ) : (
+                  <SignInAndSignOut />
+                )
+              }
+            />
+            <Route path="/" component={MainPage} />
+          </Switch>
+        </div>
       </div>
     </div>
   );
