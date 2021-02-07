@@ -1,3 +1,14 @@
-.span {
-  margin-top: 5vw;
+.frontdisplay {
+  margin-left: 100px;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (max-width: 800px) {
+  .frontdisplay {
+    display: flex;
+    margin-left: 10px;
+    flex-direction: column;
+  }
 }

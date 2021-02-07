@@ -4,21 +4,21 @@
   cursor: pointer;
 }
 
-.sidebarOption > h2 {
-  font-weight: 800;
-  font-size: 20px;
-  margin-right: 20px;
+.sidebarOption__option {
+  display: flex;
+  width: 100%;
   padding: 10px;
+  justify-content: space-between;
+}
+p {
+  color: grey;
 }
 .sidebarOption:hover {
   color: var(--app-color-heavy);
   transition: color 100ms ease-out;
 }
 @media screen and (max-width: 800px) {
-  .sidebarOption > h2 {
-    font-weight: 800;
-    font-size: medium;
-    margin-right: 5px;
-    padding: 8px;
+  p {
+    margin-left: 5px;
   }
 }

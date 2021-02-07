@@ -57,13 +57,11 @@ function Display2({ dataToShow, searchValue }) {
         style={{ maxWidth: '100%' }}
         width="100%"
         className={classes.list}
+        disablePadding
       >
         {dataRows.map((row, index) => (
           <Slide direction="down" in mountOnEnter unmountOnExit key={row.id}>
-            <ListItem
-              alignItems="center"
-              className={row.parking ? classes.rowRed : classes.rowGreen}
-            >
+            <ListItem alignItems="center" className={classes.row}>
               <ListItemAvatar>
                 <div>
                   {row.elevator && <GiElevator className={classes.icon} />}
@@ -115,7 +113,7 @@ function Display2({ dataToShow, searchValue }) {
                 </Grid>
               </Grid>
               <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="delete">
+                <IconButton edge="end" aria-label="event">
                   {dataToShow === 'customers' ? (
                     <TimePicker rowData={row} />
                   ) : (
@@ -135,7 +133,7 @@ function Display2({ dataToShow, searchValue }) {
                     onClick={() => {
                       handleDelete(row, index);
                     }}
-                    style={{ color: 'black' }}
+                    style={{ color: 'black', marginBottom: '4px' }}
                   />
                 </IconButton>
               </ListItemSecondaryAction>

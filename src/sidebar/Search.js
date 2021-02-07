@@ -13,7 +13,6 @@ const Search = ({ onChange, history }) => {
   }
   return (
     <div className="search__input">
-      <SearchIcon className="search__searchIcon" />
       <input
         placeholder={`Search: ${target} by ${
           target === 'Customers' ? 'name' : 'address'
@@ -22,6 +21,7 @@ const Search = ({ onChange, history }) => {
         className="input"
         onChange={(event) => onChange(event.target.value)}
       />
+      <SearchIcon fontSize="small" style={{ color: 'grey' }} />
     </div>
   );
 };

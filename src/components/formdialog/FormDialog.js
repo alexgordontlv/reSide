@@ -13,7 +13,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { useSelector, useDispatch } from 'react-redux';
 import EditIcon from '@material-ui/icons/Edit';
 import { Box, makeStyles } from '@material-ui/core';
-
+import FaceIcon from '@material-ui/icons/Face';
 import {
   addCustomer,
   addProperty,
@@ -28,12 +28,13 @@ import { useSnackbar } from 'notistack';
 function FormDialog({ dataToShow, rowData, rowIndex }) {
   const useStyles = makeStyles(() => ({
     button: {
+      fontSize: 'small',
       borderColor: '#028c6a',
-      color: '#028c6a',
-      backgroundColor: 'white',
+      color: 'white',
+      backgroundColor: '#028c6a',
       '&:hover': {
-        color: 'white',
-        backgroundColor: '028c6a'
+        color: '#028c6a',
+        backgroundColor: 'white'
       }
     },
     buttonSignIn: {
@@ -140,8 +141,8 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
               textAlign="center"
               justify="center"
             >
-              <AddIcon fontSize="large" />{' '}
-              {`Add ${dataToShow === 'customers' ? 'Customer' : 'Property'}`}
+              <FaceIcon fontSize="small" /> <div className="space"></div>
+              {` Add ${dataToShow === 'customers' ? 'Customer' : 'Property'}`}
             </Button>
           </Box>
         ) : (

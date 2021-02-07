@@ -37,7 +37,7 @@ const MainPage = ({ match }) => {
               <SideBar onChange={(value) => setState(value)} />
             </div>
           ) : (
-            <img src={dataLogo} className="logo" alt="Logo" />
+            <div></div>
           )}
 
           <div className="main_page_body">

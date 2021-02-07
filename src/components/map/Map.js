@@ -11,7 +11,7 @@ import MapSearch from './mapSearch';
 import './map.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconButton, Button, makeStyles } from '@material-ui/core';
-
+import Card from '../card/Card';
 const Map = () => {
   const [selected, setSelected] = useState(null);
   const properties = useSelector((state) => state.user.currentUser?.properties);
@@ -34,7 +34,7 @@ const Map = () => {
 
   const mapContainerStyle = {
     width: '100%',
-    height: '200px'
+    height: '250px'
   };
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -82,7 +82,9 @@ const Map = () => {
                 setSelected(null);
               }}
             >
-              <div>{selected.name}</div>
+              <div>
+                <Card {...selected} />
+              </div>
             </InfoWindow>
           ) : null}
         </GoogleMap>

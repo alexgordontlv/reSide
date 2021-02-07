@@ -30,6 +30,9 @@ const Header = () => {
     homeIcon: {
       borderColor: '#028c6a',
       color: '#089048'
+    },
+    headline: {
+      color: 'black'
     }
   }));
   const classes = useStyles();
@@ -39,29 +42,30 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header__container">
-        <div className="options">
+        <div className="header__logo">
           <Link to={currentUser ? '/customers' : '/'}>
             <IconButton className={classes.iconButton}>
               <HomeWorkIcon className={classes.homeIcon} />
-              <p>Reside</p>
+              <p className={classes.headline}>Reside</p>
             </IconButton>
           </Link>
-
-          <Link className="option" to="/about">
-            <p>ABOUT</p>
+        </div>
+        <div className="options">
+          <Link to="/about">
+            <p className="option">ABOUT</p>
           </Link>
-          <Link className="option" to="/contact">
-            <p> CONTACT</p>
+          <Link to="/contact">
+            <p className="option"> CONTACT</p>
           </Link>
           {currentUser ? (
-            <Link className="option" to="/">
-              <div className="option" onClick={() => auth.signOut()}>
-                <p variant="outlined">SIGN OUT</p>
+            <Link to="/">
+              <div onClick={() => auth.signOut()}>
+                <p className="option">SIGN OUT</p>
               </div>
             </Link>
           ) : (
-            <Link className="option" to="/signin">
-              <p variant="outlined">SIGN IN</p>
+            <Link to="/signin">
+              <p className="option">SIGN IN</p>
             </Link>
           )}
         </div>
@@ -82,7 +86,7 @@ const Header = () => {
             }!`}
           </div>
         ) : (
-          <div>
+          <div className="header__avatar">
             <Avatar rel="noreferrer" className="avatar" src={avatarSource} />
             WELCOME GUEST!
           </div>
