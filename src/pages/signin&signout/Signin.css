@@ -1,24 +1,31 @@
-.sign-in{
-    flex:0.5;
-    text-align: center;
+.sign-in {
+  flex: 0.5;
+  text-align: center;
+}
+.contact {
+  flex: 1;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  border: 1px solid grey;
+  max-width: 400px;
+  text-align: center;
 }
 
-
 .center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
 
-  @media screen and (max-width: 800px) {
-    .sign-in{
-      flex:1;
-      width: 80%;
-      margin-left: auto;
-      margin-right: auto;
-      margin-bottom: 20px;
-
+@media screen and (max-width: 800px) {
+  .sign-in {
+    flex: 1;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
   }
-  }
+}
