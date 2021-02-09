@@ -5,7 +5,8 @@
   margin-left: auto;
   margin-right: auto;
 }
-
+.main {
+}
 body {
   --app-color: #d1ede1;
   --app-color-heavy: #089048;
@@ -24,6 +25,7 @@ a {
 }
 
 .main__container {
+  background-color: #f0f2f7;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
