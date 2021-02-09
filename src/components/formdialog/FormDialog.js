@@ -28,18 +28,19 @@ import { useSnackbar } from 'notistack';
 function FormDialog({ dataToShow, rowData, rowIndex }) {
   const useStyles = makeStyles(() => ({
     button: {
+      height: '40px',
       fontSize: 'small',
-      borderColor: '#028c6a',
+      borderColor: '#22c58b',
       color: 'white',
-      backgroundColor: '#028c6a',
+      backgroundColor: '#22c58b',
       '&:hover': {
-        color: '#028c6a',
+        color: '#22c58b',
         backgroundColor: 'white'
       }
     },
     buttonSignIn: {
-      borderColor: '#028c6a',
-      color: '#028c6a'
+      borderColor: '#22c58b',
+      color: '#22c58b'
     }
   }));
   const classes = useStyles();

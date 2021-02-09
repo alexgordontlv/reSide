@@ -19,7 +19,7 @@ const MainPage = ({ match }) => {
   const currentUser = useSelector((state) => state.user.currentUser);
   return (
     <SnackbarProvider maxSnack={3}>
-      <div>
+      <div className="mainbody__background">
         {currentUser ? (
           <Slide direction="down" in mountOnEnter unmountOnExit>
             <div className="map_div">

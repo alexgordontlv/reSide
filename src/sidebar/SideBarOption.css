@@ -14,8 +14,8 @@ p {
   color: grey;
 }
 .sidebarOption:hover {
-  color: var(--app-color-heavy);
-  transition: color 100ms ease-out;
+  color: #22c58b;
+  transition: color 200ms ease-out;
 }
 @media screen and (max-width: 800px) {
   p {
