@@ -3,8 +3,7 @@
   flex-direction: row;
   min-height: 500px;
 }
-.mainbody__background {
-}
+
 .sidebar_component {
   flex: 0.3;
 }

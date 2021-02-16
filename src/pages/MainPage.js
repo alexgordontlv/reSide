@@ -13,7 +13,7 @@ import Map from '../components/map/Map';
 import dataLogo from '../datalogo2.svg';
 import { Slide } from '@material-ui/core';
 import myLogo from '../real-estate.png';
-
+import Headlines from '../components/headlines/Headlines';
 const MainPage = ({ match }) => {
   const [state, setState] = useState('');
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -41,6 +41,10 @@ const MainPage = ({ match }) => {
           )}
 
           <div className="main_page_body">
+            <div className="mainbody__headline">
+              {' '}
+              <Headlines />
+            </div>
             <Switch>
               <Route
                 exact

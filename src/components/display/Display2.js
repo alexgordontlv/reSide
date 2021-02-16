@@ -77,11 +77,7 @@ function Display2({ dataToShow, searchValue }) {
                 <Grid item xs={4} sm={4}>
                   <ListItemText
                     primary={dataToShow === 'customers' ? 'Name' : 'Address'}
-                    secondary={
-                      row.name.length > 12
-                        ? row.name.slice(0, 10) + '...'
-                        : row.name
-                    }
+                    secondary={row.name.split(',')[0]}
                   />
                 </Grid>
                 <Grid item xs={4} sm={4}>
