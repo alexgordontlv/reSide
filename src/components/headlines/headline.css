@@ -3,5 +3,36 @@
   justify-content: space-between;
   align-items: center;
   text-align: center;
-  height: 30px;
+  height: 60px;
+  margin-right: 5px;
+  max-width: 100%;
+  color: grey;
+}
+.headline__elevator_parking {
+  flex: 0.1;
+}
+.headline__name {
+  display: flex;
+  justify-content: flex;
+
+  flex: 0.2;
+  width: 50%;
+}
+.headline__contact {
+  display: flex;
+  justify-content: center;
+  flex: 0.2;
+  width: 100%;
+}
+.headline__budget {
+  display: flex;
+  justify-content: center;
+
+  flex: 0.2;
+  width: 100%;
+
+  margin-left: 20px;
+}
+.headline__buttons {
+  flex: 0.2;
 }

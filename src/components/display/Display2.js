@@ -75,15 +75,11 @@ function Display2({ dataToShow, searchValue }) {
                 justify="center"
               >
                 <Grid item xs={4} sm={4}>
-                  <ListItemText
-                    primary={dataToShow === 'customers' ? 'Name' : 'Address'}
-                    secondary={row.name.split(',')[0]}
-                  />
+                  <ListItemText primary={row.name.split(',')[0]} />
                 </Grid>
                 <Grid item xs={4} sm={4}>
                   <ListItemText
-                    primary={dataToShow === 'customers' ? 'Phone' : 'Contact'}
-                    secondary={
+                    primary={
                       (
                         <NumberFormat
                           format="###-###-####"
@@ -96,13 +92,13 @@ function Display2({ dataToShow, searchValue }) {
                 </Grid>
                 <Grid item xs={4} sm={4}>
                   <ListItemText
-                    primary={dataToShow === 'customers' ? 'Budget' : 'Price'}
-                    secondary={
+                    primary={
                       <NumberFormat
                         value={row.budget}
                         displayType={'text'}
                         thousandSeparator={true}
-                        prefix={'$'}
+                        prefix={'$ '}
+                        color="#fffff"
                       />
                     }
                   />
@@ -126,10 +122,11 @@ function Display2({ dataToShow, searchValue }) {
                 </IconButton>
                 <IconButton edge="end" aria-label="delete">
                   <Delete
+                    fontSize="small"
                     onClick={() => {
                       handleDelete(row, index);
                     }}
-                    style={{ color: 'black', marginBottom: '4px' }}
+                    style={{ color: '#22c58b', marginBottom: '4px' }}
                   />
                 </IconButton>
               </ListItemSecondaryAction>

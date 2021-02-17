@@ -11,7 +11,7 @@ export default makeStyles(() => ({
     marginBottom: '3px',
     opacity: '0.8',
     borderRadius: '1px',
-    maxHeight: '65px'
+    height: '65px'
   },
 
   icon: {

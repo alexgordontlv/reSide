@@ -54,7 +54,8 @@ function TimePicker({ rowData }) {
   return (
     <div>
       <EventIcon
-        style={{ color: 'black', marginTop: '2px' }}
+        fontSize="small"
+        style={{ color: '#22c58b', marginTop: '2px' }}
         onClick={handleClickOpen}
       />
 

@@ -7,9 +7,11 @@ import EventIcon from '@material-ui/icons/Event';
 import Search from './Search';
 import { Link } from 'react-router-dom';
 import FormDialog from '../components/formdialog/FormDialog';
+import SideBarHeader from './SidebarHeader';
 const Sidebar = (props) => {
   return (
     <div className="sidebar">
+      <SideBarHeader />
       <div className="search_box">
         <Search onChange={(value) => props.onChange(value)} />
       </div>
