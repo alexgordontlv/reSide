@@ -30,12 +30,15 @@ const FrontDisplay = ({ history }) => {
           Welcome to Reside! A free and new platform to help you manage your
           customers and properties.
           <br />
-          Add events to your Google-Calendar with few simple clicks.
+          - Manage your properties on the map.
           <br />
-          To explore the demo, register, or use our test user: <br />
-          User: <strong>bradpitt@gmail.com</strong>
           <br />
-          Password: <strong>123456</strong>
+          - Add events to your Google-Calendar with few simple clicks.
+          <br />
+          <br />
+          - Add events to your Google-Calendar with few simple clicks.
+          <br />
+          To explore the demo, register, or use our Demo Sign-In: <br />
         </span>
         <div
           className={`menu-item`}

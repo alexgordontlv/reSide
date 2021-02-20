@@ -29,7 +29,7 @@ const Header = () => {
     },
     homeIcon: {
       borderColor: '#028c6a',
-      color: '#089048'
+      color: '#22c58b'
     },
     headline: {
       color: 'black'

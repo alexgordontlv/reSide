@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import SideBar from '../sidebar/Sidebar';
-import Display from '../components/display/Display';
 import { Route, Switch } from 'react-router-dom';
 import Display2 from '../components/display/Display2';
 import './mainpage.css';
@@ -14,6 +13,7 @@ import dataLogo from '../datalogo2.svg';
 import { Slide } from '@material-ui/core';
 import myLogo from '../real-estate.png';
 import Headlines from '../components/headlines/Headlines';
+
 const MainPage = ({ match }) => {
   const [state, setState] = useState('');
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -43,7 +43,7 @@ const MainPage = ({ match }) => {
           <div className="main_page_body">
             <div className="mainbody__headline">
               {' '}
-              <Headlines />
+              {currentUser && <Headlines />}
             </div>
             <Switch>
               <Route
