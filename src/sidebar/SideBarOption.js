@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 const SideBarOption = ({ text, Icon }) => {
   const properties = useSelector((state) => state.user.currentUser.properties);
   const customers = useSelector((state) => state.user.currentUser.customers);
-  console.log(customers);
   return (
     <div className="sidebarOption">
       <Icon fontSize="small" />

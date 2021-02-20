@@ -14,6 +14,13 @@ export const addCustomer = (customer) => {
   };
 };
 
+export const sortByParameter = (param) => {
+  return {
+    type: USER_TYPES.SORT_BY_PARAMETER,
+    payload: param
+  };
+};
+
 export const deleteData = (index, target) => {
   return {
     type: USER_TYPES.DELETE_DATA,

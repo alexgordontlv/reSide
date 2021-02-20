@@ -4,8 +4,11 @@ import { auth } from '../../firebase/firebase';
 import { IconButton, Button, makeStyles } from '@material-ui/core';
 import dataLogo from '../../datalogo2.svg';
 import './frontdisplay.css';
+import { useHistory } from 'react-router-dom';
 
-const FrontDisplay = ({ history }) => {
+const FrontDisplay = () => {
+  const history = useHistory();
+
   const useStyles = makeStyles(() => ({
     buttonSignOut: {
       marginTop: '20px',
@@ -21,6 +24,11 @@ const FrontDisplay = ({ history }) => {
     }
   }));
   const classes = useStyles();
+
+  function handleClick() {
+    auth.signInWithEmailAndPassword('bradpitt@gmail.com', '123456');
+    history.push('/customers');
+  }
 
   return (
     <div className="frontdisplay">
@@ -40,12 +48,7 @@ const FrontDisplay = ({ history }) => {
           <br />
           To explore the demo, register, or use our Demo Sign-In: <br />
         </span>
-        <div
-          className={`menu-item`}
-          onClick={() => {
-            auth.signInWithEmailAndPassword('bradpitt@gmail.com', '123456');
-          }}
-        >
+        <div className={`menu-item`} onClick={handleClick}>
           <div>
             <Button variant="outlined" className={classes.buttonSignOut}>
               DEMO SIGN IN

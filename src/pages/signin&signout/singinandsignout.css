@@ -1,21 +1,18 @@
-.singinandsignout{
-    display: flex;
-    flex-direction: row;
+.singinandsignout {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  display: flex;
+  flex-direction: row;
 }
 
-.verticalLine {
-    border-left: thick solid var(--app-color);
+@media screen and (max-width: 800px) {
+  .singinandsignout {
+    flex-direction: column;
   }
-
-  @media screen and (max-width: 800px) {
-    .singinandsignout{
-        flex-direction: column;
-
-    }
-    .verticalLine {
-        border: 1px solid var(--app-color);
-        text-align: center;
-        margin-top: 10px;
-        margin-bottom: 10px;
-      }
+  .verticalLine {
+    border: 1px solid var(--app-color);
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
+}

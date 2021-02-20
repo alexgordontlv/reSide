@@ -12,6 +12,7 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
 const useStyles = makeStyles({
   root: {
+    marginTop: '60px',
     maxWidth: 345
   },
   media: {

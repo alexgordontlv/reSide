@@ -54,7 +54,7 @@ const Contact = () => {
 
   const classes = useStyles2();
   return (
-    <div className="contact">
+    <div className="contact" style={{ marginTop: '60px' }}>
       <h3>Contact</h3>
       <span></span>
       <form

@@ -1,5 +1,4 @@
 import React, { useState, useRef, useCallback } from 'react';
-import RoomIcon from '@material-ui/icons/Room';
 import {
   GoogleMap,
   useLoadScript,
@@ -9,8 +8,7 @@ import {
 import mapStyles from './mapStyles';
 import MapSearch from './mapSearch';
 import './map.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { IconButton, Button, makeStyles } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 import Card from '../card/Card';
 const Map = () => {
   const [selected, setSelected] = useState(null);
@@ -45,7 +43,7 @@ const Map = () => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(16);
   }, []);
-  console.log(center);
+
   if (loadError) return 'error loading map';
   if (!isLoaded) return 'Loading...';
   return (

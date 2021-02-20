@@ -18,6 +18,9 @@
   flex: 0.2;
   width: 50%;
 }
+.click:hover {
+  cursor: pointer;
+}
 .headline__contact {
   display: flex;
   justify-content: center;
