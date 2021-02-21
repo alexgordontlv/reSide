@@ -1,5 +1,5 @@
 
-<img align="left" alt="ski" width="80%" src="https://i.ibb.co/1Q56Tqh/ezgif-com-gif-maker.gif" /><br/><br/>
+<img align="left" alt="ski" width="80%" src="https://i.ibb.co/1Q56Tqh/ezgif-com-gif-maker.gif" /><br width="100%"/><br/>
 <br />
 <br />
 <br />
