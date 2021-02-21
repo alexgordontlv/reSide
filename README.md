@@ -1,4 +1,6 @@
+<div>
 <img align="left" alt="ski" width="75%" src="https://i.ibb.co/1Q56Tqh/ezgif-com-gif-maker.gif" /><br/><br/>
+ </div>
 <br />
 <br />
 <br />
