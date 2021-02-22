@@ -1,5 +1,5 @@
 
-<img align="left" alt="ski" width="60%" src="https://i.ibb.co/pWVxzHV/MY-GID.gif" />\
+<img align="left" alt="ski" width="60%" src="https://i.ibb.co/pWVxzHV/MY-GID.gif" />\\s\s
 <br />
 <br />
 <br />
