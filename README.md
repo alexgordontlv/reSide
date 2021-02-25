@@ -6,7 +6,7 @@
 
 
 
-# Reside - A CRM we application
+# Reside - A CRM web application
 - Easy register/login
 - Add properties directly to the map
 - add events with customers to your Google Calendar
