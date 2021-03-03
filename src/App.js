@@ -11,6 +11,7 @@ import {
 } from './firebase/firebase';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUser, addCustomer, addProperty } from './redux/user/user.actions';
+import FrontDisplay from './pages/frontdisplay/FrontDisplay';
 
 const App = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -42,7 +43,9 @@ const App = () => {
         dispatch(setUser(null));
       }
     });
-    return function cleanup() {};
+    return function cleanup() {
+      dispatch(setUser(null));
+    };
   }, []);
 
   return (
@@ -62,7 +65,12 @@ const App = () => {
                 )
               }
             />
-            <Route path="/" component={MainPage} />
+            <Route
+              path="/"
+              render={(props) =>
+                currentUser ? <MainPage /> : <FrontDisplay />
+              }
+            />
           </Switch>
         </div>
       </div>
