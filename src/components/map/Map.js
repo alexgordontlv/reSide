@@ -15,10 +15,10 @@ const Map = () => {
   const properties = useSelector((state) => state.user.currentUser?.properties);
   const [libraries] = useState(['places']);
 
-  const center = {
+  const center = useRef({
     lng: 34.77989,
     lat: 32.07382
-  };
+  });
 
   const options = {
     styles: mapStyles,
@@ -54,7 +54,7 @@ const Map = () => {
           id="map"
           mapContainerStyle={mapContainerStyle}
           zoom={15}
-          center={center}
+          center={center.current}
           options={options}
           onLoad={onMapLoad}
         >

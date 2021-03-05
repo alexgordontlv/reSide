@@ -20,7 +20,7 @@ import { deleteDataFromFireBase } from '../../firebase/firebase';
 import { deleteData } from '../../redux/user/user.actions';
 import { useSnackbar } from 'notistack';
 import NumberFormat from 'react-number-format';
-
+import DeleteDialog from '../deleteDialog/DeleteDialog';
 function Display2({ dataToShow, searchValue }) {
   const [state, setState] = React.useState(null);
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -115,12 +115,11 @@ function Display2({ dataToShow, searchValue }) {
                   />
                 </IconButton>
                 <IconButton edge="end" aria-label="delete">
-                  <Delete
-                    fontSize="small"
-                    onClick={() => {
-                      handleDelete(row, index);
-                    }}
-                    style={{ color: '#22c58b', marginBottom: '4px' }}
+                  <DeleteDialog
+                    dataToShow={dataToShow}
+                    rowData={row}
+                    rowIndex={index}
+                    style={{ alignItems: 'center' }}
                   />
                 </IconButton>
               </ListItemSecondaryAction>

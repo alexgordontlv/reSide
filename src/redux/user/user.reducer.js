@@ -22,7 +22,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
         }
       };
     case USER_TYPES.SORT_BY_PARAMETER:
-      console.log(action.payload);
       return {
         ...state,
         currentUser: {
