@@ -34,12 +34,6 @@ function Display2({ dataToShow, searchValue }) {
     };
   }, [dataToShow]);
 
-  const handleDelete = (rowData, rowIndex) => {
-    deleteDataFromFireBase(currentUser, rowData.id, dataToShow);
-    dispatch(deleteData(rowIndex, dataToShow));
-    enqueueSnackbar(`${rowData.name} was succesfully deleted!`);
-  };
-
   const dataRows = currentUser
     ? dataToShow === 'customers'
       ? currentUser.customers.filter((customer) =>
