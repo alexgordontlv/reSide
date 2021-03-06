@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   List as MUIList,
   ListItem,
@@ -10,29 +10,16 @@ import {
   Grid
 } from '@material-ui/core';
 import FormDialog from '../formdialog/FormDialog';
-import { useSelector, useDispatch } from 'react-redux';
-import { Delete } from '@material-ui/icons';
+import { useSelector } from 'react-redux';
 import TimePicker from '../timepicker/TimePicker';
 import useStyles from './listStyles';
 import { GiElevator } from 'react-icons/gi';
 import { AiFillCar } from 'react-icons/ai';
-import { deleteDataFromFireBase } from '../../firebase/firebase';
-import { deleteData } from '../../redux/user/user.actions';
-import { useSnackbar } from 'notistack';
 import NumberFormat from 'react-number-format';
 import DeleteDialog from '../deleteDialog/DeleteDialog';
 function Display2({ dataToShow, searchValue }) {
-  const [state, setState] = React.useState(null);
   const currentUser = useSelector((state) => state.user.currentUser);
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
-
-  useEffect(() => {
-    return function cleanup() {
-      setState('');
-    };
-  }, [dataToShow]);
 
   const dataRows = currentUser
     ? dataToShow === 'customers'
