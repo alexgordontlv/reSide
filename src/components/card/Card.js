@@ -12,49 +12,53 @@ import NumberFormat from 'react-number-format';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 250
+    minWidth: 275
   },
-  media: {
-    width: '100%',
-    height: 220
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)'
   },
-  footer: {
-    textAlign: 'center'
+  title: {
+    fontSize: 14
+  },
+  pos: {
+    marginBottom: 0
   }
 });
 
 const About = ({ name, budget, rooms, elevator, parking }) => {
   const classes = useStyles();
   return (
-    <Grid
-      container
-      spacing={0}
-      direction="column"
-      alignItems="center"
-      justify="center"
-    >
-      <Card className={classes.root} align="center">
-        <CardContent>
-          <Typography gutterBottom component="h2">
-            {name}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            <p>
-              <NumberFormat
-                value={budget}
-                displayType={'text'}
-                thousandSeparator={true}
-                prefix={'$ '}
-                color="#fffff"
-              />
-            </p>
-            <p>{`${rooms} rooms`}</p>
-            <p>{elevator && 'Elevator'}</p>
-            <p>{parking}</p>
-          </Typography>
-        </CardContent>
-      </Card>
-    </Grid>
+    <Card className={classes.root}>
+      <CardContent>
+        <Typography
+          className={classes.title}
+          color="textSecondary"
+          gutterBottom
+        >
+          {name.split(',')[0]}
+        </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+          {name.split(',')[1]}
+        </Typography>
+        <Typography variant="body2" component="p">
+          {budget}
+        </Typography>
+        <Typography variant="body2" component="p">
+          {rooms}
+        </Typography>
+        <Typography variant="body2" component="p">
+          {elevator && 'Elevator'}
+        </Typography>
+        <Typography variant="body2" component="p">
+          {parking && 'Parking'}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Learn More</Button>
+      </CardActions>
+    </Card>
   );
 };
 

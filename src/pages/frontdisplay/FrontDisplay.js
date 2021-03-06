@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { auth } from '../../firebase/firebase';
-import { IconButton, Button, makeStyles } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import dataLogo from '../../datalogo2.svg';
 import './frontdisplay.css';
 import { useHistory } from 'react-router-dom';
@@ -24,15 +24,13 @@ const FrontDisplay = () => {
           Welcome to Reside! A free and new platform to help you manage your
           customers and properties.
           <br />
-          - Manage your properties on the map.
-          <br />
-          <br />
-          - Add events to your Google-Calendar with few simple clicks.
-          <br />
-          <br />
-          - Add events to your Google-Calendar with few simple clicks.
-          <br />
+          <ul />
+          <li>Manage your properties on the map.</li>
+          <li>Full back-up for your data.</li>
+          <li>Add events to your Google-Calendar with few simple clicks.</li>
+          <ul />
           To explore the demo, register, or use our Demo Sign-In: <br />
+          <br />
         </span>
         <div className={`menu-item`} onClick={handleClick}>
           <div>

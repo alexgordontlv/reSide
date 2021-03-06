@@ -10,7 +10,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { useSelector, useDispatch } from 'react-redux';
 import EditIcon from '@material-ui/icons/Edit';
-import { Box, makeStyles } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import FaceIcon from '@material-ui/icons/Face';
 import { addCustomer, updateData } from '../../redux/user/user.actions';
 import {
@@ -44,11 +44,11 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
   const [open, setOpen] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
-    setState(rowData ? { ...rowData } : INITIAL_STATE);
+    setState(INITIAL_STATE);
     return function cleanup() {
       setState('');
     };
-  }, [rowData]);
+  }, []);
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });

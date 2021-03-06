@@ -37,7 +37,7 @@ function FormDialog({ openNow, setopenNow, propsToPass }) {
     return () => {
       setState('');
     };
-  }, [openNow]);
+  }, [openNow, propsToPass]);
 
   const { enqueueSnackbar } = useSnackbar();
 

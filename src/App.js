@@ -17,7 +17,7 @@ const App = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
   useEffect(() => {
-    auth.onAuthStateChanged(async (userAuth) => {
+    const unsubscribe = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
         await userRef.onSnapshot(async (snapShot) => {
@@ -32,19 +32,17 @@ const App = () => {
           );
         });
         const customers = await getDataFromFireStore(userAuth, 'customers');
-        if (!customers.empty) {
-          customers.docs.map((doc) => dispatch(addCustomer(doc.data())));
-        }
+        !customers.empty &&
+          customers.docs.forEach((doc) => dispatch(addCustomer(doc.data())));
         const properties = await getDataFromFireStore(userAuth, 'properties');
-        if (!properties.empty) {
-          properties.docs.map((doc) => dispatch(addProperty(doc.data())));
-        }
+        !properties.empty &&
+          properties.docs.forEach((doc) => dispatch(addProperty(doc.data())));
       } else {
         dispatch(setUser(null));
       }
     });
     return function cleanup() {
-      dispatch(setUser(null));
+      unsubscribe();
     };
   }, []);
 
