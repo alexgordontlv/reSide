@@ -9,35 +9,15 @@ import './formdialog.css';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { useSelector, useDispatch } from 'react-redux';
-import EditIcon from '@material-ui/icons/Edit';
-import { Box, makeStyles } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 
-import { addProperty, updateData } from '../../redux/user/user.actions';
-import {
-  addDataToFireStore,
-  updateDataFromFireBase
-} from '../../firebase/firebase';
+import { addProperty } from '../../redux/user/user.actions';
+import { addDataToFireStore } from '../../firebase/firebase';
 import { useSnackbar } from 'notistack';
 
 function FormDialog({ openNow, setopenNow, propsToPass }) {
-  const useStyles = makeStyles(() => ({
-    button: {
-      borderColor: '#028c6a',
-      color: '#028c6a',
-      backgroundColor: 'white',
-      '&:hover': {
-        color: 'white',
-        backgroundColor: '028c6a'
-      }
-    },
-    buttonSignIn: {
-      borderColor: '#028c6a',
-      color: '#028c6a'
-    }
-  }));
-  const classes = useStyles();
   const currentUser = useSelector((state) => state.user.currentUser);
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     id: '',
     name: '',
     budget: '',

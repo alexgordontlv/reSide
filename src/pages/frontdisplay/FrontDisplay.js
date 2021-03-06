@@ -5,24 +5,10 @@ import { IconButton, Button, makeStyles } from '@material-ui/core';
 import dataLogo from '../../datalogo2.svg';
 import './frontdisplay.css';
 import { useHistory } from 'react-router-dom';
+import { useStyles } from '../../utilities/global.styles';
 
 const FrontDisplay = () => {
   const history = useHistory();
-
-  const useStyles = makeStyles(() => ({
-    buttonSignOut: {
-      marginTop: '20px',
-      fontFamily: 'sans-serif',
-      borderColor: '#028c6a',
-      color: 'white',
-      backgroundColor: '#028c6a',
-      alignItems: 'center',
-      '&:hover': {
-        color: '#028c6a',
-        backgroundColor: '#FFF'
-      }
-    }
-  }));
   const classes = useStyles();
 
   function handleClick() {
@@ -50,7 +36,7 @@ const FrontDisplay = () => {
         </span>
         <div className={`menu-item`} onClick={handleClick}>
           <div>
-            <Button variant="outlined" className={classes.buttonSignOut}>
+            <Button variant="outlined" className={classes.button}>
               DEMO SIGN IN
             </Button>
           </div>
