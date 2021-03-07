@@ -17,6 +17,7 @@ import { GiElevator } from 'react-icons/gi';
 import { AiFillCar } from 'react-icons/ai';
 import NumberFormat from 'react-number-format';
 import DeleteDialog from '../deleteDialog/DeleteDialog';
+
 function Display2({ dataToShow, searchValue }) {
   const currentUser = useSelector((state) => state.user.currentUser);
   const classes = useStyles();
