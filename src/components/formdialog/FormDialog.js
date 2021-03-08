@@ -43,8 +43,9 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
   const [state, setState] = React.useState('');
   const [open, setOpen] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
+
   useEffect(() => {
-    setState(INITIAL_STATE);
+    setState(rowData ? rowData : INITIAL_STATE);
     return function cleanup() {
       setState('');
     };

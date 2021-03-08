@@ -21,7 +21,24 @@ const userReducer = (state = INITIAL_STATE, action) => {
           )
         }
       };
-    case USER_TYPES.SORT_BY_PARAMETER:
+    case USER_TYPES.SORT_BY_BUDGET:
+      console.log(action.payload.target);
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          [action.payload.route]: [
+            ...state.currentUser[action.payload.route].sort((a, b) =>
+              parseInt(a[action.payload.target]) >
+              parseInt(b[action.payload.target])
+                ? 1
+                : -1
+            )
+          ]
+        }
+      };
+    case USER_TYPES.SORT_BY_NAME:
+      console.log(action.payload.route);
       return {
         ...state,
         currentUser: {

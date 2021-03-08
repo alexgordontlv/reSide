@@ -14,9 +14,16 @@ export const addCustomer = (customer) => {
   };
 };
 
-export const sortByParameter = (param) => {
+export const sortByName = (param) => {
   return {
-    type: USER_TYPES.SORT_BY_PARAMETER,
+    type: USER_TYPES.SORT_BY_NAME,
+    payload: param
+  };
+};
+
+export const sortByBudget = (param) => {
+  return {
+    type: USER_TYPES.SORT_BY_BUDGET,
     payload: param
   };
 };
