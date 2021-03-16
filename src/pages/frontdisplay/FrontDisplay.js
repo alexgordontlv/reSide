@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { auth } from '../../firebase/firebase';
 import { Button } from '@material-ui/core';
-import dataLogo from '../../datalogo2.svg';
+import dataLogo from '../../icons/datalogo2.svg';
 import './frontdisplay.css';
 import { useHistory } from 'react-router-dom';
 import { useStyles } from '../../utilities/global.styles';

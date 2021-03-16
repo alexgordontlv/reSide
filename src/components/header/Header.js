@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import { IconButton, Button, makeStyles } from '@material-ui/core';
-import { auth } from '../firebase/firebase';
+import { auth } from '../../firebase/firebase';
 import './header.css';
 import Avatar from '@material-ui/core/Avatar';
 import { useSelector } from 'react-redux';

@@ -6,7 +6,7 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import EventIcon from '@material-ui/icons/Event';
 import Search from './Search';
 import { Link } from 'react-router-dom';
-import FormDialog from '../components/formdialog/FormDialog';
+import FormDialog from '../formdialog/FormDialog';
 import SideBarHeader from './SidebarHeader';
 const Sidebar = (props) => {
   return (

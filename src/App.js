@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import Header from './header/Header';
+import Header from './components/header/Header';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import MainPage from './pages/MainPage';
+import MainPage from './pages/mainpage/MainPage';
 import SignInAndSignOut from './pages/signin&signout/SignInAndSignOut';
 import {
   auth,

@@ -63,7 +63,7 @@ const Map = () => {
               key={prop.id}
               position={{ lat: prop.lat, lng: prop.lng }}
               icon={{
-                url: '/real-estate.svg',
+                url: '../../icons/real-estate.svg',
                 scaledSize: new window.google.maps.Size(40, 40),
                 origin: new window.google.maps.Point(0, 0),
                 anchor: new window.google.maps.Point(15, 15)

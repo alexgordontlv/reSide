@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import SideBar from '../sidebar/Sidebar';
+import SideBar from '../../components/sidebar/Sidebar';
 import { Route, Switch } from 'react-router-dom';
-import Display2 from '../components/display/Display2';
+import Display2 from '../../components/display/Display2';
 import './mainpage.css';
-import About from './about/About';
-import Contact from './contact/Contact';
+import About from '../about/About';
+import Contact from '../contact/Contact';
 import { SnackbarProvider } from 'notistack';
-import Map from '../components/map/Map';
+import Map from '../../components/map/Map';
 import { Slide } from '@material-ui/core';
-import myLogo from '../real-estate.png';
-import Headlines from '../components/headlines/Headlines';
+import myLogo from '../../icons/real-estate.png';
+import Headlines from '../../components/headlines/Headlines';
 
 const MainPage = () => {
   const [state, setState] = useState('');
