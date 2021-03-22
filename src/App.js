@@ -14,8 +14,10 @@ import { setUser, addCustomer, addProperty } from './redux/user/user.actions';
 import FrontDisplay from './pages/frontdisplay/FrontDisplay';
 
 const App = () => {
+  
   const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {

@@ -43,7 +43,6 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
   const [state, setState] = React.useState('');
   const [open, setOpen] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
-
   useEffect(() => {
     setState(rowData ? rowData : INITIAL_STATE);
     return function cleanup() {
@@ -60,7 +59,6 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
 
   const handleUpdate = (event) => {
     event.preventDefault();
-    console.log(rowIndex);
     updateDataFromFireBase(currentUser, state, dataToShow);
     dispatch(updateData(rowIndex, dataToShow, state));
 
