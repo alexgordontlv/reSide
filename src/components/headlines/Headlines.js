@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './headline.css';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
-import { sortByName, sortByBudget } from '../../redux/user/user.actions';
+import {
+  sortByName,
+  sortByBudgetDown,
+  sortByBudgetUP
+} from '../../redux/user/user.actions';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 const Headlines = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const [state, setState] = useState(true);
   const [route, setRoute] = React.useState('');
 
   React.useEffect(() => {
@@ -15,6 +20,20 @@ const Headlines = () => {
       ? setRoute('customers')
       : setRoute('properties');
   }, [location]);
+
+  const handleSort = () => {
+    console.log('click');
+    if (state) {
+      dispatch(sortByBudgetDown({ target: 'budget', route }));
+      setState((i) => !i);
+      console.log('down');
+
+      return;
+    }
+    console.log('up');
+    dispatch(sortByBudgetUP({ target: 'budget', route }));
+    setState((i) => !i);
+  };
 
   if (
     location.pathname === '/customers' ||
@@ -30,10 +49,7 @@ const Headlines = () => {
           Customer <ImportExportIcon fontSize="small" />
         </div>
         <div className="headline__contact">Contact</div>
-        <div
-          className="headline__budget click"
-          onClick={() => dispatch(sortByBudget({ target: 'budget', route }))}
-        >
+        <div className="headline__budget click" onClick={() => handleSort()}>
           Budget <ImportExportIcon fontSize="small" />
         </div>
         <div className="headline__buttons">Event / Edit / Delete</div>

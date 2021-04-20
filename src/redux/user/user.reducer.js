@@ -21,7 +21,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
           )
         }
       };
-    case USER_TYPES.SORT_BY_BUDGET:
+    case USER_TYPES.SORT_BY_BUDGET_DOWN:
       console.log(action.payload.target);
       return {
         ...state,
@@ -30,6 +30,22 @@ const userReducer = (state = INITIAL_STATE, action) => {
           [action.payload.route]: [
             ...state.currentUser[action.payload.route].sort((a, b) =>
               parseInt(a[action.payload.target]) >
+              parseInt(b[action.payload.target])
+                ? 1
+                : -1
+            )
+          ]
+        }
+      };
+    case USER_TYPES.SORT_BY_BUDGET_UP:
+      console.log('SORTING UP', action.payload.target);
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          [action.payload.route]: [
+            ...state.currentUser[action.payload.route].sort((a, b) =>
+              parseInt(a[action.payload.target]) <
               parseInt(b[action.payload.target])
                 ? 1
                 : -1

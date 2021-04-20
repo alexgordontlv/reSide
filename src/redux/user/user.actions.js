@@ -21,9 +21,15 @@ export const sortByName = (param) => {
   };
 };
 
-export const sortByBudget = (param) => {
+export const sortByBudgetDown = (param) => {
   return {
-    type: USER_TYPES.SORT_BY_BUDGET,
+    type: USER_TYPES.SORT_BY_BUDGET_DOWN,
+    payload: param
+  };
+};
+export const sortByBudgetUP = (param) => {
+  return {
+    type: USER_TYPES.SORT_BY_BUDGET_UP,
     payload: param
   };
 };
