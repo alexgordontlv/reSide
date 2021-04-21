@@ -24,7 +24,6 @@ const Map = () => {
   const [libraries] = useState(['places']);
   const properties = useSelector(selectProperties);
 
-  console.log(properties);
   const center = useRef({
     lng: 34.77989,
     lat: 32.07382

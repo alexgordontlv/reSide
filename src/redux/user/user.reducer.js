@@ -1,6 +1,6 @@
 import { USER_TYPES } from './user.types';
 let flag = false;
-
+let nameFlag = false;
 const INITIAL_STATE = {
   currentUser: null
 };
@@ -49,16 +49,26 @@ const userReducer = (state = INITIAL_STATE, action) => {
         }
       };
     case USER_TYPES.SORT_BY_NAME:
-      console.log(action.payload.route);
+      let sortedNames = [];
+      if (nameFlag) {
+        sortedNames = [
+          ...state.currentUser[action.payload.route].sort((a, b) =>
+            a[action.payload.target] > b[action.payload.target] ? 1 : -1
+          )
+        ];
+      } else {
+        sortedNames = [
+          ...state.currentUser[action.payload.route].sort((a, b) =>
+            a[action.payload.target] < b[action.payload.target] ? 1 : -1
+          )
+        ];
+      }
+      nameFlag = !nameFlag;
       return {
         ...state,
         currentUser: {
           ...state.currentUser,
-          [action.payload.route]: [
-            ...state.currentUser[action.payload.route].sort((a, b) =>
-              a[action.payload.target] > b[action.payload.target] ? 1 : -1
-            )
-          ]
+          [action.payload.route]: sortedNames
         }
       };
     case USER_TYPES.ADD_PROPERTY:
