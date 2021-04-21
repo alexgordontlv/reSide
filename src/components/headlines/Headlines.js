@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
 import './headline.css';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
-import {
-  sortByName,
-  sortByBudgetDown,
-  sortByBudgetUP
-} from '../../redux/user/user.actions';
+import { sortByName, sortByBudget } from '../../redux/user/user.actions';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 const Headlines = () => {
   const location = useLocation();
   const dispatch = useDispatch();
-  const [state, setState] = useState(true);
   const [route, setRoute] = React.useState('');
 
   React.useEffect(() => {
@@ -22,17 +17,7 @@ const Headlines = () => {
   }, [location]);
 
   const handleSort = () => {
-    console.log('click');
-    if (state) {
-      dispatch(sortByBudgetDown({ target: 'budget', route }));
-      setState((i) => !i);
-      console.log('down');
-
-      return;
-    }
-    console.log('up');
-    dispatch(sortByBudgetUP({ target: 'budget', route }));
-    setState((i) => !i);
+    dispatch(sortByBudget({ target: 'budget', route }));
   };
 
   if (

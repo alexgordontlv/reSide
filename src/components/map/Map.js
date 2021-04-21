@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useMemo } from 'react';
 import {
   GoogleMap,
   useLoadScript,
@@ -9,12 +9,21 @@ import mapStyles from './mapStyles';
 import MapSearch from './mapSearch';
 import './map.css';
 import { useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
+
 import Card from '../card/Card';
 import vector from '../../icons/real-estate.svg';
+
+const selectProperties = createSelector(
+  (state) => state.user.currentUser.properties,
+  (properties) => properties
+);
+
 const Map = () => {
   const [selected, setSelected] = useState(null);
-  const properties = useSelector((state) => state.user.currentUser?.properties);
   const [libraries] = useState(['places']);
+  const properties = useSelector(selectProperties);
+
   console.log(properties);
   const center = useRef({
     lng: 34.77989,

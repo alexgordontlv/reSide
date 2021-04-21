@@ -1,4 +1,5 @@
 import { USER_TYPES } from './user.types';
+let flag = false;
 
 const INITIAL_STATE = {
   currentUser: null
@@ -21,36 +22,30 @@ const userReducer = (state = INITIAL_STATE, action) => {
           )
         }
       };
-    case USER_TYPES.SORT_BY_BUDGET_DOWN:
-      console.log(action.payload.target);
+    case USER_TYPES.SORT_BY_BUDGET:
+      console.log(action.payload.target, flag);
+      let sortedProps = [];
+      if (flag) {
+        sortedProps = state.currentUser[action.payload.route].sort((a, b) =>
+          parseInt(a[action.payload.target]) >
+          parseInt(b[action.payload.target])
+            ? 1
+            : -1
+        );
+      } else {
+        sortedProps = state.currentUser[action.payload.route].sort((a, b) =>
+          parseInt(a[action.payload.target]) <
+          parseInt(b[action.payload.target])
+            ? 1
+            : -1
+        );
+      }
+      flag = !flag;
       return {
         ...state,
         currentUser: {
           ...state.currentUser,
-          [action.payload.route]: [
-            ...state.currentUser[action.payload.route].sort((a, b) =>
-              parseInt(a[action.payload.target]) >
-              parseInt(b[action.payload.target])
-                ? 1
-                : -1
-            )
-          ]
-        }
-      };
-    case USER_TYPES.SORT_BY_BUDGET_UP:
-      console.log('SORTING UP', action.payload.target);
-      return {
-        ...state,
-        currentUser: {
-          ...state.currentUser,
-          [action.payload.route]: [
-            ...state.currentUser[action.payload.route].sort((a, b) =>
-              parseInt(a[action.payload.target]) <
-              parseInt(b[action.payload.target])
-                ? 1
-                : -1
-            )
-          ]
+          [action.payload.route]: sortedProps
         }
       };
     case USER_TYPES.SORT_BY_NAME:
