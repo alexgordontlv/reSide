@@ -13,6 +13,7 @@ import Headlines from '../../components/headlines/Headlines';
 
 const MainPage = () => {
   const [state, setState] = useState('');
+
   return (
     <SnackbarProvider maxSnack={3}>
       <div className="mainbody__background">
