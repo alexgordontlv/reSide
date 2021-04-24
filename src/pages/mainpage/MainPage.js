@@ -10,9 +10,17 @@ import Map from '../../components/map/Map';
 import { Slide } from '@material-ui/core';
 import myLogo from '../../icons/real-estate.png';
 import Headlines from '../../components/headlines/Headlines';
+import { useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
+
+const selectProperties = createSelector(
+  (state) => state.user.currentUser.properties,
+  (properties) => properties
+);
 
 const MainPage = () => {
   const [state, setState] = useState('');
+  const properties = useSelector(selectProperties);
 
   return (
     <SnackbarProvider maxSnack={3}>
@@ -20,7 +28,7 @@ const MainPage = () => {
         <Slide direction="down" in mountOnEnter unmountOnExit>
           <div className="map_div">
             <img src={myLogo} alt="LOGO" className="logoSVG" />
-            <Map />
+            <Map properties={properties} />
           </div>
         </Slide>
         <div className="mainbody">
