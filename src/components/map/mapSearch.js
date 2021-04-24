@@ -30,8 +30,8 @@ const MapSearch = ({ panTo }) => {
   });
   const handleSubmit = ({ lat, lng }) => {
     setopenNow(true);
-    panTo({ lat, lng });
     clearSuggestions();
+    panTo({ lat, lng });
   };
   return (
     <div className="search">
@@ -65,7 +65,11 @@ const MapSearch = ({ panTo }) => {
           <ComboboxList>
             {status === 'OK' &&
               data.map(({ id, description }) => (
-                <ComboboxOption key={id} value={description} />
+                <ComboboxOption
+                  key={id}
+                  value={description}
+                  className="search_option"
+                />
               ))}
           </ComboboxList>
         </ComboboxPopover>

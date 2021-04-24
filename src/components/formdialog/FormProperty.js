@@ -17,7 +17,7 @@ import { useSnackbar } from 'notistack';
 
 function FormDialog({ openNow, setopenNow, propsToPass }) {
   const currentUser = useSelector((state) => state.user.currentUser);
-  const [state, setState] = useState({
+  const INITIAL_STATE = {
     id: '',
     name: '',
     budget: '',
@@ -28,7 +28,8 @@ function FormDialog({ openNow, setopenNow, propsToPass }) {
     parking: false,
     lat: '',
     lng: ''
-  });
+  };
+  const [state, setState] = useState(INITIAL_STATE);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -62,6 +63,7 @@ function FormDialog({ openNow, setopenNow, propsToPass }) {
         });
       });
     }
+    setState(INITIAL_STATE);
     setopenNow(false);
   };
 

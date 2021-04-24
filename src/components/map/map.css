@@ -16,6 +16,13 @@
 .option {
   background-color: white;
 }
+
+.search_option {
+  color: black;
+}
+.option :hover {
+  color: #7bc5ae;
+}
 @media screen and (max-width: 800px) {
   .search {
     position: absolute;
