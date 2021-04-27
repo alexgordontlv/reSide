@@ -3,19 +3,19 @@ import './SideBarOption.css';
 import { useSelector } from 'react-redux';
 
 const SideBarOption = ({ text, Icon }) => {
-  const propertiesCount = useSelector((state) => state.user.propertyCount);
-  const customersCount = useSelector((state) => state.user.customerCount);
-  console.log(propertiesCount, customersCount);
+  const properties = useSelector((state) => state.user.currentUser.properties);
+  const customers = useSelector((state) => state.user.currentUser.customers);
+
   return (
     <div className="sidebarOption">
       <Icon fontSize="small" />
       <div className="sidebarOption__option">
         <div>{text}</div>
-        {text === 'Customers' && <p>{customersCount}</p>}
-        {text === 'Properties' && <p>{propertiesCount}</p>}
+        {text === 'Customers' && <p>{customers?.length}</p>}
+        {text === 'Properties' && <p>{properties?.length}</p>}
       </div>
     </div>
   );
 };
 
-export default SideBarOption;
+export default React.memo(SideBarOption);
