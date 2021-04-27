@@ -2,7 +2,9 @@ import { USER_TYPES } from './user.types';
 let flag = false;
 let nameFlag = false;
 const INITIAL_STATE = {
-  currentUser: null
+  currentUser: null,
+  propertyCount: 0,
+  customerCount: 0
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -15,6 +17,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case USER_TYPES.ADD_CUSTOMER:
       return {
         ...state,
+        customerCount: state.customerCount + 1,
         currentUser: {
           ...state.currentUser,
           customers: [...state.currentUser.customers, action.payload].filter(
@@ -74,6 +77,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case USER_TYPES.ADD_PROPERTY:
       return {
         ...state,
+        propertyCount: state.propertyCount + 1,
         currentUser: {
           ...state.currentUser,
           properties: [action.payload, ...state.currentUser.properties].filter(
@@ -81,9 +85,17 @@ const userReducer = (state = INITIAL_STATE, action) => {
           )
         }
       };
-    case USER_TYPES.DELETE_DATA:
+    case USER_TYPES.DELETE_CUSTOMER:
+      let dataCount = null;
+      if (action.payload.target == 'customers') {
+        dataCount = 'customerCount';
+      } else {
+        dataCount = 'propertyCount';
+      }
+      console.log(state.customerCount);
       return {
         ...state,
+        [dataCount]: state.dataCount - 1,
         currentUser: {
           ...state.currentUser,
           [action.payload.target]: [

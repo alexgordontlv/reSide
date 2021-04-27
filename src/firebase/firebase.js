@@ -40,13 +40,13 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 export const getDataFromFireStore = async (userAuth, collection) => {
-  console.log(userAuth);
   if (!userAuth) return;
   const collectionRef = await firestore
     .collection('users')
-    .doc(userAuth.id)
+    .doc(userAuth.uid)
     .collection(collection)
     .get();
+
   return collectionRef;
 };
 export const addDataToFireStore = async (userAuth, data, target) => {

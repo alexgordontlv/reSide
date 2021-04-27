@@ -28,10 +28,13 @@ const MainPage = ({ userAuth }) => {
   const properties = useSelector(selectProperties);
   const dispatch = useDispatch();
   const fetchData = async () => {
-    const customers = await getDataFromFireStore(userAuth, 'customers');
+    const [customers, properties] = await Promise.all([
+      getDataFromFireStore(userAuth, 'customers'),
+      getDataFromFireStore(userAuth, 'properties')
+    ]);
+
     !customers.empty &&
       customers.docs.forEach((doc) => dispatch(addCustomer(doc.data())));
-    const properties = await getDataFromFireStore(userAuth, 'properties');
     !properties.empty &&
       properties.docs.forEach((doc) => dispatch(addProperty(doc.data())));
   };
