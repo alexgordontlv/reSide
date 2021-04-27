@@ -4,9 +4,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import store from './redux/store';
-require('dotenv').config()
+import * as serviceWorker from './serviceWorker';
+
+require('dotenv').config();
 
 ReactDOM.render(
   <Provider store={store}>
@@ -17,5 +19,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-
 reportWebVitals();
+serviceWorker.register();
