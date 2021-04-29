@@ -19,7 +19,7 @@ function FormDialog({ dataToShow, rowData, rowIndex }) {
   const [open, setOpen] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleDelete = (rowData, rowIndex) => {
+  const handleDelete = () => {
     deleteDataFromFireBase(currentUser, rowData.id, dataToShow);
     dispatch(deleteData(rowIndex, dataToShow));
     enqueueSnackbar(`${rowData.name} was succesfully deleted!`);

@@ -6,13 +6,12 @@ import { SnackbarProvider } from 'notistack';
 import { Slide } from '@material-ui/core';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { addCustomer, addProperty } from '../../redux/user/user.actions';
 import { createSelector } from 'reselect';
-import { getDataFromFireStore } from '../../firebase/firebase';
 import Map from '../../components/map/Map';
 import SideBar from '../../components/sidebar/Sidebar';
 import myLogo from '../../icons/real-estate.png';
 import Headlines from '../../components/headlines/Headlines';
+import { useFetchData } from '../../customhooks/customhooks';
 
 const Display2 = React.lazy(() => import('../../components/display/Display2'));
 const About = React.lazy(() => import('../about/About'));
@@ -26,29 +25,13 @@ const selectProperties = createSelector(
 const MainPage = ({ userAuth }) => {
   const [state, setState] = useState('');
   const properties = useSelector(selectProperties);
-  const dispatch = useDispatch();
-  const fetchData = async () => {
-    const [customers, properties] = await Promise.all([
-      getDataFromFireStore(userAuth, 'customers'),
-      getDataFromFireStore(userAuth, 'properties')
-    ]);
-
-    !customers.empty &&
-      customers.docs.forEach((doc) => dispatch(addCustomer(doc.data())));
-    !properties.empty &&
-      properties.docs.forEach((doc) => dispatch(addProperty(doc.data())));
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
+  useFetchData(userAuth);
   return (
     <SnackbarProvider maxSnack={3}>
       <div className="mainbody__background">
         <Slide direction="down" in mountOnEnter unmountOnExit>
           <div className="map_div">
-            <img src={myLogo} alt="LOGO" className="logoSVG" />
+            <img loading src={myLogo} alt="LOGO" className="logoSVG" />
             <Map properties={properties} />
           </div>
         </Slide>

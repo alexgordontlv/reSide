@@ -23,7 +23,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
         }
       };
     case USER_TYPES.SORT_BY_BUDGET:
-      console.log(action.payload.target, flag);
       let sortedProps = [];
       if (flag) {
         sortedProps = state.currentUser[action.payload.route].sort((a, b) =>
@@ -82,19 +81,21 @@ const userReducer = (state = INITIAL_STATE, action) => {
         }
       };
     case USER_TYPES.DELETE_DATA:
+      let newData = null;
+      if (action.payload.target === 'customers') {
+        newData = state.currentUser.customers.filter(
+          (name, idx) => idx !== action.payload.index
+        );
+      } else {
+        newData = state.currentUser.properties.filter(
+          (name, idx) => idx !== action.payload.index
+        );
+      }
       return {
         ...state,
         currentUser: {
           ...state.currentUser,
-          [action.payload.target]: [
-            ...state.currentUser[action.payload.target].slice(
-              0,
-              action.payload.index
-            ),
-            ...state.currentUser[action.payload.target].slice(
-              action.payload.index + 1
-            )
-          ].filter((n) => n)
+          [action.payload.target]: newData
         }
       };
     case USER_TYPES.UPDATE_DATA:
@@ -107,7 +108,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
               if (index !== action.payload.index) {
                 return item;
               } else {
-                console.log(index);
                 return {
                   ...item,
                   ...action.payload.data
